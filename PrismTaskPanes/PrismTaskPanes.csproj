@@ -1,7 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net472</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ApplicationIcon />
+		<StartupObject />
+		<RegisterForComInterop>true</RegisterForComInterop>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="NetOfficeFw.Core" Version="1.7.4.6" />
+		<PackageReference Include="NetOfficeFw.Excel" Version="1.7.4.6" />
+		<PackageReference Include="Prism.Core" Version="7.2.0.1422" />
+		<PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
+		<PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
+		<PackageReference Include="System.Composition.AttributedModel" Version="1.4.0" />
+	</ItemGroup>
 
 </Project>
