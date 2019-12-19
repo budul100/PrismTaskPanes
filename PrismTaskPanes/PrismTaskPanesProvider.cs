@@ -1,4 +1,5 @@
-﻿using Prism.Ioc;
+﻿using CommonServiceLocator;
+using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes.Applications.DryIoc;
 using PrismTaskPanes.Attributes;
@@ -31,6 +32,8 @@ namespace PrismTaskPanes
         #region Public Properties
 
         public static EventHandler OnTaskPaneChanged { get; set; }
+
+        public static IServiceLocator ServiceLocator => officeApplication?.ServiceLocator;
 
         #endregion Public Properties
 

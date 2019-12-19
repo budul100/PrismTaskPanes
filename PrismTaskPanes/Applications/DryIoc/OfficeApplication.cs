@@ -1,4 +1,5 @@
-﻿using DryIoc;
+﻿using CommonServiceLocator;
+using DryIoc;
 using NetOffice.OfficeApi;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -45,6 +46,12 @@ namespace PrismTaskPanes.Applications.DryIoc
         }
 
         #endregion Public Constructors
+
+        #region Public Properties
+
+        public IServiceLocator ServiceLocator { get; private set; }
+
+        #endregion Public Properties
 
         #region Protected Properties
 
@@ -135,6 +142,8 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         protected override Window CreateShell()
         {
+            ServiceLocator = Container.Resolve<IServiceLocator>();
+
             return default;
         }
 
