@@ -54,6 +54,9 @@ namespace PrismTaskPanes.TaskPanes
         {
             var taskPane = GetExistingTaskPane(hash);
 
+            if (taskPane == default)
+                taskPane = GetNewTaskPane(hash);
+
             return taskPane != default;
         }
 
@@ -162,10 +165,10 @@ namespace PrismTaskPanes.TaskPanes
         {
             var taskPane = GetExistingTaskPane(hash);
 
-            if (taskPane == null && isVisible)
+            if (taskPane == default && isVisible)
                 taskPane = GetNewTaskPane(hash);
 
-            if (taskPane != null)
+            if (taskPane != default)
                 taskPane.Visible = isVisible;
         }
 
