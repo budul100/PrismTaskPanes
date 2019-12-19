@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
-namespace PrismTaskPanes.AddIns.DryIOC
+namespace PrismTaskPanes.Applications.DryIoc
 {
     internal abstract class OfficeApplication
         : PrismApplication, IDisposable, IOfficeApplication

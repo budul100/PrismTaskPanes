@@ -2,7 +2,7 @@
 using PrismTaskPanes.TaskPanes;
 using System.IO;
 
-namespace PrismTaskPanes.AddIns.DryIOC
+namespace PrismTaskPanes.Applications.DryIoc
 {
     internal class ExcelApplication
         : OfficeApplication

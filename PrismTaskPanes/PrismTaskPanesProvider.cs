@@ -1,6 +1,6 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
-using PrismTaskPanes.AddIns.DryIOC;
+using PrismTaskPanes.Applications.DryIoc;
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
