@@ -73,12 +73,12 @@ namespace TestAddIn1
 
         public bool TooglePaneVisibleButton_GetPressed(IRibbonControl control)
         {
-            return this.GetTaskPaneVisibility("1");
+            return this.IsTaskPaneVisible("1");
         }
 
         public bool TooglePaneVisibleButton_GetPressed2(IRibbonControl control)
         {
-            return this.GetTaskPaneVisibility("2");
+            return this.IsTaskPaneVisible("2");
         }
 
         #endregion Public Methods

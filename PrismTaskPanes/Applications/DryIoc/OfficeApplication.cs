@@ -23,6 +23,7 @@ namespace PrismTaskPanes.Applications.DryIoc
         #region Protected Fields
 
         protected readonly IList<TaskPanesRepository> taskPaneRepositories = new List<TaskPanesRepository>();
+
         protected bool isActivated;
 
         #endregion Protected Fields
@@ -96,10 +97,17 @@ namespace PrismTaskPanes.Applications.DryIoc
             }
         }
 
-        public bool GetTaskPaneVisibility(int hash)
+        public bool IsTaskPaneExist(int hash)
+        {
+            var result = GetRepository()?.Exists(hash);
+
+            return result ?? false;
+        }
+
+        public bool IsTaskPaneVisible(int hash)
         {
             var result = GetRepository()?
-                .GetVisibility(hash);
+                .IsVisible(hash);
 
             return result ?? false;
         }

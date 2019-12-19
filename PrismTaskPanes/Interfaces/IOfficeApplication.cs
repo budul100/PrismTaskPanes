@@ -12,7 +12,9 @@ namespace PrismTaskPanes.Interfaces
 
         #region Public Methods
 
-        bool GetTaskPaneVisibility(int hash);
+        bool IsTaskPaneExist(int hash);
+
+        bool IsTaskPaneVisible(int hash);
 
         void SetTaskPaneVisibility(int hash, bool isVisible);
 

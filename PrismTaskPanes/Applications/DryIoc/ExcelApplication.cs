@@ -73,19 +73,17 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         private void OnWorkbookNew(Workbook wb)
         {
-            isActivated = true;
-            GetRepository();
+            isActivated = (GetRepository() != default);
         }
 
         private void OnWorkbookOpen(Workbook wb)
         {
-            isActivated = true;
-            GetRepository();
+            isActivated = (GetRepository() != default);
         }
 
         private void OnWorkbookSaveAfter(Workbook wb, bool success)
         {
-            GetRepository().Save();
+            GetRepository()?.Save();
         }
 
         #endregion Private Methods

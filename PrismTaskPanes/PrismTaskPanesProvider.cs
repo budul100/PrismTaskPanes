@@ -55,19 +55,27 @@ namespace PrismTaskPanes
             }
         }
 
-        public static bool GetTaskPaneVisibility(this IPrismTaskPaneReceiver receiver, string id)
-        {
-            var hash = receiver.GetReceiverHash(id);
-            var result = officeApplication?.GetTaskPaneVisibility(hash);
-
-            return result ?? false;
-        }
-
         public static void Initialize()
         {
             officeApplication = GetOfficeApplication();
 
             OnTaskPaneChanged += InvalidateReceivers;
+        }
+
+        public static bool IsTaskPaneExist(this IPrismTaskPaneReceiver receiver, string id)
+        {
+            var hash = receiver.GetReceiverHash(id);
+            var result = officeApplication?.IsTaskPaneExist(hash);
+
+            return result ?? false;
+        }
+
+        public static bool IsTaskPaneVisible(this IPrismTaskPaneReceiver receiver, string id)
+        {
+            var hash = receiver.GetReceiverHash(id);
+            var result = officeApplication?.IsTaskPaneVisible(hash);
+
+            return result ?? false;
         }
 
         public static void RegisterTypes(IContainerRegistry containerRegistry)

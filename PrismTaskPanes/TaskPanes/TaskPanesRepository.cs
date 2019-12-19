@@ -50,7 +50,14 @@ namespace PrismTaskPanes.TaskPanes
             GC.SuppressFinalize(this);
         }
 
-        public bool GetVisibility(int hash)
+        public bool Exists(int hash)
+        {
+            var taskPane = GetExistingTaskPane(hash);
+
+            return taskPane != default;
+        }
+
+        public bool IsVisible(int hash)
         {
             var taskPane = GetExistingTaskPane(hash);
 
