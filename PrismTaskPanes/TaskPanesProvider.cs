@@ -2,9 +2,9 @@
 using Prism.Modularity;
 using PrismTaskPanes.Applications.DryIoc;
 using PrismTaskPanes.Attributes;
+using PrismTaskPanes.Configurations;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
-using PrismTaskPanes.TaskPanes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,9 +18,21 @@ namespace PrismTaskPanes
 
         private const string TXTSettingsFileName = "PrismTaskPanes.xml";
 
+        private static readonly ConfigurationsRepository configurationsRepository;
+        private static readonly IList<ITaskPanesReceiver> receivers = new List<ITaskPanesReceiver>();
+
         private static OfficeApplication officeApplication;
 
         #endregion Private Fields
+
+        #region Public Constructors
+
+        static TaskPanesProvider()
+        {
+            configurationsRepository = GetConfigurationsRepository();
+        }
+
+        #endregion Public Constructors
 
         #region Public Properties
 
@@ -35,43 +47,39 @@ namespace PrismTaskPanes
         public static void InitializeTaskPanesProvider(this ITaskPanesReceiver receiver, object application,
             object ctpFactoryInst)
         {
+            AddReceiver(receiver);
+
             if (officeApplication == default)
             {
-                var settingsRepository = new SettingsRepository(
-                    attributes: GetAllAttributes(receiver),
-                    settingsPath: GetSettingsPath());
-
                 if (application is NetOffice.ExcelApi.Application)
                 {
                     officeApplication = new ExcelApplication(
-                        taskPanesReceiver: taskPanesReceiver,
                         application: application,
-                        ctpFactoryInst: ctpFactoryInst,
-                        settingsRepository: settingsRepository);
+                        ctpFactoryInst: ctpFactoryInst);
                 }
             }
         }
 
         public static void SetTaskPaneVisible(this ITaskPanesReceiver receiver, string id, bool isVisible)
         {
-            var hash = receiver.GetReceiverHash(id);
+            var receiverHash = receiver.GetReceiverHash(id);
             officeApplication?.SetTaskPaneVisible(
-                hash: hash,
+                hash: receiverHash,
                 isVisible: isVisible);
         }
 
         public static bool TaskPaneExists(this ITaskPanesReceiver receiver, string id)
         {
-            var hash = receiver.GetReceiverHash(id);
-            var result = officeApplication?.TaskPaneExists(hash);
+            var receiverHash = receiver.GetReceiverHash(id);
+            var result = officeApplication?.TaskPaneExists(receiverHash);
 
             return result ?? false;
         }
 
         public static bool TaskPaneVisible(this ITaskPanesReceiver receiver, string id)
         {
-            var hash = receiver.GetReceiverHash(id);
-            var result = officeApplication?.TaskPaneVisible(hash);
+            var receiverHash = receiver.GetReceiverHash(id);
+            var result = officeApplication?.TaskPaneVisible(receiverHash);
 
             return result ?? false;
         }
@@ -82,24 +90,42 @@ namespace PrismTaskPanes
 
         internal static void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            taskPanesReceiver.ConfigureModuleCatalog(moduleCatalog);
+            DoWithAllReceivers((r) => r.ConfigureModuleCatalog(moduleCatalog));
         }
 
         internal static void InvalidateRibbonUI()
         {
-            taskPanesReceiver.InvalidateRibbonUI();
+            DoWithAllReceivers((r) => r.InvalidateRibbonUI());
         }
 
         internal static void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            taskPanesReceiver.RegisterTypes(containerRegistry);
+            containerRegistry.RegisterInstance(configurationsRepository);
+
+            DoWithAllReceivers((r) => r.RegisterTypes(containerRegistry));
         }
 
         #endregion Internal Methods
 
         #region Private Methods
 
-        private static IEnumerable<PrismTaskPaneAttribute> GetAllAttributes(ITaskPanesReceiver receiver)
+        private static void AddReceiver(ITaskPanesReceiver receiver)
+        {
+            var attributes = GetAttributes(receiver);
+            configurationsRepository.AddAttributes(attributes);
+
+            receivers.Add(receiver);
+        }
+
+        private static void DoWithAllReceivers(Action<ITaskPanesReceiver> setter)
+        {
+            foreach (var receiver in receivers)
+            {
+                setter?.Invoke(receiver);
+            }
+        }
+
+        private static IEnumerable<PrismTaskPaneAttribute> GetAttributes(ITaskPanesReceiver receiver)
         {
             var type = receiver.GetType();
 
@@ -111,19 +137,20 @@ namespace PrismTaskPanes
             {
                 var result = attribute as PrismTaskPaneAttribute;
 
-                result.Hash = receiver.GetReceiverHash(result.ID);
+                result.ReceiverHash = receiver.GetReceiverHash(result.ID);
 
                 yield return result;
             }
         }
 
-        private static string GetSettingsPath()
+        private static ConfigurationsRepository GetConfigurationsRepository()
         {
-            var path = Path.Combine(
+            var directory = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 Assembly.GetExecutingAssembly().GetName().Name);
-            var result = Path.Combine(path, TXTSettingsFileName);
+            var path = Path.Combine(directory, TXTSettingsFileName);
 
+            var result = new ConfigurationsRepository(path);
             return result;
         }
 

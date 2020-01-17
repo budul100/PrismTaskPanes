@@ -2,7 +2,7 @@
 using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
 using PrismTaskPanes.Controls;
-using PrismTaskPanes.Settings;
+using PrismTaskPanes.Configurations;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -32,7 +32,7 @@ namespace PrismTaskPanes.TaskPanes
 
         #region Public Methods
 
-        public CustomTaskPane Get(PrismTaskPaneSettings settings)
+        public CustomTaskPane Get(Configuration settings)
         {
             var result = GetTaskPane(settings);
 
@@ -58,7 +58,7 @@ namespace PrismTaskPanes.TaskPanes
                 : string.Empty;
         }
 
-        private static Uri GetUriNavigation(PrismTaskPaneSettings settings)
+        private static Uri GetUriNavigation(Configuration settings)
         {
             var view = settings.View.Name;
 
@@ -89,7 +89,7 @@ namespace PrismTaskPanes.TaskPanes
             return result;
         }
 
-        private CustomTaskPane GetTaskPane(PrismTaskPaneSettings settings)
+        private CustomTaskPane GetTaskPane(Configuration settings)
         {
             var result = ctpFactory.CreateCTP(
                 cTPAxID: GetAxID<PrismTaskPanesHost>(),
@@ -122,7 +122,7 @@ namespace PrismTaskPanes.TaskPanes
             return result;
         }
 
-        private void SetRegions(CustomTaskPane taskPane, PrismTaskPaneSettings settings)
+        private void SetRegions(CustomTaskPane taskPane, Configuration settings)
         {
             var host = taskPane.ContentControl as PrismTaskPanesHost;
             var hostRegionName = host.GetHashCode().ToString();

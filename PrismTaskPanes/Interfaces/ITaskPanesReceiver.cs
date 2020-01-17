@@ -11,7 +11,7 @@ namespace PrismTaskPanes.Interfaces
 
         void InvalidateRibbonUI();
 
-        void RegisterTypes(IContainerProvider containerProvider);
+        void RegisterTypes(IContainerRegistry containerRegistry);
 
         #endregion Public Methods
     }

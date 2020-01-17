@@ -110,8 +110,6 @@ namespace PrismTaskPanes.Attributes
         public MsoCTPDockPositionRestrict DockRestriction { get; set; } =
             MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone;
 
-        public int Hash { get; set; }
-
         public int Height { get; set; }
 
         public string ID { get; set; }
@@ -121,6 +119,8 @@ namespace PrismTaskPanes.Attributes
         public string NavigationKey { get; set; }
 
         public string NavigationValue { get; set; }
+
+        public int ReceiverHash { get; set; }
 
         public string RegionContext { get; set; }
 

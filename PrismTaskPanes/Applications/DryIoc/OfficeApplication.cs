@@ -5,9 +5,9 @@ using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using PrismTaskPanes.Configurations;
 using PrismTaskPanes.Controls;
 using PrismTaskPanes.Extensions;
-using PrismTaskPanes.Interfaces;
 using PrismTaskPanes.Regions;
 using PrismTaskPanes.TaskPanes;
 using System;
@@ -17,12 +17,11 @@ using System.Linq;
 namespace PrismTaskPanes.Applications.DryIoc
 {
     internal abstract class OfficeApplication
-        : PrismApplication, IDisposable, IOfficeApplication
+        : PrismApplication, IDisposable
     {
         #region Private Fields
 
         private readonly ICTPFactory ctpFactory;
-        private readonly SettingsRepository settingsRepository;
         private readonly IList<TaskPanesRepository> taskPaneRepositories = new List<TaskPanesRepository>();
 
         private bool disposed;
@@ -31,10 +30,8 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Public Constructors
 
-        public OfficeApplication(object application, object ctpFactoryInst, SettingsRepository settingsRepository)
+        public OfficeApplication(object application, object ctpFactoryInst)
         {
-            this.settingsRepository = settingsRepository;
-
             ctpFactory = new ICTPFactory(
                 parentObject: application as NetOffice.ICOMObject,
                 comProxy: ctpFactoryInst);
@@ -54,37 +51,22 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         public virtual void Dispose()
         {
-            CloseScope();
-
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        public virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    foreach (var taskPaneRepository in taskPaneRepositories)
-                    {
-                        CloseRepository(taskPaneRepository);
-                    }
-
-                    taskPaneRepositories.Clear();
-
-                    ctpFactory.Dispose();
-                }
-
-                disposed = true;
-            }
-        }
-
         public IScope GetCurrentScope()
         {
-            return Container.GetContainer().GetNamedScope(
-                name: TaskPaneWindowKey.Value,
-                throwIfNotFound: false);
+            var result = default(IScope);
+
+            if (TaskPaneWindowKey.HasValue)
+            {
+                result = Container.GetContainer().GetNamedScope(
+                    name: TaskPaneWindowKey.Value,
+                    throwIfNotFound: false);
+            }
+
+            return result;
         }
 
         public void SetTaskPaneVisible(int hash, bool isVisible)
@@ -94,7 +76,7 @@ namespace PrismTaskPanes.Applications.DryIoc
             if (repository != default)
             {
                 repository.SetVisible(
-                    hash: hash,
+                    receiverHash: hash,
                     isVisible: isVisible);
 
                 TaskPanesProvider.InvalidateRibbonUI();
@@ -120,10 +102,26 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Protected Methods
 
+        protected void CloseApplication()
+        {
+            foreach (var taskPaneRepository in taskPaneRepositories)
+            {
+                CloseRepository(taskPaneRepository);
+            }
+
+            taskPaneRepositories.Clear();
+
+            ctpFactory.Dispose();
+            Container.GetContainer().Dispose();
+        }
+
         protected void CloseScope()
         {
             var repository = GetRepository();
             CloseRepository(repository);
+
+            var scope = GetCurrentScope();
+            scope?.Dispose();
         }
 
         protected override void ConfigureDefaultRegionBehaviors(IRegionBehaviorFactory regionBehaviors)
@@ -140,6 +138,19 @@ namespace PrismTaskPanes.Applications.DryIoc
             base.ConfigureModuleCatalog(moduleCatalog);
 
             TaskPanesProvider.ConfigureModuleCatalog(moduleCatalog);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    CloseApplication();
+                }
+
+                disposed = true;
+            }
         }
 
         protected abstract string GetTaskPaneIdentifier();
@@ -179,11 +190,10 @@ namespace PrismTaskPanes.Applications.DryIoc
         {
             if (repository != default)
             {
-                taskPaneRepositories.Remove(repository);
+                repository.Save();
                 repository.Dispose();
 
-                var scope = GetCurrentScope();
-                scope?.Dispose();
+                taskPaneRepositories.Remove(repository);
             }
         }
 
@@ -214,11 +224,13 @@ namespace PrismTaskPanes.Applications.DryIoc
                         hostRegionManager: hostRegionManager,
                         taskPaneWindow: TaskPaneWindow);
 
+                    var configurationsRepository = scope.Resolve<ConfigurationsRepository>();
+
                     result = new TaskPanesRepository(
                         key: TaskPaneWindowKey.Value,
                         scope: scope,
                         taskPanesFactory: taskPanesFactory,
-                        settingsRepository: settingsRepository,
+                        configurationsRepository: configurationsRepository,
                         documentHashGetter: () => GetDocumentHash());
 
                     taskPaneRepositories.Add(result);

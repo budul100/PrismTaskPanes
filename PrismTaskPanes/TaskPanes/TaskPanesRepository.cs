@@ -1,4 +1,5 @@
 ﻿using NetOffice.OfficeApi;
+using PrismTaskPanes.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace PrismTaskPanes.TaskPanes
     {
         #region Private Fields
 
+        private readonly ConfigurationsRepository configurationsRepository;
         private readonly Func<int> documentHashGetter;
-        private readonly SettingsRepository settingsRepository;
         private readonly Dictionary<int, CustomTaskPane> taskPanes = new Dictionary<int, CustomTaskPane>();
         private readonly TaskPanesFactory taskPanesFactory;
 
@@ -22,13 +23,13 @@ namespace PrismTaskPanes.TaskPanes
         #region Public Constructors
 
         public TaskPanesRepository(int key, object scope, TaskPanesFactory taskPanesFactory,
-            SettingsRepository settingsRepository, Func<int> documentHashGetter)
+            ConfigurationsRepository configurationsRepository, Func<int> documentHashGetter)
         {
             Key = key;
             Scope = scope;
 
             this.taskPanesFactory = taskPanesFactory;
-            this.settingsRepository = settingsRepository;
+            this.configurationsRepository = configurationsRepository;
             this.documentHashGetter = documentHashGetter;
         }
 
@@ -51,19 +52,19 @@ namespace PrismTaskPanes.TaskPanes
             GC.SuppressFinalize(this);
         }
 
-        public bool Exists(int hash)
+        public bool Exists(int receiverHash)
         {
-            var taskPane = GetExistingTaskPane(hash);
+            var taskPane = GetExistingTaskPane(receiverHash);
 
             if (taskPane == default)
-                taskPane = GetNewTaskPane(hash);
+                taskPane = GetNewTaskPane(receiverHash);
 
             return taskPane != default;
         }
 
         public void Initialise()
         {
-            var visibleTaskPanes = settingsRepository
+            var visibleTaskPanes = configurationsRepository
                 .Get(documentHashGetter.Invoke())
                 .Where(a => a.Visible)
                 .Where(a => !a.InvisibleAtStart).ToArray();
@@ -71,14 +72,14 @@ namespace PrismTaskPanes.TaskPanes
             foreach (var visibleTaskPane in visibleTaskPanes)
             {
                 SetTaskPaneVisible(
-                    hash: visibleTaskPane.AttributeHash,
+                    receiverHash: visibleTaskPane.ReceiverHash,
                     isVisible: true);
             }
         }
 
-        public bool IsVisible(int hash)
+        public bool IsVisible(int receiverHash)
         {
-            var taskPane = GetExistingTaskPane(hash);
+            var taskPane = GetExistingTaskPane(receiverHash);
 
             return taskPane?.Visible ?? false;
         }
@@ -88,10 +89,10 @@ namespace PrismTaskPanes.TaskPanes
             SaveAttributes();
         }
 
-        public void SetVisible(int hash, bool isVisible)
+        public void SetVisible(int receiverHash, bool isVisible)
         {
             SetTaskPaneVisible(
-                hash: hash,
+                receiverHash: receiverHash,
                 isVisible: isVisible);
         }
 
@@ -122,25 +123,25 @@ namespace PrismTaskPanes.TaskPanes
 
         #region Private Methods
 
-        private CustomTaskPane GetExistingTaskPane(int hash)
+        private CustomTaskPane GetExistingTaskPane(int receiverHash)
         {
-            var result = taskPanes.ContainsKey(hash)
-                ? taskPanes[hash]
+            var result = taskPanes.ContainsKey(receiverHash)
+                ? taskPanes[receiverHash]
                 : default;
 
             return result;
         }
 
-        private CustomTaskPane GetNewTaskPane(int hash)
+        private CustomTaskPane GetNewTaskPane(int receiverHash)
         {
-            var settings = settingsRepository.Get(
-                attributeHash: hash,
+            var settings = configurationsRepository.Get(
+                receiverHash: receiverHash,
                 documentHash: documentHashGetter.Invoke());
 
             var result = taskPanesFactory.Get(settings);
 
             taskPanes.Add(
-                key: hash,
+                key: receiverHash,
                 value: result);
 
             return result;
@@ -150,8 +151,8 @@ namespace PrismTaskPanes.TaskPanes
         {
             foreach (var taskPane in taskPanes)
             {
-                settingsRepository.Set(
-                    attributeHash: taskPane.Key,
+                configurationsRepository.Set(
+                    receiverHash: taskPane.Key,
                     documentHash: documentHashGetter.Invoke(),
                     visible: taskPane.Value.Visible,
                     width: taskPane.Value.Width,
@@ -159,15 +160,15 @@ namespace PrismTaskPanes.TaskPanes
                     dockPosition: taskPane.Value.DockPosition);
             }
 
-            settingsRepository.Save();
+            configurationsRepository.Save();
         }
 
-        private void SetTaskPaneVisible(int hash, bool isVisible)
+        private void SetTaskPaneVisible(int receiverHash, bool isVisible)
         {
-            var taskPane = GetExistingTaskPane(hash);
+            var taskPane = GetExistingTaskPane(receiverHash);
 
             if (taskPane == default && isVisible)
-                taskPane = GetNewTaskPane(hash);
+                taskPane = GetNewTaskPane(receiverHash);
 
             if (taskPane != default)
                 taskPane.Visible = isVisible;

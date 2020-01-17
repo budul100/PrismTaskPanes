@@ -1,5 +1,4 @@
 ﻿using NetOffice.ExcelApi;
-using PrismTaskPanes.TaskPanes;
 using System.IO;
 
 namespace PrismTaskPanes.Applications.DryIoc
@@ -15,16 +14,21 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Public Constructors
 
-        public ExcelApplication(object application, object ctpFactoryInst,
-            SettingsRepository settingsRepository)
-            : base(application, ctpFactoryInst, settingsRepository)
+        public ExcelApplication(object application, object ctpFactoryInst)
+            : base(application, ctpFactoryInst)
         {
             this.application = application as Application;
 
             this.application.NewWorkbookEvent += OnWorkbookNew;
             this.application.WorkbookOpenEvent += OnWorkbookOpen;
             this.application.WorkbookAfterSaveEvent += OnWorkbookSaveAfter;
-            this.application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose; ;
+            this.application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose;
+            this.application.OnDispose += OnApplicationDispose;
+        }
+
+        private void OnApplicationDispose(NetOffice.OnDisposeEventArgs eventArgs)
+        {
+            CloseApplication();
         }
 
         #endregion Public Constructors

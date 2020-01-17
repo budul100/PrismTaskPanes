@@ -55,28 +55,32 @@ namespace TestAddIn1
             RibbonUI.Invalidate();
         }
 
-        public void RegisterTypes(IContainerProvider containerProvider)
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
         }
 
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)
         {
-            "1".SetTaskPaneVisible(pressed);
+            this.SetTaskPaneVisible(
+                id: "1",
+                isVisible: pressed);
         }
 
         public void TooglePaneVisibleButton_Click2(IRibbonControl control, bool pressed)
         {
-            "2".SetTaskPaneVisible(pressed);
+            this.SetTaskPaneVisible(
+                id: "2",
+                isVisible: pressed);
         }
 
         public bool TooglePaneVisibleButton_GetPressed(IRibbonControl control)
         {
-            return "1".TaskPaneVisible();
+            return this.TaskPaneVisible("1");
         }
 
         public bool TooglePaneVisibleButton_GetPressed2(IRibbonControl control)
         {
-            return "2".TaskPaneVisible();
+            return this.TaskPaneVisible("2");
         }
 
         #endregion Public Methods
