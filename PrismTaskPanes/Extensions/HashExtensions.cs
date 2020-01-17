@@ -7,7 +7,7 @@ namespace PrismTaskPanes.Extensions
     {
         #region Public Methods
 
-        public static int GetReceiverHash(this IPrismTaskPaneReceiver receiver, string id)
+        public static int GetReceiverHash(this ITaskPanesReceiver receiver, string id)
         {
             var result = GetStaticHash(
                 id,

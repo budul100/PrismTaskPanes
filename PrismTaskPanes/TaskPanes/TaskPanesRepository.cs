@@ -21,23 +21,24 @@ namespace PrismTaskPanes.TaskPanes
 
         #region Public Constructors
 
-        public TaskPanesRepository(int key, TaskPanesFactory taskPanesFactory, SettingsRepository settingsRepository,
-            Func<int> documentHashGetter)
+        public TaskPanesRepository(int key, object scope, TaskPanesFactory taskPanesFactory,
+            SettingsRepository settingsRepository, Func<int> documentHashGetter)
         {
             Key = key;
+            Scope = scope;
 
             this.taskPanesFactory = taskPanesFactory;
             this.settingsRepository = settingsRepository;
             this.documentHashGetter = documentHashGetter;
-
-            OpenTaskPanes();
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
-        public int Key { get; private set; }
+        public int Key { get; }
+
+        public object Scope { get; }
 
         #endregion Public Properties
 
@@ -60,6 +61,21 @@ namespace PrismTaskPanes.TaskPanes
             return taskPane != default;
         }
 
+        public void Initialise()
+        {
+            var visibleTaskPanes = settingsRepository
+                .Get(documentHashGetter.Invoke())
+                .Where(a => a.Visible)
+                .Where(a => !a.InvisibleAtStart).ToArray();
+
+            foreach (var visibleTaskPane in visibleTaskPanes)
+            {
+                SetTaskPaneVisible(
+                    hash: visibleTaskPane.AttributeHash,
+                    isVisible: true);
+            }
+        }
+
         public bool IsVisible(int hash)
         {
             var taskPane = GetExistingTaskPane(hash);
@@ -72,7 +88,7 @@ namespace PrismTaskPanes.TaskPanes
             SaveAttributes();
         }
 
-        public void SetVisibility(int hash, bool isVisible)
+        public void SetVisible(int hash, bool isVisible)
         {
             SetTaskPaneVisible(
                 hash: hash,
@@ -128,21 +144,6 @@ namespace PrismTaskPanes.TaskPanes
                 value: result);
 
             return result;
-        }
-
-        private void OpenTaskPanes()
-        {
-            var visibleTaskPanes = settingsRepository
-                .Get(documentHashGetter.Invoke())
-                .Where(a => a.Visible)
-                .Where(a => !a.InvisibleAtStart).ToArray();
-
-            foreach (var visibleTaskPane in visibleTaskPanes)
-            {
-                SetTaskPaneVisible(
-                    hash: visibleTaskPane.AttributeHash,
-                    isVisible: true);
-            }
         }
 
         private void SaveAttributes()

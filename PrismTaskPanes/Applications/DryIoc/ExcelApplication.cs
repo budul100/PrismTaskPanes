@@ -15,13 +15,14 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Public Constructors
 
-        public ExcelApplication(object application, object ctpFactoryInst, SettingsRepository settingsRepository) :
-            base(application, ctpFactoryInst, settingsRepository)
+        public ExcelApplication(object application, object ctpFactoryInst,
+            SettingsRepository settingsRepository)
+            : base(application, ctpFactoryInst, settingsRepository)
         {
             this.application = application as Application;
 
-            this.application.WorkbookOpenEvent += OnWorkbookOpen;
             this.application.NewWorkbookEvent += OnWorkbookNew;
+            this.application.WorkbookOpenEvent += OnWorkbookOpen;
             this.application.WorkbookAfterSaveEvent += OnWorkbookSaveAfter;
             this.application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose; ;
         }
@@ -36,21 +37,12 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #endregion Protected Properties
 
-        #region Public Methods
-
-        public override void Dispose()
-        {
-            application.WorkbookOpenEvent -= OnWorkbookOpen;
-            application.NewWorkbookEvent -= OnWorkbookNew;
-            application.WorkbookBeforeCloseEvent -= OnWorkbookBeforeClose;
-            application.WorkbookAfterSaveEvent -= OnWorkbookSaveAfter;
-
-            base.Dispose();
-        }
-
-        #endregion Public Methods
-
         #region Protected Methods
+
+        protected override System.Windows.Window CreateShell()
+        {
+            return default;
+        }
 
         protected override string GetTaskPaneIdentifier()
         {
@@ -68,22 +60,22 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)
         {
-            if (!cancel) CloseWindow();
+            if (!cancel) CloseScope();
         }
 
         private void OnWorkbookNew(Workbook wb)
         {
-            isActivated = (GetRepository() != default);
+            OpenScope();
         }
 
         private void OnWorkbookOpen(Workbook wb)
         {
-            isActivated = (GetRepository() != default);
+            OpenScope();
         }
 
         private void OnWorkbookSaveAfter(Workbook wb, bool success)
         {
-            GetRepository()?.Save();
+            SaveScope();
         }
 
         #endregion Private Methods

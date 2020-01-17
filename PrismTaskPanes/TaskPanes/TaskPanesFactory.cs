@@ -21,8 +21,7 @@ namespace PrismTaskPanes.TaskPanes
 
         #region Public Constructors
 
-        public TaskPanesFactory(ICTPFactory ctpFactory, IRegionManager hostRegionManager,
-            object taskPaneWindow)
+        public TaskPanesFactory(ICTPFactory ctpFactory, IRegionManager hostRegionManager, object taskPaneWindow)
         {
             this.ctpFactory = ctpFactory;
             this.hostRegionManager = hostRegionManager;
@@ -97,21 +96,28 @@ namespace PrismTaskPanes.TaskPanes
                 cTPTitle: settings.Title,
                 cTPParentWindow: taskPaneWindow) as CustomTaskPane;
 
-            result.Visible = false;
-            result.DockPosition = settings.DockPosition;
-            result.DockPositionRestrict = settings.DockRestriction;
+            try
+            {
+                result.Visible = false;
+                result.DockPosition = settings.DockPosition;
+                result.DockPositionRestrict = settings.DockRestriction;
 
-            if (result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionLeft &&
-                result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionRight)
-                result.Height = settings.Height;
+                if (result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionLeft &&
+                    result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionRight)
+                    result.Height = settings.Height;
 
-            if (result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionBottom &&
-                result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionTop)
-                result.Width = settings.Width;
+                if (result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionBottom &&
+                    result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionTop)
+                    result.Width = settings.Width;
+            }
+            catch
+            { }
 
-            result.VisibleStateChangeEvent += (taskPane) => PrismTaskPanesProvider.OnTaskPaneChanged?.Invoke(
-                sender: taskPane,
-                e: null);
+            result.VisibleStateChangeEvent += (tp) => TaskPanesProvider
+                .OnTaskPaneChangedEvent?
+                .Invoke(
+                    sender: tp,
+                    e: null);
 
             return result;
         }

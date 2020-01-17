@@ -23,7 +23,7 @@ namespace TestAddIn1
     [PrismTaskPane("2", "TestAddin 1 B", typeof(ViewA), "TestRegion",
         navigationKey: "x", navigationValue: "")]
     public class AddIn
-        : COMAddin, IPrismTaskPaneReceiver
+        : COMAddin, ITaskPanesReceiver
     {
         #region Public Constructors
 
@@ -38,14 +38,14 @@ namespace TestAddIn1
 
         public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<TestViewLib.TestViewLibModule>(nameof(TestAddIn1));
+            moduleCatalog.AddModule<TestViewLib.Module>(nameof(TestAddIn1));
         }
 
         public override void CTPFactoryAvailable(object CTPFactoryInst)
         {
             base.CTPFactoryAvailable(CTPFactoryInst);
 
-            this.AddCTPReceiver(
+            this.InitializeTaskPanesProvider(
                 application: Application,
                 ctpFactoryInst: CTPFactoryInst);
         }
@@ -55,30 +55,28 @@ namespace TestAddIn1
             RibbonUI.Invalidate();
         }
 
-        public void RegisterTypes(IContainerRegistry builder)
+        public void RegisterTypes(IContainerProvider containerProvider)
         {
         }
 
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)
         {
-            this.SetTaskPaneVisibility("1", pressed);
-            RibbonUI.Invalidate();
+            "1".SetTaskPaneVisible(pressed);
         }
 
         public void TooglePaneVisibleButton_Click2(IRibbonControl control, bool pressed)
         {
-            this.SetTaskPaneVisibility("2", pressed);
-            RibbonUI.Invalidate();
+            "2".SetTaskPaneVisible(pressed);
         }
 
         public bool TooglePaneVisibleButton_GetPressed(IRibbonControl control)
         {
-            return this.IsTaskPaneVisible("1");
+            return "1".TaskPaneVisible();
         }
 
         public bool TooglePaneVisibleButton_GetPressed2(IRibbonControl control)
         {
-            return this.IsTaskPaneVisible("2");
+            return "2".TaskPaneVisible();
         }
 
         #endregion Public Methods
@@ -87,8 +85,6 @@ namespace TestAddIn1
 
         private void Addin_OnStartupComplete(ref Array custom)
         {
-            PrismTaskPanesProvider.Initialize();
-
             Console.WriteLine($"Addin started in Excel Version {Application.Version}");
         }
 

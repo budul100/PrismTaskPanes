@@ -2,12 +2,12 @@
 {
     partial class PrismTaskPanesHost
     {
-        /// <summary>
+        /// <summary> 
         /// Erforderliche Designervariable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Verwendete Ressourcen bereinigen.
         /// </summary>
         /// <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
@@ -22,17 +22,17 @@
 
         #region Vom Komponenten-Designer generierter Code
 
-        /// <summary>
-        /// Erforderliche Methode für die Designerunterstützung.
+        /// <summary> 
+        /// Erforderliche Methode für die Designerunterstützung. 
         /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
         /// </summary>
         private void InitializeComponent()
         {
-            this.elementHost = new System.Windows.Forms.Integration.ElementHost();
             this.SuspendLayout();
-            //
-            // elementHost
-            //
+
+            components = new System.ComponentModel.Container();
+
+            this.elementHost = new System.Windows.Forms.Integration.ElementHost();
             this.elementHost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.elementHost.Location = new System.Drawing.Point(0, 0);
             this.elementHost.Name = "elementHost";
@@ -40,20 +40,17 @@
             this.elementHost.TabIndex = 0;
             this.elementHost.Text = "elementHost";
             this.elementHost.Child = null;
-            //
-            // PrismTaskPanesHost
-            //
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.elementHost);
             this.Name = "PrismTaskPanesHost";
             this.ResumeLayout(false);
-
         }
 
-        #endregion
-
         private System.Windows.Forms.Integration.ElementHost elementHost;
+
+        #endregion
     }
 }

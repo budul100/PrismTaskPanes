@@ -1,16 +1,17 @@
 ﻿using NetOffice.OfficeApi.Enums;
 using PrismTaskPanes.Interfaces;
 using System;
-using System.Composition;
+using System.ComponentModel.Composition;
 
 namespace PrismTaskPanes.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public sealed class PrismTaskPaneAttribute : ExportAttribute
+    public sealed class PrismTaskPaneAttribute
+        : ExportAttribute
     {
         #region Public Constructors
 
-        public PrismTaskPaneAttribute() : base(typeof(IPrismTaskPaneReceiver))
+        public PrismTaskPaneAttribute() : base(typeof(ITaskPanesReceiver))
         { }
 
         public PrismTaskPaneAttribute(

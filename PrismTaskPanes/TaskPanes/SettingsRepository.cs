@@ -145,7 +145,7 @@ namespace PrismTaskPanes.TaskPanes
 
                 try
                 {
-                    using StreamReader file = new StreamReader(settingsPath);
+                    using (StreamReader file = new StreamReader(settingsPath))
                     {
                         collection = serializer.Deserialize(file) as PrismTaskPaneSettingsCollection;
                     }
@@ -184,7 +184,7 @@ namespace PrismTaskPanes.TaskPanes
                 Directory.CreateDirectory(Path.GetDirectoryName(settingsPath));
 
             var writer = new XmlSerializer(collection.GetType());
-            using FileStream file = File.Create(settingsPath);
+            using (var file = File.Create(settingsPath))
             {
                 writer.Serialize(
                     stream: file,

@@ -1,22 +1,18 @@
-﻿using CommonServiceLocator;
+﻿using DryIoc;
 
 namespace PrismTaskPanes.Interfaces
 {
     internal interface IOfficeApplication
     {
-        #region Public Properties
-
-        IServiceLocator ServiceLocator { get; }
-
-        #endregion Public Properties
-
         #region Public Methods
 
-        bool IsTaskPaneExist(int hash);
+        IScope GetCurrentScope();
 
-        bool IsTaskPaneVisible(int hash);
+        void SetTaskPaneVisible(int hash, bool isVisible);
 
-        void SetTaskPaneVisibility(int hash, bool isVisible);
+        bool TaskPaneExists(int hash);
+
+        bool TaskPaneVisible(int hash);
 
         #endregion Public Methods
     }

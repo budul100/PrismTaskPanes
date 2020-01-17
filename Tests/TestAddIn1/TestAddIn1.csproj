@@ -16,8 +16,10 @@
     <EmbeddedResource Include="RibbonUI.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CommonServiceLocator" Version="2.0.4" />
     <PackageReference Include="NetOfficeFw.Excel" Version="1.7.4.6" />
     <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\PrismTaskPanes\PrismTaskPanes.csproj" />

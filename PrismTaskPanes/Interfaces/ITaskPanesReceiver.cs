@@ -3,7 +3,7 @@ using Prism.Modularity;
 
 namespace PrismTaskPanes.Interfaces
 {
-    public interface IPrismTaskPaneReceiver
+    public interface ITaskPanesReceiver
     {
         #region Public Methods
 
@@ -11,7 +11,7 @@ namespace PrismTaskPanes.Interfaces
 
         void InvalidateRibbonUI();
 
-        void RegisterTypes(IContainerRegistry builder);
+        void RegisterTypes(IContainerProvider containerProvider);
 
         #endregion Public Methods
     }

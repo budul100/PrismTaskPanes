@@ -1,12 +1,11 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
-using TestViewLib.ViewModels;
 using TestViewLib.Views;
 
 namespace TestViewLib
 {
-    public class TestViewLibModule : IModule
+    public class Module : IModule
     {
         #region Private Fields
 
@@ -26,7 +25,6 @@ namespace TestViewLib
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.Register<ViewA>(typeof(ViewA).Name);
-            //containerRegistry.Register<ViewAViewModel>();
         }
 
         #endregion Public Methods

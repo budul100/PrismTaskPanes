@@ -40,7 +40,7 @@ namespace PrismTaskPanes.Regions
 
             var candidates = GetCandidatesFromRegion(
                 region: region,
-                candidateNavigationContract: candidateTargetContract);
+                candidateNavigationContract: candidateTargetContract).ToArray();
 
             var result = candidates
                 .Where((v) => v.IsCandidate(navigationContext))
@@ -92,20 +92,6 @@ namespace PrismTaskPanes.Regions
 
             if (!result.Any())
             {
-                // Autofac based implementation
-                //
-                // First try friendly name registration.
-                // var matchingRegistration = context.GetService(typeof(KeyedService)).ComponentRegistry.Registrations
-                //    .FirstOrDefault(r => r.Services
-                //        .OfType<KeyedService>()
-                //        .Any(s => s.ServiceKey.Equals(candidateNavigationContract)));
-                //
-                // If not found, try type registration
-                // if (matchingRegistration == null)
-                //    matchingRegistration = context.ComponentRegistry.Registrations
-                //        .FirstOrDefault(r => candidateNavigationContract
-                //            .Equals(r.Activator.LimitType.Name, StringComparison.Ordinal));
-
                 var matchingInstances = serviceLocator
                     .GetInstance<object>(candidateNavigationContract);
 
