@@ -1,4 +1,5 @@
-﻿using Prism.Ioc;
+﻿using DryIoc;
+using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes.Applications.DryIoc;
 using PrismTaskPanes.Attributes;
@@ -18,21 +19,12 @@ namespace PrismTaskPanes
 
         private const string TXTSettingsFileName = "PrismTaskPanes.xml";
 
-        private static readonly ConfigurationsRepository configurationsRepository;
+        private static readonly ConfigurationsRepository configurationsRepository = GetConfigurationsRepository();
         private static readonly IList<ITaskPanesReceiver> receivers = new List<ITaskPanesReceiver>();
 
         private static OfficeApplication officeApplication;
 
         #endregion Private Fields
-
-        #region Public Constructors
-
-        static TaskPanesProvider()
-        {
-            configurationsRepository = GetConfigurationsRepository();
-        }
-
-        #endregion Public Constructors
 
         #region Public Properties
 
@@ -43,6 +35,11 @@ namespace PrismTaskPanes
         #endregion Public Properties
 
         #region Public Methods
+
+        public static IScope GetCurrentScope()
+        {
+            return officeApplication.GetCurrentScope();
+        }
 
         public static void InitializeTaskPanesProvider(this ITaskPanesReceiver receiver, object application,
             object ctpFactoryInst)
