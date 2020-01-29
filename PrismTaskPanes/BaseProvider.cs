@@ -1,7 +1,5 @@
-﻿using DryIoc;
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Modularity;
-using PrismTaskPanes.Applications.DryIoc;
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.Configurations;
 using PrismTaskPanes.Extensions;
@@ -13,7 +11,7 @@ using System.Reflection;
 
 namespace PrismTaskPanes
 {
-    public static class TaskPanesProvider
+    internal static class BaseProvider
     {
         #region Private Fields
 
@@ -22,68 +20,17 @@ namespace PrismTaskPanes
         private static readonly ConfigurationsRepository configurationsRepository = GetConfigurationsRepository();
         private static readonly IList<ITaskPanesReceiver> receivers = new List<ITaskPanesReceiver>();
 
-        private static OfficeApplication officeApplication;
-
         #endregion Private Fields
 
-        #region Public Properties
-
-        public static EventHandler OnTaskPaneChangedEvent { get; set; }
-
-        public static EventHandler OnTaskPaneInitializedEvent { get; set; }
-
-        #endregion Public Properties
-
-        #region Public Methods
-
-        public static IScope GetCurrentScope()
-        {
-            return officeApplication.GetCurrentScope();
-        }
-
-        public static void InitializeTaskPanesProvider(this ITaskPanesReceiver receiver, object application,
-            object ctpFactoryInst)
-        {
-            AddReceiver(receiver);
-
-            if (officeApplication == default)
-            {
-                if (application is NetOffice.ExcelApi.Application)
-                {
-                    officeApplication = new ExcelApplication(
-                        application: application,
-                        ctpFactoryInst: ctpFactoryInst);
-                }
-            }
-        }
-
-        public static void SetTaskPaneVisible(this ITaskPanesReceiver receiver, string id, bool isVisible)
-        {
-            var receiverHash = receiver.GetReceiverHash(id);
-            officeApplication?.SetTaskPaneVisible(
-                hash: receiverHash,
-                isVisible: isVisible);
-        }
-
-        public static bool TaskPaneExists(this ITaskPanesReceiver receiver, string id)
-        {
-            var receiverHash = receiver.GetReceiverHash(id);
-            var result = officeApplication?.TaskPaneExists(receiverHash);
-
-            return result ?? false;
-        }
-
-        public static bool TaskPaneVisible(this ITaskPanesReceiver receiver, string id)
-        {
-            var receiverHash = receiver.GetReceiverHash(id);
-            var result = officeApplication?.TaskPaneVisible(receiverHash);
-
-            return result ?? false;
-        }
-
-        #endregion Public Methods
-
         #region Internal Methods
+
+        internal static void AddReceiver(ITaskPanesReceiver receiver)
+        {
+            var attributes = GetAttributes(receiver);
+            configurationsRepository.AddAttributes(attributes);
+
+            receivers.Add(receiver);
+        }
 
         internal static void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
@@ -105,14 +52,6 @@ namespace PrismTaskPanes
         #endregion Internal Methods
 
         #region Private Methods
-
-        private static void AddReceiver(ITaskPanesReceiver receiver)
-        {
-            var attributes = GetAttributes(receiver);
-            configurationsRepository.AddAttributes(attributes);
-
-            receivers.Add(receiver);
-        }
 
         private static void DoWithAllReceivers(Action<ITaskPanesReceiver> setter)
         {

@@ -113,7 +113,7 @@ namespace PrismTaskPanes.TaskPanes
             catch
             { }
 
-            result.VisibleStateChangeEvent += (tp) => TaskPanesProvider
+            result.VisibleStateChangeEvent += (tp) => DryIocProvider
                 .OnTaskPaneChangedEvent?
                 .Invoke(
                     sender: tp,

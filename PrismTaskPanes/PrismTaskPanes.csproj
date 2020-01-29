@@ -86,6 +86,7 @@
     <Compile Include="Applications\DryIoc\OfficeApplication.cs" />
     <Compile Include="Attributes\PrismTaskPaneAttribute.cs" />
     <Compile Include="Attributes\ScopedRegionAttribute.cs" />
+    <Compile Include="BaseProvider.cs" />
     <Compile Include="Controls\PrismTaskPanesHostAdditional.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -106,13 +107,10 @@
     <Compile Include="Regions\DisposableRegionBehavior.cs" />
     <Compile Include="Regions\ScopedRegionLoader.cs" />
     <Compile Include="Configurations\Configuration.cs" />
-    <Compile Include="TaskPanesProvider.cs" />
+    <Compile Include="DryIocProvider.cs" />
     <Compile Include="Configurations\ConfigurationsRepository.cs" />
     <Compile Include="TaskPanes\TaskPanesFactory.cs" />
     <Compile Include="TaskPanes\TaskPanesRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\PrismTaskPanesView.xaml">

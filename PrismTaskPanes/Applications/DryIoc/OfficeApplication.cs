@@ -79,7 +79,7 @@ namespace PrismTaskPanes.Applications.DryIoc
                     receiverHash: hash,
                     isVisible: isVisible);
 
-                TaskPanesProvider.InvalidateRibbonUI();
+                BaseProvider.InvalidateRibbonUI();
             }
         }
 
@@ -137,7 +137,7 @@ namespace PrismTaskPanes.Applications.DryIoc
         {
             base.ConfigureModuleCatalog(moduleCatalog);
 
-            TaskPanesProvider.ConfigureModuleCatalog(moduleCatalog);
+            BaseProvider.ConfigureModuleCatalog(moduleCatalog);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -173,7 +173,7 @@ namespace PrismTaskPanes.Applications.DryIoc
             containerRegistry.Register<object, PrismTaskPanesView>(typeof(PrismTaskPanesView).Name);
             containerRegistry.RegisterForNavigation<PrismTaskPanesView>();
 
-            TaskPanesProvider.RegisterTypes(containerRegistry);
+            BaseProvider.RegisterTypes(containerRegistry);
         }
 
         protected void SaveScope()
@@ -237,7 +237,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
                     result.Initialise();
 
-                    TaskPanesProvider.OnTaskPaneInitializedEvent?.Invoke(
+                    DryIocProvider.OnTaskPaneInitializedEvent?.Invoke(
                         sender: scope,
                         e: null);
                 }
