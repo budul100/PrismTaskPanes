@@ -20,14 +20,14 @@ namespace PrismTaskPanes
 
         public static EventHandler OnTaskPaneInitializedEvent { get; set; }
 
+        public static IResolverContext ResolverContext
+        {
+            get => officeApplication.GetResolverContext();
+        }
+
         #endregion Public Properties
 
         #region Public Methods
-
-        public static IScope GetCurrentScope()
-        {
-            return officeApplication.GetCurrentScope();
-        }
 
         public static void InitializeTaskPanesProvider(this ITaskPanesReceiver receiver, object application,
             object ctpFactoryInst)

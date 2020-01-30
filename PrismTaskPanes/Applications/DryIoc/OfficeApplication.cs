@@ -55,16 +55,9 @@ namespace PrismTaskPanes.Applications.DryIoc
             GC.SuppressFinalize(this);
         }
 
-        public IScope GetCurrentScope()
+        public IResolverContext GetResolverContext()
         {
-            var result = default(IScope);
-
-            if (TaskPaneWindowKey.HasValue)
-            {
-                result = Container.GetContainer().GetNamedScope(
-                    name: TaskPaneWindowKey.Value,
-                    throwIfNotFound: false);
-            }
+            var result = GetRepository()?.Scope as IResolverContext;
 
             return result;
         }
@@ -120,7 +113,7 @@ namespace PrismTaskPanes.Applications.DryIoc
             var repository = GetRepository();
             CloseRepository(repository);
 
-            var scope = GetCurrentScope();
+            var scope = GetResolverContext();
             scope?.Dispose();
         }
 
