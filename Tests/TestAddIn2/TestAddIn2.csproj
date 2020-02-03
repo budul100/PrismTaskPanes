@@ -23,6 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\PrismTaskPanes\PrismTaskPanes.csproj" />
-    <ProjectReference Include="..\TestViewLib\TestViewLib.csproj" />
+    <ProjectReference Include="..\TestView\TestView.csproj" />
   </ItemGroup>
 </Project>
