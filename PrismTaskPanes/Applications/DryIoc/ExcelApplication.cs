@@ -1,4 +1,5 @@
 ﻿using NetOffice.ExcelApi;
+using Prism.Ioc;
 using System.IO;
 
 namespace PrismTaskPanes.Applications.DryIoc
@@ -24,11 +25,6 @@ namespace PrismTaskPanes.Applications.DryIoc
             this.application.WorkbookAfterSaveEvent += OnWorkbookSaveAfter;
             this.application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose;
             this.application.OnDispose += OnApplicationDispose;
-        }
-
-        private void OnApplicationDispose(NetOffice.OnDisposeEventArgs eventArgs)
-        {
-            CloseApplication();
         }
 
         #endregion Public Constructors
@@ -58,9 +54,21 @@ namespace PrismTaskPanes.Applications.DryIoc
                 : default;
         }
 
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            base.RegisterTypes(containerRegistry);
+
+            containerRegistry.RegisterInstance(application);
+        }
+
         #endregion Protected Methods
 
         #region Private Methods
+
+        private void OnApplicationDispose(NetOffice.OnDisposeEventArgs eventArgs)
+        {
+            CloseApplication();
+        }
 
         private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)
         {

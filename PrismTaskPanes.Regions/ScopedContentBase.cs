@@ -2,8 +2,8 @@
 
 namespace Prism.Regions
 {
-    public abstract class ScopedContentBase :
-        BindableBase, INavigationAware
+    public abstract class ScopedContentBase
+        : BindableBase, INavigationAware
     {
         #region Public Methods
 
