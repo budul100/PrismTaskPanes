@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>PrismTaskPanes</AssemblyName>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>
@@ -20,7 +20,14 @@
     <UseWindowsForms>true</UseWindowsForms>
     <EnableComHosting>true</EnableComHosting>
     <EnableRegFreeCom>true</EnableRegFreeCom>
-    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <RegisterForComInterop>True</RegisterForComInterop>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <RegisterForComInterop>False</RegisterForComInterop>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
