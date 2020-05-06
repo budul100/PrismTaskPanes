@@ -1,4 +1,5 @@
 ﻿using Prism.Regions;
+using System;
 
 namespace TestViewLib.ViewModels
 {
@@ -15,7 +16,7 @@ namespace TestViewLib.ViewModels
 
         public ViewAViewModel()
         {
-            Message = "View A from your Prism Module";
+            Message = $"View at {DateTime.Now:fff}.";
         }
 
         #endregion Public Constructors

@@ -1,48 +1,37 @@
 ﻿using PrismTaskPanes.Interfaces;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace PrismTaskPanes.Extensions
 {
     internal static class HashExtensions
     {
+        #region Private Fields
+
+        private const string AllCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private const int HashLength = 20;
+        private const string Separator = "\n";
+
+        #endregion Private Fields
+
         #region Public Methods
 
-        public static int GetReceiverHash(this ITaskPanesReceiver receiver, string id)
+        public static string GetHashString(this string value, int length = HashLength)
         {
-            var result = GetStaticHash(
+            return value.GetHashString(length, AllCharacters);
+        }
+
+        public static string GetReceiverHash(this ITaskPanesReceiver receiver, string id)
+        {
+            var value = string.Join(
+                Separator,
                 id,
                 receiver.GetType().FullName);
 
-            return result;
-        }
-
-        public static int GetStaticHash(this object value)
-        {
-            var result = 0;
-            var text = value?.ToString();
-
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                uint hash = 0;
-
-                // if you care this can be done much faster with unsafe
-                // using fixed char* reinterpreted as a byte*
-                foreach (var @byte in Encoding.Unicode.GetBytes(text))
-                {
-                    hash += @byte;
-                    hash += (hash << 10);
-                    hash ^= (hash >> 6);
-                }
-
-                // final avalanche
-                hash += (hash << 3);
-                hash ^= (hash >> 11);
-                hash += (hash << 15);
-
-                // helpfully we only want positive integer < MUST_BE_LESS_THAN
-                // so simple truncate cast is ok if not perfect
-                result = (int)hash;
-            }
+            var result = GetHashString(
+                value: value,
+                length: HashLength,
+                chars: AllCharacters);
 
             return result;
         }
@@ -51,19 +40,29 @@ namespace PrismTaskPanes.Extensions
 
         #region Private Methods
 
-        private static int GetStaticHash(params object[] values)
+        private static string GetHashString(this string value, int length, string chars)
         {
-            unchecked
+            var result = default(string);
+
+            if (!string.IsNullOrWhiteSpace(value))
             {
-                var result = 17;
-
-                foreach (var value in values)
+                using (var hashString = new SHA256Managed())
                 {
-                    result = result * 31 + value.GetStaticHash();
-                }
+                    var bytes = Encoding.UTF8.GetBytes(value);
 
-                return result;
+                    var hash1 = hashString.ComputeHash(bytes);
+                    var hash2 = new char[length];
+
+                    for (var i = 0; i < hash2.Length; i++)
+                    {
+                        hash2[i] = chars[hash1[i] % chars.Length];
+                    }
+
+                    result = new string(hash2);
+                }
             }
+
+            return result;
         }
 
         #endregion Private Methods

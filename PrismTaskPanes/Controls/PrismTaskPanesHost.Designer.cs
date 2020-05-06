@@ -5,7 +5,7 @@
         /// <summary> 
         /// Erforderliche Designervariable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer components = default;
 
         /// <summary> 
         /// Verwendete Ressourcen bereinigen.
@@ -13,7 +13,7 @@
         /// <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (components != default))
             {
                 components.Dispose();
             }
@@ -39,7 +39,7 @@
             this.elementHost.Size = new System.Drawing.Size(150, 150);
             this.elementHost.TabIndex = 0;
             this.elementHost.Text = "elementHost";
-            this.elementHost.Child = null;
+            this.elementHost.Child = default;
 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

@@ -1,13 +1,14 @@
 ﻿using NetOffice.OfficeApi;
 using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
+using PrismTaskPanes.Settings;
 using PrismTaskPanes.Controls;
-using PrismTaskPanes.Configurations;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace PrismTaskPanes.TaskPanes
+namespace PrismTaskPanes.Factories
 {
     internal class TaskPanesFactory
     {
@@ -32,7 +33,7 @@ namespace PrismTaskPanes.TaskPanes
 
         #region Public Methods
 
-        public CustomTaskPane Get(Configuration settings)
+        public CustomTaskPane Get(TaskPaneSettings settings)
         {
             var result = GetTaskPane(settings);
 
@@ -58,7 +59,7 @@ namespace PrismTaskPanes.TaskPanes
                 : string.Empty;
         }
 
-        private static Uri GetUriNavigation(Configuration settings)
+        private static Uri GetUriNavigation(TaskPaneSettings settings)
         {
             var view = settings.View.Name;
 
@@ -89,7 +90,7 @@ namespace PrismTaskPanes.TaskPanes
             return result;
         }
 
-        private CustomTaskPane GetTaskPane(Configuration settings)
+        private CustomTaskPane GetTaskPane(TaskPaneSettings settings)
         {
             var result = ctpFactory.CreateCTP(
                 cTPAxID: GetAxID<PrismTaskPanesHost>(),
@@ -117,15 +118,16 @@ namespace PrismTaskPanes.TaskPanes
                 .OnTaskPaneChangedEvent?
                 .Invoke(
                     sender: tp,
-                    e: null);
+                    e: default);
 
             return result;
         }
 
-        private void SetRegions(CustomTaskPane taskPane, Configuration settings)
+        private void SetRegions(CustomTaskPane taskPane, TaskPaneSettings settings)
         {
             var host = taskPane.ContentControl as PrismTaskPanesHost;
-            var hostRegionName = host.GetHashCode().ToString();
+            var hostRegionName = host.GetHashCode()
+                .ToString(CultureInfo.InvariantCulture);
 
             host.SetLocalRegion(
                 regionName: hostRegionName,

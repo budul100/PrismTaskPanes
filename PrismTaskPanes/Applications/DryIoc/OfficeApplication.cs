@@ -1,18 +1,14 @@
 ﻿using CommonServiceLocator;
 using DryIoc;
-using NetOffice.OfficeApi;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
-using PrismTaskPanes.Configurations;
 using PrismTaskPanes.Controls;
 using PrismTaskPanes.Extensions;
+using PrismTaskPanes.Factories;
 using PrismTaskPanes.Regions;
-using PrismTaskPanes.TaskPanes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace PrismTaskPanes.Applications.DryIoc
 {
@@ -21,10 +17,9 @@ namespace PrismTaskPanes.Applications.DryIoc
     {
         #region Private Fields
 
-        private readonly ICTPFactory ctpFactory;
-        private readonly IList<TaskPanesRepository> taskPaneRepositories = new List<TaskPanesRepository>();
+        private readonly TaskPanesRepositoryFactory repositoryFactory;
 
-        private bool disposed;
+        private bool isDisposed;
 
         #endregion Private Fields
 
@@ -32,9 +27,13 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         public OfficeApplication(object application, object ctpFactoryInst)
         {
-            ctpFactory = new ICTPFactory(
-                parentObject: application as NetOffice.ICOMObject,
-                comProxy: ctpFactoryInst);
+            repositoryFactory = new TaskPanesRepositoryFactory(
+                application: application,
+                ctpFactoryInst: ctpFactoryInst,
+                scopeGetter: () => Container.GetContainer(),
+                taskPaneWindowGetter: () => TaskPaneWindow,
+                taskPaneWindowKeyGetter: () => TaskPaneWindowKey,
+                taskPaneIdentifierGetter: () => GetTaskPaneIdentifier().GetHashString());
         }
 
         #endregion Public Constructors
@@ -57,14 +56,15 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         public IResolverContext GetResolverContext()
         {
-            var result = GetRepository()?.Scope as IResolverContext;
+            var result = repositoryFactory.Get()?
+                .Scope as IResolverContext;
 
             return result;
         }
 
-        public void SetTaskPaneVisible(int hash, bool isVisible)
+        public void SetTaskPaneVisible(string hash, bool isVisible)
         {
-            var repository = GetRepository();
+            var repository = repositoryFactory.Get();
 
             if (repository != default)
             {
@@ -76,16 +76,17 @@ namespace PrismTaskPanes.Applications.DryIoc
             }
         }
 
-        public bool TaskPaneExists(int hash)
+        public bool TaskPaneExists(string hash)
         {
-            var result = GetRepository()?.Exists(hash);
+            var result = repositoryFactory.Get()?
+                .Exists(hash);
 
             return result ?? false;
         }
 
-        public bool TaskPaneVisible(int hash)
+        public bool TaskPaneVisible(string hash)
         {
-            var result = GetRepository()?
+            var result = repositoryFactory.Get()?
                 .IsVisible(hash);
 
             return result ?? false;
@@ -95,23 +96,9 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Protected Methods
 
-        protected void CloseApplication()
-        {
-            foreach (var taskPaneRepository in taskPaneRepositories)
-            {
-                CloseRepository(taskPaneRepository);
-            }
-
-            taskPaneRepositories.Clear();
-
-            ctpFactory.Dispose();
-            Container.GetContainer().Dispose();
-        }
-
         protected void CloseScope()
         {
-            var repository = GetRepository();
-            CloseRepository(repository);
+            repositoryFactory.Close();
 
             var scope = GetResolverContext();
             scope?.Dispose();
@@ -135,14 +122,14 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!isDisposed)
             {
                 if (disposing)
                 {
-                    CloseApplication();
+                    repositoryFactory.Dispose();
                 }
 
-                disposed = true;
+                isDisposed = true;
             }
         }
 
@@ -150,7 +137,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         protected void OpenScope()
         {
-            GetRepository(true);
+            repositoryFactory.Create();
         }
 
         protected override void RegisterRequiredTypes(IContainerRegistry containerRegistry)
@@ -171,74 +158,10 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         protected void SaveScope()
         {
-            var repository = GetRepository();
+            var repository = repositoryFactory.Get();
             repository.Save();
         }
 
         #endregion Protected Methods
-
-        #region Private Methods
-
-        private void CloseRepository(TaskPanesRepository repository)
-        {
-            if (repository != default)
-            {
-                repository.Save();
-                repository.Dispose();
-
-                taskPaneRepositories.Remove(repository);
-            }
-        }
-
-        private int GetDocumentHash()
-        {
-            return GetTaskPaneIdentifier()
-                .GetStaticHash();
-        }
-
-        private TaskPanesRepository GetRepository(bool createIfNotExists = false)
-        {
-            var result = default(TaskPanesRepository);
-
-            if (TaskPaneWindowKey.HasValue)
-            {
-                result = taskPaneRepositories
-                    .SingleOrDefault(r => r.Key == TaskPaneWindowKey.Value);
-
-                if (result == default && createIfNotExists)
-                {
-                    var scope = Container.GetContainer()
-                        .OpenScope(name: TaskPaneWindowKey.Value);
-
-                    var hostRegionManager = scope.Resolve<IRegionManager>();
-
-                    var taskPanesFactory = new TaskPanesFactory(
-                        ctpFactory: ctpFactory,
-                        hostRegionManager: hostRegionManager,
-                        taskPaneWindow: TaskPaneWindow);
-
-                    var configurationsRepository = scope.Resolve<ConfigurationsRepository>();
-
-                    result = new TaskPanesRepository(
-                        key: TaskPaneWindowKey.Value,
-                        scope: scope,
-                        taskPanesFactory: taskPanesFactory,
-                        configurationsRepository: configurationsRepository,
-                        documentHashGetter: () => GetDocumentHash());
-
-                    taskPaneRepositories.Add(result);
-
-                    result.Initialise();
-
-                    DryIocProvider.OnTaskPaneInitializedEvent?.Invoke(
-                        sender: scope,
-                        e: null);
-                }
-            }
-
-            return result;
-        }
-
-        #endregion Private Methods
     }
 }

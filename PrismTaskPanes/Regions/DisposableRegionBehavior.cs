@@ -6,8 +6,8 @@ using System.Windows;
 
 namespace PrismTaskPanes.Regions
 {
-    internal class DisposableRegionBehavior :
-         RegionBehavior
+    public class DisposableRegionBehavior
+        : RegionBehavior
     {
         #region Public Properties
 

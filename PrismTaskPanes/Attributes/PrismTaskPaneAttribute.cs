@@ -27,15 +27,24 @@ namespace PrismTaskPanes.Attributes
             MsoCTPDockPositionRestrict dockRestriction = MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone) :
             this()
         {
-            ID = id ?? throw new ArgumentNullException(nameof(id));
-            View = view ?? throw new ArgumentNullException(nameof(view));
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
 
             if (string.IsNullOrWhiteSpace(title))
+            {
                 throw new ArgumentNullException(nameof(title));
+            }
 
             if (string.IsNullOrWhiteSpace(regionName))
+            {
                 throw new ArgumentNullException(nameof(regionName));
+            }
 
+            View = view ?? throw new ArgumentNullException(nameof(view));
+
+            ID = id;
             Title = title;
             RegionName = regionName;
 
@@ -72,7 +81,9 @@ namespace PrismTaskPanes.Attributes
                 dockRestriction: dockRestriction)
         {
             if (string.IsNullOrWhiteSpace(navigationKey))
+            {
                 throw new ArgumentNullException(nameof(navigationKey));
+            }
 
             NavigationKey = navigationKey;
             NavigationValue = navigationValue;
@@ -95,7 +106,9 @@ namespace PrismTaskPanes.Attributes
                 dockRestriction: dockRestriction)
         {
             if (string.IsNullOrWhiteSpace(regionContext))
+            {
                 throw new ArgumentNullException(nameof(regionContext));
+            }
 
             RegionContext = regionContext;
         }
@@ -120,7 +133,7 @@ namespace PrismTaskPanes.Attributes
 
         public string NavigationValue { get; set; }
 
-        public int ReceiverHash { get; set; }
+        public string ReceiverHash { get; set; }
 
         public string RegionContext { get; set; }
 

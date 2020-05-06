@@ -32,7 +32,8 @@ namespace PrismTaskPanes.Extensions
 
             navigationAware = frameworkElement.DataContext as INavigationAware;
 
-            return navigationAware == null || navigationAware.IsNavigationTarget(navigationContext);
+            return navigationAware == default
+                || navigationAware.IsNavigationTarget(navigationContext);
         }
 
         #endregion Public Methods

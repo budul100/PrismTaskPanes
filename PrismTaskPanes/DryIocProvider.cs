@@ -20,10 +20,7 @@ namespace PrismTaskPanes
 
         public static EventHandler OnTaskPaneInitializedEvent { get; set; }
 
-        public static IResolverContext ResolverContext
-        {
-            get => officeApplication.GetResolverContext();
-        }
+        public static IResolverContext ResolverContext => officeApplication.GetResolverContext();
 
         #endregion Public Properties
 
@@ -32,6 +29,11 @@ namespace PrismTaskPanes
         public static void InitializeTaskPanesProvider(this ITaskPanesReceiver receiver, object application,
             object ctpFactoryInst)
         {
+            if (receiver == default)
+            {
+                throw new ArgumentNullException(nameof(receiver));
+            }
+
             BaseProvider.AddReceiver(receiver);
 
             if (officeApplication == default)
@@ -47,7 +49,13 @@ namespace PrismTaskPanes
 
         public static void SetTaskPaneVisible(this ITaskPanesReceiver receiver, string id, bool isVisible)
         {
+            if (receiver == default)
+            {
+                throw new ArgumentNullException(nameof(receiver));
+            }
+
             var receiverHash = receiver.GetReceiverHash(id);
+
             officeApplication?.SetTaskPaneVisible(
                 hash: receiverHash,
                 isVisible: isVisible);
@@ -55,7 +63,13 @@ namespace PrismTaskPanes
 
         public static bool TaskPaneExists(this ITaskPanesReceiver receiver, string id)
         {
+            if (receiver == default)
+            {
+                throw new ArgumentNullException(nameof(receiver));
+            }
+
             var receiverHash = receiver.GetReceiverHash(id);
+
             var result = officeApplication?.TaskPaneExists(receiverHash);
 
             return result ?? false;
@@ -63,6 +77,11 @@ namespace PrismTaskPanes
 
         public static bool TaskPaneVisible(this ITaskPanesReceiver receiver, string id)
         {
+            if (receiver == default)
+            {
+                throw new ArgumentNullException(nameof(receiver));
+            }
+
             var receiverHash = receiver.GetReceiverHash(id);
             var result = officeApplication?.TaskPaneVisible(receiverHash);
 

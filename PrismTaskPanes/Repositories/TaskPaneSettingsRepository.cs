@@ -6,14 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace PrismTaskPanes.Configurations
+namespace PrismTaskPanes.Settings
 {
-    internal class ConfigurationsRepository
+    internal class TaskPaneSettingsRepository
     {
         #region Private Fields
 
         private readonly IList<PrismTaskPaneAttribute> attributes = new List<PrismTaskPaneAttribute>();
-        private readonly IList<Configuration> configurations;
+        private readonly IList<TaskPaneSettings> configurations;
 
         private readonly string configurationsPath;
 
@@ -21,10 +21,18 @@ namespace PrismTaskPanes.Configurations
 
         #region Public Constructors
 
-        public ConfigurationsRepository(string configurationsPath)
+        public TaskPaneSettingsRepository(string configurationsPath)
         {
             this.configurationsPath = configurationsPath;
-            configurations = ReadConfigurations().ToList();
+
+            try
+            {
+                configurations = ReadConfigurations().ToList();
+            }
+            catch
+            {
+                configurations = new List<TaskPaneSettings>();
+            }
         }
 
         #endregion Public Constructors
@@ -39,14 +47,14 @@ namespace PrismTaskPanes.Configurations
             }
         }
 
-        public IEnumerable<Configuration> Get(int documentHash)
+        public IEnumerable<TaskPaneSettings> Get(string documentHash)
         {
             var result = GetAllConfigurations(documentHash).ToArray();
 
             return result;
         }
 
-        public Configuration Get(int receiverHash, int documentHash)
+        public TaskPaneSettings Get(string receiverHash, string documentHash)
         {
             var result = GetCurrentConfiguration(
                 receiverHash: receiverHash,
@@ -60,7 +68,7 @@ namespace PrismTaskPanes.Configurations
             WriteConfigurations();
         }
 
-        public void Set(int receiverHash, int documentHash, bool visible,
+        public void Set(string receiverHash, string documentHash, bool visible,
             int width, int height, MsoCTPDockPosition dockPosition)
         {
             UpdateConfiguration(
@@ -76,7 +84,7 @@ namespace PrismTaskPanes.Configurations
 
         #region Private Methods
 
-        private IEnumerable<Configuration> GetAllConfigurations(int documentHash)
+        private IEnumerable<TaskPaneSettings> GetAllConfigurations(string documentHash)
         {
             foreach (var attribute in attributes)
             {
@@ -88,21 +96,23 @@ namespace PrismTaskPanes.Configurations
             }
         }
 
-        private Configuration GetCurrentConfiguration(int receiverHash, int documentHash)
+        private TaskPaneSettings GetCurrentConfiguration(string receiverHash, string documentHash)
         {
             var currentAttribute = attributes
                 .FirstOrDefault(a => a.ReceiverHash == receiverHash);
 
-            if (currentAttribute == null) throw new ApplicationException(
-                $"There is no respective Prism Task Pane defined.");
+            if (currentAttribute == default)
+            {
+                throw new ApplicationException("There is no respective Prism Task Pane defined.");
+            }
 
             var result = configurations?
                 .Where(s => s.ReceiverHash == receiverHash)
                 .Where(s => s.DocumentHash == documentHash).LastOrDefault();
 
-            if (result == null)
+            if (result == default)
             {
-                result = new Configuration
+                result = new TaskPaneSettings
                 {
                     ReceiverHash = receiverHash,
                     DockPosition = currentAttribute.DockPosition,
@@ -127,21 +137,18 @@ namespace PrismTaskPanes.Configurations
             return result;
         }
 
-        private IEnumerable<Configuration> ReadConfigurations()
+        private IEnumerable<TaskPaneSettings> ReadConfigurations()
         {
             if (File.Exists(configurationsPath))
             {
-                var configurations = Array.Empty<Configuration>();
-                var serializer = new XmlSerializer(configurations.GetType());
+                var configurations = Enumerable.Empty<TaskPaneSettings>();
 
-                try
+                using (var file = new StreamReader(configurationsPath))
                 {
-                    using (StreamReader file = new StreamReader(configurationsPath))
-                    {
-                        configurations = (Configuration[])(serializer.Deserialize(file));
-                    }
+                    var serializer = new XmlSerializer(configurations.GetType());
+
+                    configurations = serializer.Deserialize(file) as TaskPaneSettings[];
                 }
-                catch { }
 
                 if (configurations?.Any() ?? false)
                 {
@@ -153,7 +160,7 @@ namespace PrismTaskPanes.Configurations
             }
         }
 
-        private void UpdateConfiguration(int attributeHash, int documentHash, bool visible, int width, int height,
+        private void UpdateConfiguration(string attributeHash, string documentHash, bool visible, int width, int height,
             MsoCTPDockPosition dockPosition)
         {
             var currentConfiguration = GetCurrentConfiguration(

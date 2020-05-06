@@ -1,7 +1,7 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes.Attributes;
-using PrismTaskPanes.Configurations;
+using PrismTaskPanes.Settings;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using System;
@@ -17,7 +17,7 @@ namespace PrismTaskPanes
 
         private const string TXTSettingsFileName = "PrismTaskPanes.xml";
 
-        private static readonly ConfigurationsRepository configurationsRepository = GetConfigurationsRepository();
+        private static readonly TaskPaneSettingsRepository configurationsRepository = GetConfigurationsRepository();
         private static readonly IList<ITaskPanesReceiver> receivers = new List<ITaskPanesReceiver>();
 
         #endregion Private Fields
@@ -79,14 +79,14 @@ namespace PrismTaskPanes
             }
         }
 
-        private static ConfigurationsRepository GetConfigurationsRepository()
+        private static TaskPaneSettingsRepository GetConfigurationsRepository()
         {
             var directory = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 Assembly.GetExecutingAssembly().GetName().Name);
             var path = Path.Combine(directory, TXTSettingsFileName);
 
-            var result = new ConfigurationsRepository(path);
+            var result = new TaskPaneSettingsRepository(path);
             return result;
         }
 

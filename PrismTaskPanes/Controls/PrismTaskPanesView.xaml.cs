@@ -9,8 +9,8 @@ namespace PrismTaskPanes.Controls
     [ScopedRegion(
         CreateRegionManagerScope = true,
         ViewName = TaskPaneViewName)]
-    public partial class PrismTaskPanesView :
-        UserControl, IScopedRegion
+    public partial class PrismTaskPanesView
+        : UserControl, IScopedRegion
     {
         #region Private Fields
 

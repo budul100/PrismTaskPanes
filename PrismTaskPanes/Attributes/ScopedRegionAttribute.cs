@@ -7,6 +7,7 @@ namespace PrismTaskPanes.Attributes
     /// Attribute used to indicate if scoped region manager needs to be
     /// instantiated and attached to created view.
     /// </summary>
+    [AttributeUsage(validOn: AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     internal sealed class ScopedRegionAttribute
         : Attribute, IScopedRegion
     {

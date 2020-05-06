@@ -2,11 +2,11 @@
 using System;
 using System.Xml.Serialization;
 
-namespace PrismTaskPanes.Configurations
+namespace PrismTaskPanes.Settings
 {
     [Serializable]
     [XmlType("PrismTaskPaneConfiguration")]
-    public class Configuration
+    public class TaskPaneSettings
     {
         #region Public Properties
 
@@ -17,7 +17,8 @@ namespace PrismTaskPanes.Configurations
         public MsoCTPDockPositionRestrict DockRestriction { get; set; } =
             MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone;
 
-        public int DocumentHash { get; set; }
+        public string DocumentHash { get; set; }
+
         public int Height { get; set; }
 
         [XmlIgnore]
@@ -29,7 +30,7 @@ namespace PrismTaskPanes.Configurations
         [XmlIgnore]
         public string NavigationValue { get; set; }
 
-        public int ReceiverHash { get; set; }
+        public string ReceiverHash { get; set; }
 
         [XmlIgnore]
         public string RegionContext { get; set; }

@@ -46,7 +46,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         protected override string GetTaskPaneIdentifier()
         {
-            var path = application.ActiveWorkbook?.FullName ?? null;
+            var path = application.ActiveWorkbook?.FullName;
             var isPath = !string.IsNullOrWhiteSpace(Path.GetDirectoryName(path));
 
             return isPath
@@ -67,7 +67,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         private void OnApplicationDispose(NetOffice.OnDisposeEventArgs eventArgs)
         {
-            CloseApplication();
+            Dispose();
         }
 
         private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)

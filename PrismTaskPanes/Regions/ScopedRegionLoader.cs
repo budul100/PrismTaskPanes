@@ -8,8 +8,8 @@ using System.Linq;
 
 namespace PrismTaskPanes.Regions
 {
-    internal class ScopedRegionLoader :
-        RegionNavigationContentLoader, IRegionNavigationContentLoader
+    public class ScopedRegionLoader
+        : RegionNavigationContentLoader, IRegionNavigationContentLoader
     {
         #region Private Fields
 
@@ -19,8 +19,8 @@ namespace PrismTaskPanes.Regions
 
         #region Public Constructors
 
-        public ScopedRegionLoader(IServiceLocator serviceLocator) :
-            base(serviceLocator)
+        public ScopedRegionLoader(IServiceLocator serviceLocator)
+            : base(serviceLocator)
         {
             this.serviceLocator = serviceLocator;
         }
@@ -31,10 +31,15 @@ namespace PrismTaskPanes.Regions
 
         public new object LoadContent(IRegion region, NavigationContext navigationContext)
         {
-            if (region == null)
+            if (region == default)
+            {
                 throw new ArgumentNullException(nameof(region));
-            if (navigationContext == null)
+            }
+
+            if (navigationContext == default)
+            {
                 throw new ArgumentNullException(nameof(navigationContext));
+            }
 
             var candidateTargetContract = GetContractFromNavigationContext(navigationContext);
 
@@ -84,7 +89,9 @@ namespace PrismTaskPanes.Regions
         protected override IEnumerable<object> GetCandidatesFromRegion(IRegion region, string candidateNavigationContract)
         {
             if (string.IsNullOrWhiteSpace(candidateNavigationContract))
+            {
                 throw new ArgumentNullException(nameof(candidateNavigationContract));
+            }
 
             var result = base.GetCandidatesFromRegion(
                 region: region,
@@ -95,8 +102,8 @@ namespace PrismTaskPanes.Regions
                 var matchingInstances = serviceLocator
                     .GetInstance<object>(candidateNavigationContract);
 
-                if (matchingInstances == null)
-                    return Array.Empty<object>();
+                if (matchingInstances == default)
+                    return Enumerable.Empty<object>();
 
                 var typeCandidateName = matchingInstances.GetType().FullName;
 
