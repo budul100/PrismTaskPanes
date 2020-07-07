@@ -56,9 +56,9 @@
   <ItemGroup>
     <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
     <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
-    <PackageReference Include="DryIoc.dll" Version="4.1.4" />
-    <PackageReference Include="NetOfficeFw.Core" Version="1.7.4.8" />
-    <PackageReference Include="NetOfficeFw.Excel" Version="1.7.4.8" />
+    <PackageReference Include="DryIoc.dll" Version="4.2.3" />
+    <PackageReference Include="NetOfficeFw.Core" Version="1.7.4.11" />
+    <PackageReference Include="NetOfficeFw.Excel" Version="1.7.4.11" />
     <PackageReference Include="Prism.Core" Version="7.2.0.1422" />
     <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
