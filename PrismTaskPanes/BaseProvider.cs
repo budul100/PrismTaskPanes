@@ -1,12 +1,13 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes.Attributes;
-using PrismTaskPanes.Settings;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
+using PrismTaskPanes.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace PrismTaskPanes
@@ -26,7 +27,7 @@ namespace PrismTaskPanes
 
         internal static void AddReceiver(ITaskPanesReceiver receiver)
         {
-            var attributes = GetAttributes(receiver);
+            var attributes = GetAttributes(receiver).ToArray();
             configurationsRepository.AddAttributes(attributes);
 
             receivers.Add(receiver);
