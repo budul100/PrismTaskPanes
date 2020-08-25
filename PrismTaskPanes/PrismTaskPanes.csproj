@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>PrismTaskPanes</AssemblyName>
-    <AssemblyVersion>2.5.0.0</AssemblyVersion>
+    <AssemblyVersion>2.6.0.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>
@@ -48,8 +48,8 @@
 
   <ItemGroup>
     <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
-    <PackageReference Include="NetOfficeFw.Core" Version="1.7.6" />
-    <PackageReference Include="NetOfficeFw.Excel" Version="1.7.6" />
+    <PackageReference Include="NetOfficeFw.Core" Version="1.7.8" />
+    <PackageReference Include="NetOfficeFw.Excel" Version="1.7.8" />
     <PackageReference Include="Prism.Core" Version="7.2.0.1422" />
     <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
