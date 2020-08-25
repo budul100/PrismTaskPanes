@@ -27,7 +27,7 @@ namespace PrismTaskPanes
 
         #region Public Methods
 
-        public static void InitializeTaskPanesProvider(this ITaskPanesReceiver receiver, object application,
+        public static void InitializeProvider(this ITaskPanesReceiver receiver, object application,
             object ctpFactoryInst)
         {
             if (receiver == default)
@@ -46,6 +46,13 @@ namespace PrismTaskPanes
                         ctpFactoryInst: ctpFactoryInst);
                 }
             }
+        }
+
+        public static void RepositoryIsInitialized(IResolverContext scope)
+        {
+            OnTaskPaneInitializedEvent?.Invoke(
+                sender: scope,
+                e: default);
         }
 
         public static void SetTaskPaneVisible(this ITaskPanesReceiver receiver, string id, bool isVisible)
@@ -80,13 +87,6 @@ namespace PrismTaskPanes
         {
             OnTaskPaneChangedEvent?.Invoke(
                 sender: taskPane,
-                e: default);
-        }
-
-        public static void TaskPaneIsInitialized(IResolverContext scope)
-        {
-            OnTaskPaneInitializedEvent?.Invoke(
-                sender: scope,
                 e: default);
         }
 

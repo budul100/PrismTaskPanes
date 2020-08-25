@@ -17,7 +17,7 @@ namespace PrismTaskPanes.Factories
         #region Private Fields
 
         private readonly ICTPFactory ctpFactory;
-        private readonly IList<TaskPanesRepository> repositories = new List<TaskPanesRepository>();
+        private readonly IDictionary<int, TaskPanesRepository> repositories = new Dictionary<int, TaskPanesRepository>();
         private readonly Func<IContainer> scopeGetter;
         private readonly Func<string> taskPaneIdentifierGetter;
         private readonly Func<object> taskPaneWindowGetter;
@@ -50,7 +50,13 @@ namespace PrismTaskPanes.Factories
         {
             var repository = Get();
 
-            CloseRepository(repository);
+            if (repository != default)
+            {
+                var key = repository.Key;
+
+                CloseRepository(repository);
+                repositories.Remove(key);
+            }
         }
 
         public void Create()
@@ -81,10 +87,10 @@ namespace PrismTaskPanes.Factories
 
             var key = taskPaneWindowKeyGetter.Invoke();
 
-            if (key.HasValue)
+            if (key.HasValue
+                && repositories.ContainsKey(key.Value))
             {
-                result = repositories
-                    .SingleOrDefault(r => r.Key == key.Value);
+                result = repositories[key.Value];
             }
 
             return result;
@@ -102,7 +108,7 @@ namespace PrismTaskPanes.Factories
                 {
                     foreach (var repository in repositories)
                     {
-                        CloseRepository(repository);
+                        CloseRepository(repository.Value);
                     }
 
                     scopeGetter.Invoke().Dispose();
@@ -119,14 +125,12 @@ namespace PrismTaskPanes.Factories
 
         #region Private Methods
 
-        private void CloseRepository(TaskPanesRepository repository)
+        private static void CloseRepository(TaskPanesRepository repository)
         {
             if (repository != default)
             {
                 repository.Save();
                 repository.Dispose();
-
-                repositories.Remove(repository);
             }
         }
 
@@ -150,11 +154,12 @@ namespace PrismTaskPanes.Factories
                     configurationsRepository: configurationsRepository,
                     documentHashGetter: taskPaneIdentifierGetter);
 
-            repositories.Add(repository);
+            repositories.Add(
+                key: key,
+                value: repository);
 
             repository.Initialise();
-
-            DryIocProvider.TaskPaneIsInitialized(scope);
+            DryIocProvider.RepositoryIsInitialized(scope);
         }
 
         #endregion Private Methods

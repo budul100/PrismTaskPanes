@@ -99,9 +99,6 @@ namespace PrismTaskPanes.Applications.DryIoc
         protected void CloseScope()
         {
             repositoryFactory.Close();
-
-            var scope = GetResolverContext();
-            scope?.Dispose();
         }
 
         protected override void ConfigureDefaultRegionBehaviors(IRegionBehaviorFactory regionBehaviors)

@@ -45,7 +45,7 @@ namespace TestAddIn2
         {
             base.CTPFactoryAvailable(CTPFactoryInst);
 
-            this.InitializeTaskPanesProvider(
+            this.InitializeProvider(
                 application: Application,
                 ctpFactoryInst: CTPFactoryInst);
         }
