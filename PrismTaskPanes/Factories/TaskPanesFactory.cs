@@ -1,12 +1,14 @@
 ﻿using NetOffice.OfficeApi;
 using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
-using PrismTaskPanes.Settings;
 using PrismTaskPanes.Controls;
+using PrismTaskPanes.Settings;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+
+#pragma warning disable CA1031 // Keine allgemeinen Ausnahmetypen abfangen
 
 namespace PrismTaskPanes.Factories
 {
@@ -114,11 +116,7 @@ namespace PrismTaskPanes.Factories
             catch
             { }
 
-            result.VisibleStateChangeEvent += (tp) => DryIocProvider
-                .OnTaskPaneChangedEvent?
-                .Invoke(
-                    sender: tp,
-                    e: default);
+            result.VisibleStateChangeEvent += (taskPane) => DryIocProvider.TaskPaneIsChanged(taskPane);
 
             return result;
         }
@@ -155,3 +153,5 @@ namespace PrismTaskPanes.Factories
         #endregion Private Methods
     }
 }
+
+#pragma warning restore CA1031 // Keine allgemeinen Ausnahmetypen abfangen

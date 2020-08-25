@@ -21,7 +21,7 @@ namespace PrismTaskPanes.Factories
         private readonly Func<object> taskPaneWindowGetter;
         private readonly Func<int?> taskPaneWindowKeyGetter;
 
-        private bool isDisposed = false;
+        private bool isDisposed;
 
         #endregion Private Fields
 
@@ -156,9 +156,7 @@ namespace PrismTaskPanes.Factories
 
             result.Initialise();
 
-            DryIocProvider.OnTaskPaneInitializedEvent?.Invoke(
-                sender: scope,
-                e: default);
+            DryIocProvider.TaskPaneIsInitialized(scope);
 
             return result;
         }

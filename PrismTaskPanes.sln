@@ -53,20 +53,4 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DACADB1B-5786-44FA-AACA-C55066FE0CF8}
 	EndGlobalSection
-	GlobalSection(AutomaticVersions) = postSolution
-		UpdateAssemblyVersion.Debug|Any CPU = True
-		UpdateAssemblyFileVersion.Debug|Any CPU = False
-		UpdateAssemblyInfoVersion.Debug|Any CPU = False
-		AssemblyVersionSettings.Debug|Any CPU = None.NoneWithAutoReset.NoneWithAutoReset.NoneWithAutoReset
-		UpdatePackageVersion.Debug|Any CPU = False
-		AssemblyInfoVersionType.Debug|Any CPU = SettingsVersion
-		InheritWinAppVersionFrom.Debug|Any CPU = None
-		UpdateAssemblyVersion.Release|Any CPU = True
-		UpdateAssemblyFileVersion.Release|Any CPU = False
-		UpdateAssemblyInfoVersion.Release|Any CPU = False
-		AssemblyVersionSettings.Release|Any CPU = None.IncrementOnDemand.NoneWithAutoReset.NoneWithAutoReset
-		UpdatePackageVersion.Release|Any CPU = False
-		AssemblyInfoVersionType.Release|Any CPU = SettingsVersion
-		InheritWinAppVersionFrom.Release|Any CPU = None
-	EndGlobalSection
 EndGlobal

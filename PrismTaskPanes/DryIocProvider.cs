@@ -1,4 +1,5 @@
 ﻿using DryIoc;
+using NetOffice.OfficeApi;
 using PrismTaskPanes.Applications.DryIoc;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
@@ -20,7 +21,7 @@ namespace PrismTaskPanes
 
         public static EventHandler OnTaskPaneInitializedEvent { get; set; }
 
-        public static IResolverContext ResolverContext => officeApplication.GetResolverContext();
+        public static IResolverContext ResolverContext => officeApplication?.GetResolverContext();
 
         #endregion Public Properties
 
@@ -73,6 +74,20 @@ namespace PrismTaskPanes
             var result = officeApplication?.TaskPaneExists(receiverHash);
 
             return result ?? false;
+        }
+
+        public static void TaskPaneIsChanged(_CustomTaskPane taskPane)
+        {
+            OnTaskPaneChangedEvent?.Invoke(
+                sender: taskPane,
+                e: default);
+        }
+
+        public static void TaskPaneIsInitialized(IResolverContext scope)
+        {
+            OnTaskPaneInitializedEvent?.Invoke(
+                sender: scope,
+                e: default);
         }
 
         public static bool TaskPaneVisible(this ITaskPanesReceiver receiver, string id)
