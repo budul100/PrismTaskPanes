@@ -16,7 +16,7 @@ namespace PrismTaskPanes.Factories
         private readonly Dictionary<string, CustomTaskPane> taskPanes = new Dictionary<string, CustomTaskPane>();
         private readonly TaskPanesFactory taskPanesFactory;
 
-        private bool disposed = false;
+        private bool disposed;
 
         #endregion Private Fields
 

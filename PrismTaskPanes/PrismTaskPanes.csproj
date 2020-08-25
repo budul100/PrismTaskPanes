@@ -47,9 +47,8 @@
   </PropertyGroup>
 
   <!--The CommonServiceLocator must be Version="2.0.4" until the respective Prism package is updated!-->
-
   <ItemGroup>
-    <PackageReference Include="CommonServiceLocator" Version="2.0.4" />
+    <PackageReference Include="CommonServiceLocator" Version="[2.0.4]" />
     <PackageReference Include="NetOfficeFw.Core" Version="1.7.8" />
     <PackageReference Include="NetOfficeFw.Excel" Version="1.7.8" />
     <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />

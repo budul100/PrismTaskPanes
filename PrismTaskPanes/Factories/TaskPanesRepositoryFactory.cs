@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+#pragma warning disable CA2000 // Objekte verwerfen, bevor Bereich verloren geht
+
 namespace PrismTaskPanes.Factories
 {
     internal class TaskPanesRepositoryFactory
@@ -51,7 +53,7 @@ namespace PrismTaskPanes.Factories
             CloseRepository(repository);
         }
 
-        public TaskPanesRepository Create()
+        public void Create()
         {
             var result = Get();
 
@@ -61,11 +63,9 @@ namespace PrismTaskPanes.Factories
 
                 if (key.HasValue)
                 {
-                    result = GetRepository(key.Value);
+                    CreateRepository(key.Value);
                 }
             }
-
-            return result;
         }
 
         public void Dispose()
@@ -130,10 +130,8 @@ namespace PrismTaskPanes.Factories
             }
         }
 
-        private TaskPanesRepository GetRepository(int key)
+        private void CreateRepository(int key)
         {
-            var result = default(TaskPanesRepository);
-
             var scope = scopeGetter.Invoke().OpenScope(key);
 
             var hostRegionManager = scope.Resolve<IRegionManager>();
@@ -145,22 +143,22 @@ namespace PrismTaskPanes.Factories
 
             var configurationsRepository = scope.Resolve<TaskPaneSettingsRepository>();
 
-            result = new TaskPanesRepository(
-                key: key,
-                scope: scope,
-                taskPanesFactory: taskPanesFactory,
-                configurationsRepository: configurationsRepository,
-                documentHashGetter: taskPaneIdentifierGetter);
+            var repository = new TaskPanesRepository(
+                    key: key,
+                    scope: scope,
+                    taskPanesFactory: taskPanesFactory,
+                    configurationsRepository: configurationsRepository,
+                    documentHashGetter: taskPaneIdentifierGetter);
 
-            repositories.Add(result);
+            repositories.Add(repository);
 
-            result.Initialise();
+            repository.Initialise();
 
             DryIocProvider.TaskPaneIsInitialized(scope);
-
-            return result;
         }
 
         #endregion Private Methods
     }
 }
+
+#pragma warning restore CA2000 // Objekte verwerfen, bevor Bereich verloren geht

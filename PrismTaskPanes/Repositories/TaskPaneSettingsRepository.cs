@@ -4,7 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
+
+#pragma warning disable CA1031 // Keine allgemeinen Ausnahmetypen abfangen
 
 namespace PrismTaskPanes.Settings
 {
@@ -143,11 +146,15 @@ namespace PrismTaskPanes.Settings
             {
                 var configurations = Enumerable.Empty<TaskPaneSettings>();
 
-                using (var file = new StreamReader(configurationsPath))
+                using (var file = new FileStream(
+                    path: configurationsPath, 
+                    mode: FileMode.Open))
                 {
-                    var serializer = new XmlSerializer(configurations.GetType());
-
-                    configurations = serializer.Deserialize(file) as TaskPaneSettings[];
+                    using (var reader = XmlReader.Create(file))
+                    {
+                        var serializer = new XmlSerializer(configurations.GetType());
+                        configurations = serializer.Deserialize(reader) as TaskPaneSettings[];
+                    }
                 }
 
                 if (configurations?.Any() ?? false)
@@ -195,3 +202,5 @@ namespace PrismTaskPanes.Settings
         #endregion Private Methods
     }
 }
+
+#pragma warning restore CA1031 // Keine allgemeinen Ausnahmetypen abfangen
