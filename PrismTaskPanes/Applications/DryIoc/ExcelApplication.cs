@@ -1,11 +1,12 @@
 ﻿using NetOffice.ExcelApi;
 using Prism.Ioc;
+using System;
 using System.IO;
 
 namespace PrismTaskPanes.Applications.DryIoc
 {
     internal class ExcelApplication
-        : OfficeApplication
+        : OfficeApplication, IDisposable
     {
         #region Private Fields
 
@@ -42,6 +43,19 @@ namespace PrismTaskPanes.Applications.DryIoc
         protected override System.Windows.Window CreateShell()
         {
             return default;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!isDisposed)
+            {
+                if (disposing)
+                {
+                    application.DisposeChildInstances();
+                }
+
+                base.Dispose(disposing);
+            }
         }
 
         protected override string GetTaskPaneIdentifier()

@@ -15,11 +15,15 @@ namespace PrismTaskPanes.Applications.DryIoc
     internal abstract class OfficeApplication
         : PrismApplication, IDisposable
     {
+        #region Protected Fields
+
+        protected bool isDisposed;
+
+        #endregion Protected Fields
+
         #region Private Fields
 
         private readonly TaskPanesRepositoryFactory repositoryFactory;
-
-        private bool isDisposed;
 
         #endregion Private Fields
 
