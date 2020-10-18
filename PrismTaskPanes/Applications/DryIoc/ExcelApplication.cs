@@ -51,7 +51,7 @@ namespace PrismTaskPanes.Applications.DryIoc
             {
                 if (disposing)
                 {
-                    application.DisposeChildInstances();
+                    application?.DisposeChildInstances();
                 }
 
                 base.Dispose(disposing);

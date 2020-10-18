@@ -5,9 +5,6 @@ using Prism.Regions;
 using PrismTaskPanes.Settings;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-
-#pragma warning disable CA2000 // Objekte verwerfen, bevor Bereich verloren geht
 
 namespace PrismTaskPanes.Factories
 {
@@ -77,7 +74,6 @@ namespace PrismTaskPanes.Factories
         public void Dispose()
         {
             Dispose(true);
-
             GC.SuppressFinalize(this);
         }
 
@@ -112,7 +108,7 @@ namespace PrismTaskPanes.Factories
                     }
 
                     scopeGetter.Invoke().Dispose();
-                    ctpFactory.Dispose();
+                    ctpFactory?.Dispose();
                 }
 
                 repositories.Clear();
@@ -165,5 +161,3 @@ namespace PrismTaskPanes.Factories
         #endregion Private Methods
     }
 }
-
-#pragma warning restore CA2000 // Objekte verwerfen, bevor Bereich verloren geht
