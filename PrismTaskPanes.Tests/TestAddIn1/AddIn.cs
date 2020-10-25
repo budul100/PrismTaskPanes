@@ -1,4 +1,5 @@
-﻿using NetOffice.ExcelApi.Tools;
+﻿using NetOffice.ExcelApi;
+using NetOffice.ExcelApi.Tools;
 using NetOffice.OfficeApi;
 using NetOffice.Tools;
 using Prism.Ioc;
@@ -89,7 +90,14 @@ namespace TestAddIn1
 
         private void Addin_OnStartupComplete(ref Array custom)
         {
+            Application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose;
+
             Console.WriteLine($"Addin started in Excel Version {Application.Version}");
+        }
+
+        private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)
+        {
+            Console.WriteLine($"Workbook will be closed.");
         }
 
         #endregion Private Methods
