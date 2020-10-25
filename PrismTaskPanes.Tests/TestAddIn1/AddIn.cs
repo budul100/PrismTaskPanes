@@ -58,6 +58,7 @@ namespace TestAddIn1
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            //containerRegistry.GetContainer().Register(this.GetType() , reuse: Reuse.Scoped)
         }
 
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)

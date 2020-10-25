@@ -38,6 +38,8 @@ namespace PrismTaskPanes.Applications.DryIoc
                 taskPaneWindowGetter: () => TaskPaneWindow,
                 taskPaneWindowKeyGetter: () => TaskPaneWindowKey,
                 taskPaneIdentifierGetter: () => GetTaskPaneIdentifier().GetHashString());
+
+            DryIocProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
         }
 
         #endregion Public Constructors
@@ -164,5 +166,14 @@ namespace PrismTaskPanes.Applications.DryIoc
         }
 
         #endregion Protected Methods
+
+        #region Private Methods
+
+        private void OnTaskPaneChanged(object sender, EventArgs e)
+        {
+            BaseProvider.InvalidateRibbonUI();
+        }
+
+        #endregion Private Methods
     }
 }

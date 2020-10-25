@@ -116,7 +116,7 @@ namespace PrismTaskPanes.Factories
             catch
             { }
 
-            result.VisibleStateChangeEvent += (taskPane) => DryIocProvider.TaskPaneIsChanged(taskPane);
+            result.VisibleStateChangeEvent += (taskPane) => DryIocProvider.OnTaskPaneChanged(taskPane);
 
             return result;
         }

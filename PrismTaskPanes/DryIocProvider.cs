@@ -15,11 +15,15 @@ namespace PrismTaskPanes
 
         #endregion Private Fields
 
+        #region Public Events
+
+        public static event EventHandler OnTaskPaneChangedEvent;
+
+        public static event EventHandler OnTaskPaneInitializedEvent;
+
+        #endregion Public Events
+
         #region Public Properties
-
-        public static EventHandler OnTaskPaneChangedEvent { get; set; }
-
-        public static EventHandler OnTaskPaneInitializedEvent { get; set; }
 
         public static IResolverContext ResolverContext => officeApplication?.GetResolverContext();
 
@@ -83,13 +87,6 @@ namespace PrismTaskPanes
             return result ?? false;
         }
 
-        public static void TaskPaneIsChanged(_CustomTaskPane taskPane)
-        {
-            OnTaskPaneChangedEvent?.Invoke(
-                sender: taskPane,
-                e: default);
-        }
-
         public static bool TaskPaneVisible(this ITaskPanesReceiver receiver, string id)
         {
             if (receiver == default)
@@ -104,5 +101,16 @@ namespace PrismTaskPanes
         }
 
         #endregion Public Methods
+
+        #region Internal Methods
+
+        internal static void OnTaskPaneChanged(_CustomTaskPane taskPane)
+        {
+            OnTaskPaneChangedEvent?.Invoke(
+                sender: taskPane,
+                e: default);
+        }
+
+        #endregion Internal Methods
     }
 }
