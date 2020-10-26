@@ -23,6 +23,7 @@ namespace PrismTaskPanes.Applications.DryIoc
         #region Private Fields
 
         private readonly TaskPanesRepositoryFactory repositoryFactory;
+        private IResolverContext currentContainer;
 
         #endregion Private Fields
 
@@ -30,6 +31,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         public OfficeApplication(object application, object ctpFactoryInst)
         {
+            DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
             DryIocProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
 
             repositoryFactory = new TaskPanesRepositoryFactory(
@@ -61,12 +63,9 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         public IResolverContext GetResolverContext()
         {
-            var result = default(IResolverContext);
-
-            if (repositoryFactory.IsAvailable())
-            {
-                result = repositoryFactory.Get().Scope as IResolverContext;
-            }
+            var result = repositoryFactory.IsAvailable()
+                ? repositoryFactory.Get().Scope as IResolverContext
+                : currentContainer;
 
             return result;
         }
@@ -172,7 +171,12 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Private Methods
 
-        private void OnTaskPaneChanged(object sender, EventArgs e)
+        private void OnScopeOpened(object sender, Events.DryIocEventArgs e)
+        {
+            currentContainer = e.Container;
+        }
+
+        private void OnTaskPaneChanged(object sender, Events.TaskPaneEventArgs e)
         {
             BaseProvider.InvalidateRibbonUI();
         }

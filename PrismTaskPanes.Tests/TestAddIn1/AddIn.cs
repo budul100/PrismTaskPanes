@@ -104,12 +104,14 @@ namespace TestAddIn1
 
         private void OnScopeInitialized(object sender, PrismTaskPanes.Events.DryIocEventArgs e)
         {
-            var test = e.Container.Resolve<ITestClass>();
+            var test1 = DryIocProvider.ResolverContext.Resolve<ITestClass>();
+            var test2 = e.Container.Resolve<ITestClass>();
         }
 
         private void OnScopeOpened(object sender, PrismTaskPanes.Events.DryIocEventArgs e)
         {
-            var test = e.Container.Resolve<ITestClass>();
+            var test1 = DryIocProvider.ResolverContext.Resolve<ITestClass>();
+            var test2 = e.Container.Resolve<ITestClass>();
         }
 
         private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)
