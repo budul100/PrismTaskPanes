@@ -3,7 +3,7 @@
 namespace TestCommon
 {
     public class TestClass
-        : ITestInterface
+        : ITestClass
     {
         #region Public Properties
 

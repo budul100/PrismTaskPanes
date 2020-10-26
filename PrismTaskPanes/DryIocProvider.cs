@@ -1,6 +1,7 @@
 ﻿using DryIoc;
 using NetOffice.OfficeApi;
 using PrismTaskPanes.Applications.DryIoc;
+using PrismTaskPanes.Events;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using System;
@@ -17,9 +18,11 @@ namespace PrismTaskPanes
 
         #region Public Events
 
-        public static event EventHandler OnTaskPaneChangedEvent;
+        public static event EventHandler<DryIocEventArgs> OnScopeInitialized;
 
-        public static event EventHandler OnTaskPaneInitializedEvent;
+        public static event EventHandler<DryIocEventArgs> OnScopeOpenedEvent;
+
+        public static event EventHandler<TaskPaneEventArgs> OnTaskPaneChangedEvent;
 
         #endregion Public Events
 
@@ -99,16 +102,29 @@ namespace PrismTaskPanes
 
         internal static void OnRepositoryInitialized(IResolverContext scope)
         {
-            OnTaskPaneInitializedEvent?.Invoke(
-                sender: scope,
-                e: default);
+            var eventArgs = new DryIocEventArgs(scope);
+
+            OnScopeInitialized?.Invoke(
+                sender: officeApplication,
+                e: eventArgs);
+        }
+
+        internal static void OnScopeOpened(IResolverContext scope)
+        {
+            var eventArgs = new DryIocEventArgs(scope);
+
+            OnScopeOpenedEvent?.Invoke(
+                sender: officeApplication,
+                e: eventArgs);
         }
 
         internal static void OnTaskPaneChanged(_CustomTaskPane taskPane)
         {
+            var eventArgs = new TaskPaneEventArgs(taskPane);
+
             OnTaskPaneChangedEvent?.Invoke(
-                sender: taskPane,
-                e: default);
+                sender: officeApplication,
+                e: eventArgs);
         }
 
         #endregion Internal Methods

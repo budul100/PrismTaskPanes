@@ -84,6 +84,16 @@ namespace PrismTaskPanes.Factories
             return result;
         }
 
+        public bool IsAvailable()
+        {
+            var key = taskPaneWindowKeyGetter.Invoke();
+
+            var result = key.HasValue
+                && repositories.ContainsKey(key.Value);
+
+            return result;
+        }
+
         #endregion Public Methods
 
         #region Protected Methods
@@ -126,6 +136,8 @@ namespace PrismTaskPanes.Factories
         private void CreateRepository(int key)
         {
             var scope = containerGetter.Invoke().OpenScope(key);
+
+            DryIocProvider.OnScopeOpened(scope);
 
             var hostRegionManager = scope.Resolve<IRegionManager>();
 

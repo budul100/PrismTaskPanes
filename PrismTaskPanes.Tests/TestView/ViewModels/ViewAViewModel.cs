@@ -1,5 +1,4 @@
-﻿using DryIoc;
-using Prism.Regions;
+﻿using Prism.Regions;
 using TestCommon;
 
 namespace TestViewLib.ViewModels
@@ -15,9 +14,8 @@ namespace TestViewLib.ViewModels
 
         #region Public Constructors
 
-        public ViewAViewModel(ITestInterface test, IResolverContext context)
+        public ViewAViewModel(ITestClass test)
         {
-            //var test = scopedContext.Resolve<ITestInterface>();
             Message = test.Message;
         }
 

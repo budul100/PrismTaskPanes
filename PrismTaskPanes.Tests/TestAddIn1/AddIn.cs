@@ -61,7 +61,7 @@ namespace TestAddIn1
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.GetContainer().Register<ITestInterface, TestClass>();
+            containerRegistry.GetContainer().Register<ITestClass, TestClass>();
         }
 
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)
@@ -96,7 +96,20 @@ namespace TestAddIn1
         {
             Application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose;
 
+            DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
+            DryIocProvider.OnScopeInitialized += OnScopeInitialized;
+
             Console.WriteLine($"Addin started in Excel Version {Application.Version}");
+        }
+
+        private void OnScopeInitialized(object sender, PrismTaskPanes.Events.DryIocEventArgs e)
+        {
+            var test = e.Container.Resolve<ITestClass>();
+        }
+
+        private void OnScopeOpened(object sender, PrismTaskPanes.Events.DryIocEventArgs e)
+        {
+            var test = e.Container.Resolve<ITestClass>();
         }
 
         private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)

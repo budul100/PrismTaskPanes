@@ -61,8 +61,12 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         public IResolverContext GetResolverContext()
         {
-            var result = repositoryFactory.Get()?
-                .Scope as IResolverContext;
+            var result = default(IResolverContext);
+
+            if (repositoryFactory.IsAvailable())
+            {
+                result = repositoryFactory.Get().Scope as IResolverContext;
+            }
 
             return result;
         }
@@ -160,7 +164,8 @@ namespace PrismTaskPanes.Applications.DryIoc
         protected void SaveScope()
         {
             var repository = repositoryFactory.Get();
-            repository.Save();
+
+            repository?.Save();
         }
 
         #endregion Protected Methods
