@@ -1,7 +1,9 @@
-﻿using NetOffice.ExcelApi;
+﻿using DryIoc;
+using NetOffice.ExcelApi;
 using NetOffice.ExcelApi.Tools;
 using NetOffice.OfficeApi;
 using NetOffice.Tools;
+using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes;
@@ -9,6 +11,7 @@ using PrismTaskPanes.Attributes;
 using PrismTaskPanes.Interfaces;
 using System;
 using System.Runtime.InteropServices;
+using TestCommon;
 using TestViewLib.Views;
 
 namespace TestAddIn1
@@ -58,7 +61,7 @@ namespace TestAddIn1
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //containerRegistry.GetContainer().Register(this.GetType() , reuse: Reuse.Scoped)
+            containerRegistry.GetContainer().Register<ITestInterface, TestClass>(reuse: Reuse.Scoped);
         }
 
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)

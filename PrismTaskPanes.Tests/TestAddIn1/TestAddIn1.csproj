@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net472</TargetFrameworks>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -22,6 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\PrismTaskPanes\PrismTaskPanes.csproj" />
+    <ProjectReference Include="..\TestCommon\TestCommon.csproj" />
     <ProjectReference Include="..\TestView\TestView.csproj" />
   </ItemGroup>
 </Project>

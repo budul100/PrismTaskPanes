@@ -34,7 +34,7 @@ namespace PrismTaskPanes.Applications.DryIoc
             repositoryFactory = new TaskPanesRepositoryFactory(
                 application: application,
                 ctpFactoryInst: ctpFactoryInst,
-                scopeGetter: () => Container.GetContainer(),
+                containerGetter: () => Container.GetContainer(),
                 taskPaneWindowGetter: () => TaskPaneWindow,
                 taskPaneWindowKeyGetter: () => TaskPaneWindowKey,
                 taskPaneIdentifierGetter: () => GetTaskPaneIdentifier().GetHashString());

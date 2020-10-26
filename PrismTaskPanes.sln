@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes", "PrismTask
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestView", "PrismTaskPanes.Tests\TestView\TestView.csproj", "{BB7E3B27-9354-4593-B569-39ADA2005BE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCommon", "PrismTaskPanes.Tests\TestCommon\TestCommon.csproj", "{FC9F4A99-B4BF-44F2-8A0A-148755269D2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{BB7E3B27-9354-4593-B569-39ADA2005BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB7E3B27-9354-4593-B569-39ADA2005BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB7E3B27-9354-4593-B569-39ADA2005BE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC9F4A99-B4BF-44F2-8A0A-148755269D2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC9F4A99-B4BF-44F2-8A0A-148755269D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC9F4A99-B4BF-44F2-8A0A-148755269D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC9F4A99-B4BF-44F2-8A0A-148755269D2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{19FC5D3E-D270-4710-9D9E-2F46D33210C9} = {DDD8B790-2428-4366-AFFA-702AB149EA15}
 		{55B2E071-CCBC-4057-8096-99CAC8EFA6C4} = {DDD8B790-2428-4366-AFFA-702AB149EA15}
 		{BB7E3B27-9354-4593-B569-39ADA2005BE0} = {DDD8B790-2428-4366-AFFA-702AB149EA15}
+		{FC9F4A99-B4BF-44F2-8A0A-148755269D2F} = {DDD8B790-2428-4366-AFFA-702AB149EA15}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DACADB1B-5786-44FA-AACA-C55066FE0CF8}

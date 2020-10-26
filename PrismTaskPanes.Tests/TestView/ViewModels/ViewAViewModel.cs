@@ -1,5 +1,7 @@
-﻿using Prism.Regions;
-using System;
+﻿using DryIoc;
+using Prism.Regions;
+using PrismTaskPanes;
+using TestCommon;
 
 namespace TestViewLib.ViewModels
 {
@@ -16,7 +18,8 @@ namespace TestViewLib.ViewModels
 
         public ViewAViewModel()
         {
-            Message = $"View at {DateTime.Now:fff}.";
+            var test = DryIocProvider.ResolverContext.Resolve<ITestInterface>();
+            Message = test.Message;
         }
 
         #endregion Public Constructors

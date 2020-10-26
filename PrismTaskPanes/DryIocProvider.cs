@@ -52,13 +52,6 @@ namespace PrismTaskPanes
             }
         }
 
-        public static void RepositoryIsInitialized(IResolverContext scope)
-        {
-            OnTaskPaneInitializedEvent?.Invoke(
-                sender: scope,
-                e: default);
-        }
-
         public static void SetTaskPaneVisible(this ITaskPanesReceiver receiver, string id, bool isVisible)
         {
             if (receiver == default)
@@ -103,6 +96,13 @@ namespace PrismTaskPanes
         #endregion Public Methods
 
         #region Internal Methods
+
+        internal static void OnRepositoryInitialized(IResolverContext scope)
+        {
+            OnTaskPaneInitializedEvent?.Invoke(
+                sender: scope,
+                e: default);
+        }
 
         internal static void OnTaskPaneChanged(_CustomTaskPane taskPane)
         {

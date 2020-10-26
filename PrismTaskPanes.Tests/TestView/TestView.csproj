@@ -6,11 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\PrismTaskPanes.Regions\PrismTaskPanes.Regions.csproj" />
+    <ProjectReference Include="..\..\PrismTaskPanes\PrismTaskPanes.csproj" />
+    <ProjectReference Include="..\TestCommon\TestCommon.csproj" />
   </ItemGroup>
 
 </Project>

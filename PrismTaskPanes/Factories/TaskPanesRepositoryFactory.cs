@@ -15,7 +15,7 @@ namespace PrismTaskPanes.Factories
 
         private readonly ICTPFactory ctpFactory;
         private readonly IDictionary<int, TaskPanesRepository> repositories = new Dictionary<int, TaskPanesRepository>();
-        private readonly Func<IContainer> scopeGetter;
+        private readonly Func<IContainer> containerGetter;
         private readonly Func<string> taskPaneIdentifierGetter;
         private readonly Func<object> taskPaneWindowGetter;
         private readonly Func<int?> taskPaneWindowKeyGetter;
@@ -26,10 +26,10 @@ namespace PrismTaskPanes.Factories
 
         #region Public Constructors
 
-        public TaskPanesRepositoryFactory(object application, object ctpFactoryInst, Func<IContainer> scopeGetter,
+        public TaskPanesRepositoryFactory(object application, object ctpFactoryInst, Func<IContainer> containerGetter,
             Func<object> taskPaneWindowGetter, Func<int?> taskPaneWindowKeyGetter, Func<string> taskPaneIdentifierGetter)
         {
-            this.scopeGetter = scopeGetter;
+            this.containerGetter = containerGetter;
             this.taskPaneWindowGetter = taskPaneWindowGetter;
             this.taskPaneWindowKeyGetter = taskPaneWindowKeyGetter;
             this.taskPaneIdentifierGetter = taskPaneIdentifierGetter;
@@ -107,7 +107,7 @@ namespace PrismTaskPanes.Factories
                         CloseRepository(repository.Value);
                     }
 
-                    scopeGetter.Invoke().Dispose();
+                    containerGetter.Invoke().Dispose();
                     ctpFactory?.Dispose();
                 }
 
@@ -132,7 +132,7 @@ namespace PrismTaskPanes.Factories
 
         private void CreateRepository(int key)
         {
-            var scope = scopeGetter.Invoke().OpenScope(key);
+            var scope = containerGetter.Invoke().OpenScope(key);
 
             var hostRegionManager = scope.Resolve<IRegionManager>();
 
@@ -155,7 +155,8 @@ namespace PrismTaskPanes.Factories
                 value: repository);
 
             repository.Initialise();
-            DryIocProvider.RepositoryIsInitialized(scope);
+
+            DryIocProvider.OnRepositoryInitialized(scope);
         }
 
         #endregion Private Methods
