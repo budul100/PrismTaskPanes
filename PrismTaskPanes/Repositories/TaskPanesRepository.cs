@@ -48,7 +48,6 @@ namespace PrismTaskPanes.Factories
         public void Dispose()
         {
             Dispose(true);
-
             GC.SuppressFinalize(this);
         }
 
@@ -151,13 +150,22 @@ namespace PrismTaskPanes.Factories
         {
             foreach (var taskPane in taskPanes)
             {
-                configurationsRepository.Set(
-                    receiverHash: taskPane.Key,
-                    documentHash: documentHashGetter.Invoke(),
-                    visible: taskPane.Value.Visible,
-                    width: taskPane.Value.Width,
-                    height: taskPane.Value.Height,
-                    dockPosition: taskPane.Value.DockPosition);
+                // The workbook before close event is unsafe since it can be cancelled.
+                // Therefore all taskpanes are removed at application disposal.
+                // Bt it could be that the task pane does not exist anymore. This case must be catched here.
+
+                try
+                {
+                    configurationsRepository.Set(
+                        receiverHash: taskPane.Key,
+                        documentHash: documentHashGetter.Invoke(),
+                        visible: taskPane.Value.Visible,
+                        width: taskPane.Value.Width,
+                        height: taskPane.Value.Height,
+                        dockPosition: taskPane.Value.DockPosition);
+                }
+                catch (NetOffice.Exceptions.PropertyGetCOMException)
+                { }
             }
 
             configurationsRepository.Save();

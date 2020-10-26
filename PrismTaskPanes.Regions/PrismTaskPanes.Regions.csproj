@@ -49,7 +49,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
+    <!--<ProjectReference Include="..\..\_GitHub\Prism\src\Wpf\Prism.Wpf\Prism.Wpf.csproj" />-->
   </ItemGroup>
 
 </Project>

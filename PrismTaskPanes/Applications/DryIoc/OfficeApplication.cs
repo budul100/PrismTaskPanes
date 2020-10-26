@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using DryIoc;
+﻿using DryIoc;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -31,6 +30,8 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         public OfficeApplication(object application, object ctpFactoryInst)
         {
+            DryIocProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
+
             repositoryFactory = new TaskPanesRepositoryFactory(
                 application: application,
                 ctpFactoryInst: ctpFactoryInst,
@@ -38,8 +39,6 @@ namespace PrismTaskPanes.Applications.DryIoc
                 taskPaneWindowGetter: () => TaskPaneWindow,
                 taskPaneWindowKeyGetter: () => TaskPaneWindowKey,
                 taskPaneIdentifierGetter: () => GetTaskPaneIdentifier().GetHashString());
-
-            DryIocProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
         }
 
         #endregion Public Constructors
@@ -102,11 +101,6 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Protected Methods
 
-        protected void CloseScope()
-        {
-            repositoryFactory.Close();
-        }
-
         protected override void ConfigureDefaultRegionBehaviors(IRegionBehaviorFactory regionBehaviors)
         {
             base.ConfigureDefaultRegionBehaviors(regionBehaviors);
@@ -138,6 +132,11 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         protected abstract string GetTaskPaneIdentifier();
 
+        protected virtual void OnApplicationDispose(NetOffice.OnDisposeEventArgs eventArgs)
+        {
+            repositoryFactory.Close();
+        }
+
         protected void OpenScope()
         {
             repositoryFactory.Create();
@@ -147,13 +146,12 @@ namespace PrismTaskPanes.Applications.DryIoc
         {
             base.RegisterRequiredTypes(containerRegistry);
 
-            containerRegistry.RegisterSingleton<IServiceLocator, DryIocServiceLocatorAdapter>();
             containerRegistry.RegisterSingleton<IRegionNavigationContentLoader, ScopedRegionLoader>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<object, PrismTaskPanesView>(typeof(PrismTaskPanesView).Name);
+            containerRegistry.Register<object, PrismTaskPanesView>(typeof(PrismTaskPanesView).FullName);
             containerRegistry.RegisterForNavigation<PrismTaskPanesView>();
 
             BaseProvider.RegisterTypes(containerRegistry);

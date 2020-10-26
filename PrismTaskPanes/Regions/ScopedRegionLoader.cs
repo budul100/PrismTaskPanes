@@ -1,4 +1,4 @@
-﻿using CommonServiceLocator;
+﻿using Prism.Ioc;
 using Prism.Regions;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
@@ -13,16 +13,16 @@ namespace PrismTaskPanes.Regions
     {
         #region Private Fields
 
-        private readonly IServiceLocator serviceLocator;
+        private readonly IContainerExtension container;
 
         #endregion Private Fields
 
         #region Public Constructors
 
-        public ScopedRegionLoader(IServiceLocator serviceLocator)
-            : base(serviceLocator)
+        public ScopedRegionLoader(IContainerExtension container)
+            : base(container)
         {
-            this.serviceLocator = serviceLocator;
+            this.container = container;
         }
 
         #endregion Public Constructors
@@ -88,7 +88,12 @@ namespace PrismTaskPanes.Regions
         /// <returns>An enumerable of candidate objects from the <see cref="IRegion"/></returns>
         protected override IEnumerable<object> GetCandidatesFromRegion(IRegion region, string candidateNavigationContract)
         {
-            if (string.IsNullOrWhiteSpace(candidateNavigationContract))
+            if (region == default)
+            {
+                throw new ArgumentNullException(nameof(region));
+            }
+
+            if (string.IsNullOrEmpty(candidateNavigationContract))
             {
                 throw new ArgumentNullException(nameof(candidateNavigationContract));
             }
@@ -99,8 +104,8 @@ namespace PrismTaskPanes.Regions
 
             if (!result.Any())
             {
-                var matchingInstances = serviceLocator
-                    .GetInstance<object>(candidateNavigationContract);
+                var matchingInstances = container
+                    .Resolve<object>(candidateNavigationContract);
 
                 if (matchingInstances == default)
                     return Enumerable.Empty<object>();

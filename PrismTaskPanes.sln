@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes", "PrismTask
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestView", "PrismTaskPanes.Tests\TestView\TestView.csproj", "{BB7E3B27-9354-4593-B569-39ADA2005BE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCommon", "PrismTaskPanes.Tests\TestCommon\TestCommon.csproj", "{FC9F4A99-B4BF-44F2-8A0A-148755269D2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCommon", "PrismTaskPanes.Tests\TestCommon\TestCommon.csproj", "{FC9F4A99-B4BF-44F2-8A0A-148755269D2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

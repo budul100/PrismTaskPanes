@@ -46,17 +46,19 @@
     <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
   </PropertyGroup>
 
-  <!--The CommonServiceLocator must be Version="2.0.4" until the respective Prism package is updated!-->
   <ItemGroup>
-    <PackageReference Include="CommonServiceLocator" Version="[2.0.4]" />
     <PackageReference Include="NetOfficeFw.Core" Version="1.7.8" />
     <PackageReference Include="NetOfficeFw.Excel" Version="1.7.8" />
-    <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.DryIoc" Version="8.0.0.1909" />
+    <!--<ProjectReference Include="..\..\_GitHub\Prism\src\Wpf\Prism.DryIoc.Wpf\Prism.DryIoc.Wpf.csproj" />-->
   </ItemGroup>
 
 </Project>

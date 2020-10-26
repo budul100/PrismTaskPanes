@@ -56,12 +56,12 @@ namespace TestAddIn1
 
         public void InvalidateRibbonUI()
         {
-            RibbonUI.Invalidate();
+            RibbonUI?.Invalidate();
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.GetContainer().Register<ITestInterface, TestClass>(reuse: Reuse.Scoped);
+            containerRegistry.GetContainer().Register<ITestInterface, TestClass>();
         }
 
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)

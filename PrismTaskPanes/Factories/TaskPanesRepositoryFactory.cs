@@ -13,9 +13,9 @@ namespace PrismTaskPanes.Factories
     {
         #region Private Fields
 
+        private readonly Func<IContainer> containerGetter;
         private readonly ICTPFactory ctpFactory;
         private readonly IDictionary<int, TaskPanesRepository> repositories = new Dictionary<int, TaskPanesRepository>();
-        private readonly Func<IContainer> containerGetter;
         private readonly Func<string> taskPaneIdentifierGetter;
         private readonly Func<object> taskPaneWindowGetter;
         private readonly Func<int?> taskPaneWindowKeyGetter;
@@ -45,15 +45,7 @@ namespace PrismTaskPanes.Factories
 
         public void Close()
         {
-            var repository = Get();
-
-            if (repository != default)
-            {
-                var key = repository.Key;
-
-                CloseRepository(repository);
-                repositories.Remove(key);
-            }
+            CloseRepositories();
         }
 
         public void Create()
@@ -102,16 +94,11 @@ namespace PrismTaskPanes.Factories
             {
                 if (disposing)
                 {
-                    foreach (var repository in repositories)
-                    {
-                        CloseRepository(repository.Value);
-                    }
+                    CloseRepositories();
 
                     containerGetter.Invoke().Dispose();
                     ctpFactory?.Dispose();
                 }
-
-                repositories.Clear();
 
                 isDisposed = true;
             }
@@ -123,11 +110,17 @@ namespace PrismTaskPanes.Factories
 
         private static void CloseRepository(TaskPanesRepository repository)
         {
-            if (repository != default)
+            repository?.Save();
+        }
+
+        private void CloseRepositories()
+        {
+            foreach (var repository in repositories)
             {
-                repository.Save();
-                repository.Dispose();
+                CloseRepository(repository.Value);
             }
+
+            repositories.Clear();
         }
 
         private void CreateRepository(int key)

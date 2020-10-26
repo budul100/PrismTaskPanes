@@ -24,6 +24,8 @@ namespace PrismTaskPanes.Applications.DryIoc
             this.application.NewWorkbookEvent += OnWorkbookNew;
             this.application.WorkbookOpenEvent += OnWorkbookOpen;
             this.application.WorkbookAfterSaveEvent += OnWorkbookSaveAfter;
+            this.application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose;
+
             this.application.OnDispose += OnApplicationDispose;
         }
 
@@ -78,10 +80,9 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Private Methods
 
-        private void OnApplicationDispose(NetOffice.OnDisposeEventArgs eventArgs)
+        private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)
         {
-            CloseScope();
-            Dispose();
+            SaveScope();
         }
 
         private void OnWorkbookNew(Workbook wb)

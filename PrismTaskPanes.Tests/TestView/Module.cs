@@ -1,4 +1,5 @@
-﻿using Prism.Ioc;
+﻿using DryIoc;
+using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 using TestViewLib.Views;
@@ -24,7 +25,8 @@ namespace TestViewLib
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<ViewA>(typeof(ViewA).Name);
+            //containerRegistry.Register<ViewA>(typeof(ViewA).Name);
+            //containerRegistry.GetContainer().Register<ViewA>(serviceKey: typeof(ViewA).Name, reuse: Reuse.Scoped);
         }
 
         #endregion Public Methods
