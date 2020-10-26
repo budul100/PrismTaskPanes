@@ -11,7 +11,8 @@ namespace PrismTaskPanes.Attributes
     {
         #region Public Constructors
 
-        public PrismTaskPaneAttribute() : base(typeof(ITaskPanesReceiver))
+        public PrismTaskPaneAttribute()
+            : base(typeof(ITaskPanesReceiver))
         { }
 
         public PrismTaskPaneAttribute(

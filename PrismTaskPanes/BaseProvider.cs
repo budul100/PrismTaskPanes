@@ -1,4 +1,5 @@
-﻿using Prism.Ioc;
+﻿using DryIoc;
+using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.Extensions;

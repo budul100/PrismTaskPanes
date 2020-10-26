@@ -1,4 +1,6 @@
-﻿using NetOffice.OfficeApi.Enums;
+﻿#pragma warning disable CA1031 // Keine allgemeinen Ausnahmetypen abfangen
+
+using NetOffice.OfficeApi.Enums;
 using PrismTaskPanes.Attributes;
 using System;
 using System.Collections.Generic;
@@ -6,8 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-
-#pragma warning disable CA1031 // Keine allgemeinen Ausnahmetypen abfangen
 
 namespace PrismTaskPanes.Settings
 {
@@ -147,7 +147,7 @@ namespace PrismTaskPanes.Settings
                 var configurations = Enumerable.Empty<TaskPaneSettings>();
 
                 using (var file = new FileStream(
-                    path: configurationsPath, 
+                    path: configurationsPath,
                     mode: FileMode.Open))
                 {
                     using (var reader = XmlReader.Create(file))
