@@ -10,7 +10,6 @@ using PrismTaskPanes.Settings;
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrismTaskPanes.Factories
 {
@@ -20,8 +19,8 @@ namespace PrismTaskPanes.Factories
 
         private readonly ICTPFactory ctpFactory;
         private readonly IRegionManager hostRegionManager;
-        private readonly int windowKey;
         private readonly object taskPaneWindow;
+        private readonly int windowKey;
 
         #endregion Private Fields
 
@@ -59,8 +58,6 @@ namespace PrismTaskPanes.Factories
 
         #region Private Methods
 
-
-
         private CustomTaskPane GetTaskPane(TaskPaneSettings settings)
         {
             var result = ctpFactory.CreateCTP(
@@ -89,8 +86,6 @@ namespace PrismTaskPanes.Factories
 
             return result;
         }
-
-
 
         private void SetRegions(CustomTaskPane taskPane, TaskPaneSettings settings)
         {
