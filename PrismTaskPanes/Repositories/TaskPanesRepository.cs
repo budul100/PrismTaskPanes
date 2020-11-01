@@ -182,7 +182,7 @@ namespace PrismTaskPanes.Factories
         {
             // The workbook before close event is unsafe since it can be cancelled.
             // Therefore all taskpanes are removed at application disposal.
-            // Bt it could be that the task pane does not exist anymore. This case must be catched here.
+            // But it could be that the task pane does not exist anymore. This case must be catched here.
 
             try
             {
