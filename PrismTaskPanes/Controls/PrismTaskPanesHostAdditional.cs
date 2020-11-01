@@ -5,10 +5,17 @@ using System.Windows.Controls;
 namespace PrismTaskPanes.Controls
 {
     [ComVisible(true),
-        ProgId("PrismTaskPanes.Controls.PrismTaskPanesHost"),
-        Guid("6F14B2C2-3F59-456D-A224-50D76DF08176")]
+        ProgId(ProgId),
+        Guid(Guid)]
     public partial class PrismTaskPanesHost
     {
+        #region Private Fields
+
+        internal const string ProgId = "PrismTaskPanes.Controls.PrismTaskPanesHost";
+        internal const string Guid = "6F14B2C2-3F59-456D-A224-50D76DF08176";
+
+        #endregion Private Fields
+
         #region Public Methods
 
         public void SetLocalRegion(string regionName, IRegionManager regionManager)

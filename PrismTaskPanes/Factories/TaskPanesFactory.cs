@@ -4,6 +4,7 @@ using NetOffice.OfficeApi;
 using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
 using PrismTaskPanes.Controls;
+using PrismTaskPanes.Exceptions;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Settings;
 using System;
@@ -27,6 +28,11 @@ namespace PrismTaskPanes.Factories
 
         public TaskPanesFactory(int key, ICTPFactory ctpFactory, IRegionManager hostRegionManager, object taskPaneWindow)
         {
+            if (Type.GetTypeFromProgID(PrismTaskPanesHost.ProgId) == default)
+            {
+                throw new LibraryNotRegisteredException();
+            }
+
             this.key = key;
             this.ctpFactory = ctpFactory;
             this.hostRegionManager = hostRegionManager;
