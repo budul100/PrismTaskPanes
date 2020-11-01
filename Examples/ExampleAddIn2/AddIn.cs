@@ -19,9 +19,8 @@ namespace TestAddIn2
         Codebase]
     [CustomUI("RibbonUI.xml", true),
         RegistryLocation(RegistrySaveLocation.LocalMachine)]
-    [PrismTaskPane("1", "TestAddin 2 A", typeof(ViewA), "TestRegion", invisibleAtStart: true)]
-    [PrismTaskPane("2", "TestAddin 2 B", typeof(ViewA), "TestRegion",
-        navigationKey: "x", navigationValue: "")]
+    [PrismTaskPane("1", "ExampleAddin 2 A", typeof(ViewA), "TestRegion", invisibleAtStart: true)]
+    [PrismTaskPane("2", "ExampleAddin 2 B", typeof(ViewA), "TestRegion", navigationValue: "test2")]
     public class AddIn
         : COMAddin, ITaskPanesReceiver
     {

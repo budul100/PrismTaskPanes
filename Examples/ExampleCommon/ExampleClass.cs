@@ -2,8 +2,8 @@
 
 namespace TestCommon
 {
-    public class TestClass
-        : ITestClass
+    public class ExampleClass
+        : IExampleClass
     {
         #region Public Properties
 

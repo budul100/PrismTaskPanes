@@ -23,9 +23,8 @@ namespace TestAddIn1
         Codebase]
     [CustomUI("RibbonUI.xml", true),
         RegistryLocation(RegistrySaveLocation.LocalMachine)]
-    [PrismTaskPane("1", "TestAddin 1 A", typeof(ViewA), "TestRegion", invisibleAtStart: true)]
-    [PrismTaskPane("2", "TestAddin 1 B", typeof(ViewA), "TestRegion",
-        navigationKey: "x", navigationValue: "")]
+    [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ViewA), "ExampleRegion", invisibleAtStart: true)]
+    [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ViewA), "ExampleRegion", navigationValue: "test")]
     public class AddIn
         : COMAddin, ITaskPanesReceiver
     {
@@ -61,7 +60,7 @@ namespace TestAddIn1
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.GetContainer().Register<ITestClass, TestClass>();
+            containerRegistry.GetContainer().Register<IExampleClass, ExampleClass>();
         }
 
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)
@@ -104,14 +103,14 @@ namespace TestAddIn1
 
         private void OnScopeInitialized(object sender, PrismTaskPanes.Events.DryIocEventArgs e)
         {
-            var test1 = DryIocProvider.ResolverContext.Resolve<ITestClass>();
-            var test2 = e.Container.Resolve<ITestClass>();
+            var test1 = DryIocProvider.Container.Resolve<IExampleClass>();
+            var test2 = e.Container.Resolve<IExampleClass>();
         }
 
         private void OnScopeOpened(object sender, PrismTaskPanes.Events.DryIocEventArgs e)
         {
-            var test1 = DryIocProvider.ResolverContext.Resolve<ITestClass>();
-            var test2 = e.Container.Resolve<ITestClass>();
+            var test1 = DryIocProvider.Container.Resolve<IExampleClass>();
+            var test2 = e.Container.Resolve<IExampleClass>();
         }
 
         private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)

@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PrismTaskPanes.Tests", "PrismTaskPanes.Tests", "{DDD8B790-2428-4366-AFFA-702AB149EA15}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAddIn1", "PrismTaskPanes.Tests\TestAddIn1\TestAddIn1.csproj", "{19FC5D3E-D270-4710-9D9E-2F46D33210C9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAddIn2", "PrismTaskPanes.Tests\TestAddIn2\TestAddIn2.csproj", "{55B2E071-CCBC-4057-8096-99CAC8EFA6C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes", "PrismTaskPanes\PrismTaskPanes.csproj", "{1989F0DA-4467-4CB0-9580-FFC6311495B4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes.Regions", "PrismTaskPanes.Regions\PrismTaskPanes.Regions.csproj", "{3A68C728-6F52-4383-99C9-720DFD5B1B3F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes", "PrismTaskPanes\PrismTaskPanes.csproj", "{1989F0DA-4467-4CB0-9580-FFC6311495B4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DDD8B790-2428-4366-AFFA-702AB149EA15}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestView", "PrismTaskPanes.Tests\TestView\TestView.csproj", "{BB7E3B27-9354-4593-B569-39ADA2005BE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleAddIn1", "Examples\ExampleAddIn1\ExampleAddIn1.csproj", "{19FC5D3E-D270-4710-9D9E-2F46D33210C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCommon", "PrismTaskPanes.Tests\TestCommon\TestCommon.csproj", "{FC9F4A99-B4BF-44F2-8A0A-148755269D2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleAddIn2", "Examples\ExampleAddIn2\ExampleAddIn2.csproj", "{55B2E071-CCBC-4057-8096-99CAC8EFA6C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleView", "Examples\ExampleView\ExampleView.csproj", "{BB7E3B27-9354-4593-B569-39ADA2005BE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleCommon", "Examples\ExampleCommon\ExampleCommon.csproj", "{FC9F4A99-B4BF-44F2-8A0A-148755269D2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

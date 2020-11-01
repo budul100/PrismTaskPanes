@@ -10,7 +10,7 @@ namespace TestViewLib
     {
         #region Private Fields
 
-        private const string TXTRegionName = "TestRegion";
+        private const string TXTRegionName = "ExampleRegion";
 
         #endregion Private Fields
 
@@ -26,7 +26,6 @@ namespace TestViewLib
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //containerRegistry.Register<ViewA>(typeof(ViewA).Name);
-            //containerRegistry.GetContainer().Register<ViewA>(serviceKey: typeof(ViewA).Name, reuse: Reuse.Scoped);
         }
 
         #endregion Public Methods

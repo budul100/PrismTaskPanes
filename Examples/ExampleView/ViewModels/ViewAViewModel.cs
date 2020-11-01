@@ -14,7 +14,7 @@ namespace TestViewLib.ViewModels
 
         #region Public Constructors
 
-        public ViewAViewModel(ITestClass test)
+        public ViewAViewModel(IExampleClass test)
         {
             Message = test.Message;
         }

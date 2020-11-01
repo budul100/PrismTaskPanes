@@ -1,6 +1,6 @@
 ﻿namespace TestCommon
 {
-    public interface ITestClass
+    public interface IExampleClass
     {
         #region Public Properties
 

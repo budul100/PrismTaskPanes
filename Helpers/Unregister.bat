@@ -1,12 +1,13 @@
+@ECHO off
+
+SET ExampleDirectory=.\Examples
+
 PUSHD ..
 
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister .\PrismTaskPanes.Tests\TestAddIn1\bin\Debug\net472\TestAddIn1.dll
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister .\PrismTaskPanes.Tests\TestAddIn1\bin\Debug\net472\PrismTaskPanes.dll
+"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister %ExampleDirectory%\ExampleAddIn1\bin\Debug\net472\ExampleAddIn1.dll
+"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister %ExampleDirectory%\ExampleAddIn1\bin\Debug\net472\PrismTaskPanes.dll
 
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister .\PrismTaskPanes.Tests\TestAddIn2\bin\Debug\net472\TestAddIn2.dll
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister .\PrismTaskPanes.Tests\TestAddIn2\bin\Debug\net472\PrismTaskPanes.dll
-
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister .\PrismTaskPanes.Tests\TestAddIn1\bin\Release\net472\TestAddIn1.dll
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister .\PrismTaskPanes.Tests\TestAddIn1\bin\Release\net472\PrismTaskPanes.dll
+"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister %ExampleDirectory%\ExampleAddIn2\bin\Debug\net472\ExampleAddIn2.dll
+"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister %ExampleDirectory%\ExampleAddIn2\bin\Debug\net472\PrismTaskPanes.dll
 
 POPD
