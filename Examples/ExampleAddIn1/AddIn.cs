@@ -22,7 +22,7 @@ namespace ExampleAddIn1
         Codebase]
     [CustomUI("RibbonUI.xml", true),
         RegistryLocation(RegistrySaveLocation.LocalMachine)]
-    [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ExampleView.Views.ViewAView), "ExampleRegion", invisibleAtStart: true)]
+    [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ExampleView.Views.ViewAView), "ExampleRegion1", invisibleAtStart: true)]
     [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ExampleView.Views.ViewAView), "ExampleRegion")]
     public class AddIn
         : COMAddin, ITaskPanesReceiver

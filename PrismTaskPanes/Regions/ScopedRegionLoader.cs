@@ -1,5 +1,6 @@
 ﻿using Prism.Ioc;
 using Prism.Regions;
+using PrismTaskPanes.Exceptions;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using System;
@@ -112,9 +113,17 @@ namespace PrismTaskPanes.Regions
 
                 var typeCandidateName = matchingInstances.GetType().FullName;
 
-                result = base.GetCandidatesFromRegion(
-                    region: region,
-                    candidateNavigationContract: typeCandidateName);
+                try
+                {
+                    result = base.GetCandidatesFromRegion(
+                        region: region,
+                        candidateNavigationContract: typeCandidateName);
+                }
+                catch (NullReferenceException)
+                {
+                    throw new RegionNotLoadedException(
+                        region: region);
+                }
             }
 
             return result;

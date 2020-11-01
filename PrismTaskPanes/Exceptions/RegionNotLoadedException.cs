@@ -15,11 +15,6 @@ namespace PrismTaskPanes.Exceptions
         {
         }
 
-        public RegionNotLoadedException(IRegion region, Exception innerException)
-            : base(GetMessage(region), innerException)
-        {
-        }
-
         public RegionNotLoadedException(string message)
             : base(message)
         {
@@ -49,7 +44,7 @@ namespace PrismTaskPanes.Exceptions
 
         private static string GetMessage(IRegion region)
         {
-            var result = $"The region {region.Name} could not be loaded;";
+            var result = $"The region {region.Name} could not be loaded.";
 
             return result;
         }

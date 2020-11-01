@@ -10,6 +10,7 @@ using PrismTaskPanes.Settings;
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrismTaskPanes.Factories
 {
@@ -19,7 +20,7 @@ namespace PrismTaskPanes.Factories
 
         private readonly ICTPFactory ctpFactory;
         private readonly IRegionManager hostRegionManager;
-        private readonly int key;
+        private readonly int windowKey;
         private readonly object taskPaneWindow;
 
         #endregion Private Fields
@@ -33,7 +34,7 @@ namespace PrismTaskPanes.Factories
                 throw new LibraryNotRegisteredException();
             }
 
-            this.key = key;
+            this.windowKey = key;
             this.ctpFactory = ctpFactory;
             this.hostRegionManager = hostRegionManager;
             this.taskPaneWindow = taskPaneWindow;
@@ -58,16 +59,7 @@ namespace PrismTaskPanes.Factories
 
         #region Private Methods
 
-        private static Uri GetUriView()
-        {
-            var view = typeof(PrismTaskPanesView).Name;
 
-            var result = new Uri(
-                uriString: view,
-                uriKind: UriKind.Relative);
-
-            return result;
-        }
 
         private CustomTaskPane GetTaskPane(TaskPaneSettings settings)
         {
@@ -98,29 +90,7 @@ namespace PrismTaskPanes.Factories
             return result;
         }
 
-        private Uri GetUriNavigation(TaskPaneSettings settings)
-        {
-            var parameter = new NavigationParameters();
 
-            parameter.Add(
-                key: DryIocProvider.WindowKey,
-                value: key);
-
-            if (!string.IsNullOrWhiteSpace(settings.NavigationValue))
-            {
-                parameter.Add(
-                    key: DryIocProvider.NavigationKey,
-                    value: settings.NavigationValue);
-            }
-
-            var uriString = settings.View.Name + parameter;
-
-            var result = new Uri(
-                uriString: uriString,
-                uriKind: UriKind.Relative);
-
-            return result;
-        }
 
         private void SetRegions(CustomTaskPane taskPane, TaskPaneSettings settings)
         {
@@ -132,11 +102,11 @@ namespace PrismTaskPanes.Factories
                 regionName: hostRegionName,
                 regionManager: hostRegionManager);
 
-            var uriView = GetUriView();
+            var horstUri = TaskPaneExtensions.GetUriHost();
 
             hostRegionManager.RequestNavigate(
                 regionName: hostRegionName,
-                source: uriView);
+                source: horstUri);
 
             var view = hostRegionManager.Regions[hostRegionName].Views
                 .SingleOrDefault() as PrismTaskPanesView;
@@ -145,12 +115,12 @@ namespace PrismTaskPanes.Factories
                 regionName: settings.RegionName,
                 regionContext: settings.RegionContext);
 
-            var source = GetUriNavigation(settings);
-
+            var viewUri = settings.GetUriView(windowKey);
             var viewRegionManager = view.LocalRegionManager;
+
             viewRegionManager.RequestNavigate(
                 regionName: settings.RegionName,
-                source: source);
+                source: viewUri);
         }
 
         #endregion Private Methods
