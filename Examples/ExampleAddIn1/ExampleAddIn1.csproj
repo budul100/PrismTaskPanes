@@ -32,4 +32,5 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="&quot;%25windir%25\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe&quot; /tlb $(TargetPath)" />
   </Target>
+
 </Project>
