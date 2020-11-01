@@ -12,19 +12,18 @@ using PrismTaskPanes.Interfaces;
 using System;
 using System.Runtime.InteropServices;
 using TestCommon;
-using TestViewLib.Views;
 
-namespace TestAddIn1
+namespace ExampleAddIn1
 {
-    [COMAddin("PrismTaskPanes.TestAddIn1", "PrismTaskPanes.TestAddIn1", LoadBehavior.LoadAtStartup),
-        ProgId("PrismTaskPanes.TestAddIn1"),
-        Guid("37434A4F-3ADE-4FF0-BD1B-92A479FFA4AE"),
+    [COMAddin("PrismTaskPanes.ExampleAddIn1", "This is an ExampleAddIn1 description.", LoadBehavior.LoadAtStartup),
+        ProgId("ExampleAddIn1.AddIn"),
+        Guid("9F60AAAD-D3A1-40CF-9089-D46C000C75E0"),
         ComVisible(true),
         Codebase]
     [CustomUI("RibbonUI.xml", true),
         RegistryLocation(RegistrySaveLocation.LocalMachine)]
-    [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ViewA), "ExampleRegion", invisibleAtStart: true)]
-    [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ViewA), "ExampleRegion", navigationValue: "test")]
+    [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ExampleView.Views.ViewAView), "ExampleRegion", invisibleAtStart: true)]
+    [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ExampleView.Views.ViewAView), "ExampleRegion")]
     public class AddIn
         : COMAddin, ITaskPanesReceiver
     {
@@ -41,7 +40,7 @@ namespace TestAddIn1
 
         public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<TestViewLib.Module>(nameof(TestAddIn1));
+            moduleCatalog.AddModule<ExampleView.Module>(nameof(ExampleAddIn1));
         }
 
         public override void CTPFactoryAvailable(object CTPFactoryInst)

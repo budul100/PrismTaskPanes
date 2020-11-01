@@ -1,5 +1,6 @@
 ﻿using Prism.Ioc;
 using Prism.Regions;
+using PrismTaskPanes.Exceptions;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using System;
@@ -98,9 +99,20 @@ namespace PrismTaskPanes.Regions
                 throw new ArgumentNullException(nameof(candidateNavigationContract));
             }
 
-            var result = base.GetCandidatesFromRegion(
-                region: region,
-                candidateNavigationContract: candidateNavigationContract);
+            IEnumerable<object> result;
+
+            try
+            {
+                result = base.GetCandidatesFromRegion(
+                    region: region,
+                    candidateNavigationContract: candidateNavigationContract);
+            }
+            catch (Exception exception)
+            {
+                throw new RegionNotLoadedException(
+                    region: region,
+                    innerException: exception);
+            }
 
             if (!result.Any())
             {

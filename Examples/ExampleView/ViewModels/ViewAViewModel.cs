@@ -1,7 +1,7 @@
 ﻿using Prism.Regions;
 using TestCommon;
 
-namespace TestViewLib.ViewModels
+namespace ExampleView.ViewModels
 {
     public class ViewAViewModel
         : ScopedContentBase

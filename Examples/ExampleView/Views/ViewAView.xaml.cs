@@ -1,15 +1,15 @@
 ﻿using System.Windows.Controls;
 
-namespace TestViewLib.Views
+namespace ExampleView.Views
 {
     /// <summary>
     /// Interaction logic for ViewA.xaml
     /// </summary>
-    public partial class ViewA : UserControl
+    public partial class ViewAView : UserControl
     {
         #region Public Constructors
 
-        public ViewA()
+        public ViewAView()
         {
             InitializeComponent();
         }

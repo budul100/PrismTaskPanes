@@ -1,10 +1,10 @@
 ﻿using DryIoc;
+using ExampleView.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
-using TestViewLib.Views;
 
-namespace TestViewLib
+namespace ExampleView
 {
     public class Module : IModule
     {
@@ -20,12 +20,12 @@ namespace TestViewLib
         {
             containerProvider.Resolve<IRegionManager>().RegisterViewWithRegion(
                 regionName: TXTRegionName,
-                viewType: typeof(ViewA));
+                viewType: typeof(ViewAView));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //containerRegistry.Register<ViewA>(typeof(ViewA).Name);
+            containerRegistry.RegisterForNavigation<Views.ViewAView>();
         }
 
         #endregion Public Methods

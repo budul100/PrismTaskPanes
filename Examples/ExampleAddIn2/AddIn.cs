@@ -1,4 +1,5 @@
-﻿using NetOffice.ExcelApi.Tools;
+﻿using ExampleView.Views;
+using NetOffice.ExcelApi.Tools;
 using NetOffice.OfficeApi;
 using NetOffice.Tools;
 using Prism.Ioc;
@@ -8,19 +9,19 @@ using PrismTaskPanes.Attributes;
 using PrismTaskPanes.Interfaces;
 using System;
 using System.Runtime.InteropServices;
-using TestViewLib.Views;
+using TestCommon;
 
-namespace TestAddIn2
+namespace ExampleAddIn2
 {
-    [COMAddin("PrismTaskPanes.TestAddIn2", "PrismTaskPanes.TestAddIn2", LoadBehavior.LoadAtStartup),
-        ProgId("PrismTaskPanes.TestAddIn2"),
-        Guid("4B20A71A-E9C3-47AD-8E3A-61EB50B51AAE"),
+    [COMAddin("PrismTaskPanes.ExampleAddIn2", "This is an example addin", LoadBehavior.LoadAtStartup),
+        ProgId("ExampleAddIn2.AddIn"),
+        Guid("26933ECD-AFCA-4498-B30E-D5F20BAD0E99"),
         ComVisible(true),
         Codebase]
     [CustomUI("RibbonUI.xml", true),
         RegistryLocation(RegistrySaveLocation.LocalMachine)]
-    [PrismTaskPane("1", "ExampleAddin 2 A", typeof(ViewA), "TestRegion", invisibleAtStart: true)]
-    [PrismTaskPane("2", "ExampleAddin 2 B", typeof(ViewA), "TestRegion", navigationValue: "test2")]
+    [PrismTaskPane("1", "ExampleAddin 2 A", typeof(ViewAView), "ExampleRegion", invisibleAtStart: true)]
+    [PrismTaskPane("2", "ExampleAddin 2 B", typeof(ViewAView), "ExampleRegion")]
     public class AddIn
         : COMAddin, ITaskPanesReceiver
     {
@@ -37,7 +38,7 @@ namespace TestAddIn2
 
         public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<TestViewLib.Module>(nameof(TestAddIn2));
+            moduleCatalog.AddModule<ExampleView.Module>(nameof(ExampleAddIn2));
         }
 
         public override void CTPFactoryAvailable(object CTPFactoryInst)
@@ -51,11 +52,18 @@ namespace TestAddIn2
 
         public void InvalidateRibbonUI()
         {
-            RibbonUI.Invalidate();
+            RibbonUI?.Invalidate();
         }
+
+        public override void CustomUI_OnLoad(NetOffice.OfficeApi.Native.IRibbonUI ribbonUI)
+        {
+            base.CustomUI_OnLoad(ribbonUI);
+        }
+
 
         public void RegisterTypes(IContainerRegistry builder)
         {
+            builder.Register<IExampleClass, ExampleClass>();
         }
 
         public void RegisterTypes(IContainerProvider containerProvider)

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Start example addins": {
+    "Start example Addins in Excel": {
       "commandName": "Executable",
       "executablePath": "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
     }

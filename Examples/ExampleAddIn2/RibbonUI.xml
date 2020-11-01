@@ -3,10 +3,22 @@
 <customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" onLoad="CustomUI_OnLoad">
   <ribbon>
     <tabs>
-      <tab id="TestAddIn2" label="TestAddIn2">
-        <group id="group1" label="TestAddIn2">
-           <toggleButton id="tooglePaneVisibleButton21" label="TaskPane" imageMso="CreateFormBlankForm" size="large" getPressed="TooglePaneVisibleButton_GetPressed" onAction="TooglePaneVisibleButton_Click" />
-           <toggleButton id="tooglePaneVisibleButton22" label="TaskPane" imageMso="CreateFormBlankForm" size="large" getPressed="TooglePaneVisibleButton_GetPressed2" onAction="TooglePaneVisibleButton_Click2" />
+      <tab id="ExampleAddIn2" label="ExampleAddIn2">
+        <group id="group1" label="ExampleAddIn2">
+           <toggleButton
+             id="tooglePaneVisibleButton21"
+             label="TaskPane"
+             imageMso="CreateFormBlankForm"
+             size="large"
+             getPressed="TooglePaneVisibleButton_GetPressed" 
+             onAction="TooglePaneVisibleButton_Click" />
+           <toggleButton
+             id="tooglePaneVisibleButton22"
+             label="TaskPane"
+             imageMso="CreateFormBlankForm"
+             size="large"
+             getPressed="TooglePaneVisibleButton_GetPressed2"
+             onAction="TooglePaneVisibleButton_Click2" />
         </group>
       </tab>
     </tabs>
