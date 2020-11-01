@@ -33,9 +33,9 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Protected Properties
 
-        protected override object TaskPaneWindow => application?.ActiveWindow;
+        protected override object TaskPaneWindow => GetActiveWindow();
 
-        protected override int? TaskPaneWindowKey => application?.ActiveWindow?.Hwnd;
+        protected override int? TaskPaneWindowKey => GetActiveWindow()?.Hwnd;
 
         #endregion Protected Properties
 
@@ -61,7 +61,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         protected override string GetTaskPaneIdentifier()
         {
-            var path = application.ActiveWorkbook?.FullName;
+            var path = GetActiveWorkbook()?.FullName;
             var isPath = !string.IsNullOrWhiteSpace(Path.GetDirectoryName(path));
 
             return isPath
@@ -79,6 +79,34 @@ namespace PrismTaskPanes.Applications.DryIoc
         #endregion Protected Methods
 
         #region Private Methods
+
+        private Window GetActiveWindow()
+        {
+            var result = default(Window);
+
+            try
+            {
+                result = application?.ActiveWindow;
+            }
+            catch (NetOffice.Exceptions.PropertyGetCOMException)
+            { }
+
+            return result;
+        }
+
+        private Workbook GetActiveWorkbook()
+        {
+            var result = default(Workbook);
+
+            try
+            {
+                result = application?.ActiveWorkbook;
+            }
+            catch (NetOffice.Exceptions.PropertyGetCOMException)
+            { }
+
+            return result;
+        }
 
         private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)
         {

@@ -69,7 +69,6 @@ namespace PrismTaskPanes.Attributes
             string title,
             Type view,
             string regionName,
-            string navigationKey,
             string navigationValue,
             bool visible = false,
             bool invisibleAtStart = false,
@@ -81,12 +80,11 @@ namespace PrismTaskPanes.Attributes
                 invisibleAtStart: invisibleAtStart, width: width, height: height, dockPosition: dockPosition,
                 dockRestriction: dockRestriction)
         {
-            if (string.IsNullOrWhiteSpace(navigationKey))
+            if (string.IsNullOrWhiteSpace(navigationValue))
             {
-                throw new ArgumentNullException(nameof(navigationKey));
+                throw new ArgumentNullException(nameof(navigationValue));
             }
 
-            NavigationKey = navigationKey;
             NavigationValue = navigationValue;
         }
 
@@ -95,6 +93,7 @@ namespace PrismTaskPanes.Attributes
             string title,
             Type view,
             string regionName,
+            string navigationValue,
             string regionContext,
             bool visible = false,
             bool invisibleAtStart = false,
@@ -102,9 +101,9 @@ namespace PrismTaskPanes.Attributes
             int height = 0,
             MsoCTPDockPosition dockPosition = MsoCTPDockPosition.msoCTPDockPositionRight,
             MsoCTPDockPositionRestrict dockRestriction = MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone) :
-            this(id: id, title: title, view: view, regionName: regionName, visible: visible,
-                invisibleAtStart: invisibleAtStart, width: width, height: height, dockPosition: dockPosition,
-                dockRestriction: dockRestriction)
+            this(id: id, title: title, view: view, regionName: regionName, navigationValue: navigationValue,
+                visible: visible, invisibleAtStart: invisibleAtStart, width: width, height: height,
+                dockPosition: dockPosition, dockRestriction: dockRestriction)
         {
             if (string.IsNullOrWhiteSpace(regionContext))
             {
@@ -129,8 +128,6 @@ namespace PrismTaskPanes.Attributes
         public string ID { get; set; }
 
         public bool InvisibleAtStart { get; set; }
-
-        public string NavigationKey { get; set; }
 
         public string NavigationValue { get; set; }
 

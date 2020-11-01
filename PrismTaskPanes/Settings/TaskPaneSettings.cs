@@ -25,9 +25,6 @@ namespace PrismTaskPanes.Settings
         public bool InvisibleAtStart { get; set; }
 
         [XmlIgnore]
-        public string NavigationKey { get; set; }
-
-        [XmlIgnore]
         public string NavigationValue { get; set; }
 
         public string ReceiverHash { get; set; }

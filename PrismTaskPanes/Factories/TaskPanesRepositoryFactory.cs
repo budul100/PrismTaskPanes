@@ -142,6 +142,7 @@ namespace PrismTaskPanes.Factories
             var hostRegionManager = scope.Resolve<IRegionManager>();
 
             var taskPanesFactory = new TaskPanesFactory(
+                key: key,
                 ctpFactory: ctpFactory,
                 hostRegionManager: hostRegionManager,
                 taskPaneWindow: taskPaneWindowGetter.Invoke());
@@ -149,19 +150,28 @@ namespace PrismTaskPanes.Factories
             var configurationsRepository = scope.Resolve<TaskPaneSettingsRepository>();
 
             var repository = new TaskPanesRepository(
-                    key: key,
-                    scope: scope,
-                    taskPanesFactory: taskPanesFactory,
-                    configurationsRepository: configurationsRepository,
-                    documentHashGetter: taskPaneIdentifierGetter);
+                key: key,
+                scope: scope,
+                taskPanesFactory: taskPanesFactory,
+                configurationsRepository: configurationsRepository,
+                documentHashGetter: taskPaneIdentifierGetter);
 
             repositories.Add(
                 key: key,
                 value: repository);
 
+            repository.OnRepositoryClosing += OnRepositoryClosing;
+
             repository.Initialise();
 
             DryIocProvider.OnRepositoryInitialized(scope);
+        }
+
+        private void OnRepositoryClosing(object sender, EventArgs e)
+        {
+            var repository = sender as TaskPanesRepository;
+
+            DryIocProvider.OnScopeClosing(repository?.Scope as IResolverContext);
         }
 
         #endregion Private Methods

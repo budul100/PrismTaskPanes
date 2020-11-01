@@ -1,14 +1,14 @@
-﻿using NetOffice.OfficeApi;
+﻿#pragma warning disable CA1031 // Keine allgemeinen Ausnahmetypen abfangen
+
+using NetOffice.OfficeApi;
 using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
 using PrismTaskPanes.Controls;
+using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Settings;
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
-
-#pragma warning disable CA1031 // Keine allgemeinen Ausnahmetypen abfangen
 
 namespace PrismTaskPanes.Factories
 {
@@ -18,14 +18,16 @@ namespace PrismTaskPanes.Factories
 
         private readonly ICTPFactory ctpFactory;
         private readonly IRegionManager hostRegionManager;
+        private readonly int key;
         private readonly object taskPaneWindow;
 
         #endregion Private Fields
 
         #region Public Constructors
 
-        public TaskPanesFactory(ICTPFactory ctpFactory, IRegionManager hostRegionManager, object taskPaneWindow)
+        public TaskPanesFactory(int key, ICTPFactory ctpFactory, IRegionManager hostRegionManager, object taskPaneWindow)
         {
+            this.key = key;
             this.ctpFactory = ctpFactory;
             this.hostRegionManager = hostRegionManager;
             this.taskPaneWindow = taskPaneWindow;
@@ -50,37 +52,6 @@ namespace PrismTaskPanes.Factories
 
         #region Private Methods
 
-        private static string GetAxID<T>()
-        {
-            var attributes = typeof(T).GetCustomAttributes(
-                attributeType: typeof(ProgIdAttribute),
-                inherit: false) as ProgIdAttribute[];
-
-            return attributes?.Any() ?? false
-                ? attributes.First().Value
-                : string.Empty;
-        }
-
-        private static Uri GetUriNavigation(TaskPaneSettings settings)
-        {
-            var view = settings.View.Name;
-
-            var parameter = new NavigationParameters();
-
-            if (!string.IsNullOrWhiteSpace(settings.NavigationValue))
-            {
-                parameter.Add(
-                    key: settings.NavigationKey,
-                    value: settings.NavigationValue);
-            }
-
-            var result = new Uri(
-                uriString: view + parameter,
-                uriKind: UriKind.Relative);
-
-            return result;
-        }
-
         private static Uri GetUriView()
         {
             var view = typeof(PrismTaskPanesView).Name;
@@ -95,7 +66,7 @@ namespace PrismTaskPanes.Factories
         private CustomTaskPane GetTaskPane(TaskPaneSettings settings)
         {
             var result = ctpFactory.CreateCTP(
-                cTPAxID: GetAxID<PrismTaskPanesHost>(),
+                cTPAxID: typeof(PrismTaskPanesHost).GetAxID(),
                 cTPTitle: settings.Title,
                 cTPParentWindow: taskPaneWindow) as CustomTaskPane;
 
@@ -117,6 +88,30 @@ namespace PrismTaskPanes.Factories
             { }
 
             result.VisibleStateChangeEvent += (taskPane) => DryIocProvider.OnTaskPaneChanged(taskPane);
+
+            return result;
+        }
+
+        private Uri GetUriNavigation(TaskPaneSettings settings)
+        {
+            var parameter = new NavigationParameters();
+
+            parameter.Add(
+                key: DryIocProvider.WindowKey,
+                value: key);
+
+            if (!string.IsNullOrWhiteSpace(settings.NavigationValue))
+            {
+                parameter.Add(
+                    key: DryIocProvider.NavigationKey,
+                    value: settings.NavigationValue);
+            }
+
+            var uriString = settings.View.Name + parameter;
+
+            var result = new Uri(
+                uriString: uriString,
+                uriKind: UriKind.Relative);
 
             return result;
         }
@@ -144,10 +139,12 @@ namespace PrismTaskPanes.Factories
                 regionName: settings.RegionName,
                 regionContext: settings.RegionContext);
 
+            var source = GetUriNavigation(settings);
+
             var viewRegionManager = view.LocalRegionManager;
             viewRegionManager.RequestNavigate(
                 regionName: settings.RegionName,
-                source: GetUriNavigation(settings));
+                source: source);
         }
 
         #endregion Private Methods

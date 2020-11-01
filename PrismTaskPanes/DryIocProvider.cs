@@ -12,11 +12,18 @@ namespace PrismTaskPanes
     {
         #region Private Fields
 
+        private const string navigationKey = "Navigation";
+        private const string windowKey = "Window";
+
         private static OfficeApplication officeApplication;
 
         #endregion Private Fields
 
         #region Public Events
+
+        public static event EventHandler OnApplicationExitEvent;
+
+        public static event EventHandler<DryIocEventArgs> OnScopeClosingEvent;
 
         public static event EventHandler<DryIocEventArgs> OnScopeInitialized;
 
@@ -26,9 +33,19 @@ namespace PrismTaskPanes
 
         #endregion Public Events
 
+        #region Internal Events
+
+        internal static event EventHandler<DryIocEventArgs> OnScopeProvided;
+
+        #endregion Internal Events
+
         #region Public Properties
 
-        public static IResolverContext ResolverContext => officeApplication?.GetResolverContext();
+        public static IResolverContext Container => officeApplication?.GetContainer();
+
+        public static string NavigationKey => navigationKey;
+
+        public static string WindowKey => windowKey;
 
         #endregion Public Properties
 
@@ -100,6 +117,13 @@ namespace PrismTaskPanes
 
         #region Internal Methods
 
+        internal static void OnApplicationExit()
+        {
+            OnApplicationExitEvent?.Invoke(
+                sender: officeApplication,
+                e: default);
+        }
+
         internal static void OnRepositoryInitialized(IResolverContext scope)
         {
             var eventArgs = new DryIocEventArgs(scope);
@@ -109,9 +133,22 @@ namespace PrismTaskPanes
                 e: eventArgs);
         }
 
+        internal static void OnScopeClosing(IResolverContext scope)
+        {
+            var eventArgs = new DryIocEventArgs(scope);
+
+            OnScopeClosingEvent?.Invoke(
+                sender: officeApplication,
+                e: eventArgs);
+        }
+
         internal static void OnScopeOpened(IResolverContext scope)
         {
             var eventArgs = new DryIocEventArgs(scope);
+
+            OnScopeProvided?.Invoke(
+                sender: officeApplication,
+                e: eventArgs);
 
             OnScopeOpenedEvent?.Invoke(
                 sender: officeApplication,

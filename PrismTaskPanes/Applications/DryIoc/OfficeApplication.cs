@@ -8,6 +8,7 @@ using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Factories;
 using PrismTaskPanes.Regions;
 using System;
+using System.Windows;
 
 namespace PrismTaskPanes.Applications.DryIoc
 {
@@ -31,7 +32,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         public OfficeApplication(object application, object ctpFactoryInst)
         {
-            DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
+            DryIocProvider.OnScopeProvided += OnScopeProvided;
             DryIocProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
 
             repositoryFactory = new TaskPanesRepositoryFactory(
@@ -61,7 +62,7 @@ namespace PrismTaskPanes.Applications.DryIoc
             GC.SuppressFinalize(this);
         }
 
-        public IResolverContext GetResolverContext()
+        public IResolverContext GetContainer()
         {
             var result = repositoryFactory.IsAvailable()
                 ? repositoryFactory.Get().Scope as IResolverContext
@@ -140,6 +141,13 @@ namespace PrismTaskPanes.Applications.DryIoc
             repositoryFactory.Close();
         }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            DryIocProvider.OnApplicationExit();
+
+            base.OnExit(e);
+        }
+
         protected void OpenScope()
         {
             repositoryFactory.Create();
@@ -171,7 +179,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Private Methods
 
-        private void OnScopeOpened(object sender, Events.DryIocEventArgs e)
+        private void OnScopeProvided(object sender, Events.DryIocEventArgs e)
         {
             currentContainer = e.Container;
         }

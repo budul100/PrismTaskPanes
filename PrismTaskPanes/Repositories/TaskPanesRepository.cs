@@ -35,6 +35,12 @@ namespace PrismTaskPanes.Factories
 
         #endregion Public Constructors
 
+        #region Internal Events
+
+        internal event EventHandler OnRepositoryClosing;
+
+        #endregion Internal Events
+
         #region Public Properties
 
         public int Key { get; }
@@ -85,7 +91,12 @@ namespace PrismTaskPanes.Factories
 
         public void Save()
         {
-            SaveAttributes();
+            foreach (var taskPane in taskPanes)
+            {
+                SaveAttributes(
+                    key: taskPane.Key,
+                    taskPane: taskPane.Value);
+            }
         }
 
         public void SetVisible(string receiverHash, bool isVisible)
@@ -139,6 +150,8 @@ namespace PrismTaskPanes.Factories
 
             var result = taskPanesFactory.Get(settings);
 
+            result.OnDispose += OnTaskPaneDispose;
+
             taskPanes.Add(
                 key: receiverHash,
                 value: result);
@@ -146,27 +159,43 @@ namespace PrismTaskPanes.Factories
             return result;
         }
 
-        private void SaveAttributes()
+        private void OnTaskPaneDispose(NetOffice.OnDisposeEventArgs eventArgs)
         {
-            foreach (var taskPane in taskPanes)
-            {
-                // The workbook before close event is unsafe since it can be cancelled.
-                // Therefore all taskpanes are removed at application disposal.
-                // Bt it could be that the task pane does not exist anymore. This case must be catched here.
+            var taskPane = taskPanes
+                .Where(t => t.Value == eventArgs.Sender).SingleOrDefault();
 
-                try
-                {
-                    configurationsRepository.Set(
-                        receiverHash: taskPane.Key,
-                        documentHash: documentHashGetter.Invoke(),
-                        visible: taskPane.Value.Visible,
-                        width: taskPane.Value.Width,
-                        height: taskPane.Value.Height,
-                        dockPosition: taskPane.Value.DockPosition);
-                }
-                catch (NetOffice.Exceptions.PropertyGetCOMException)
-                { }
+            if (taskPane.Value != default)
+            {
+                SaveAttributes(
+                    key: taskPane.Key,
+                    taskPane: taskPane.Value);
+
+                taskPanes.Remove(taskPane.Key);
+
+                OnRepositoryClosing?.Invoke(
+                    sender: this,
+                    e: default);
             }
+        }
+
+        private void SaveAttributes(string key, CustomTaskPane taskPane)
+        {
+            // The workbook before close event is unsafe since it can be cancelled.
+            // Therefore all taskpanes are removed at application disposal.
+            // Bt it could be that the task pane does not exist anymore. This case must be catched here.
+
+            try
+            {
+                configurationsRepository.Set(
+                    receiverHash: key,
+                    documentHash: documentHashGetter.Invoke(),
+                    visible: taskPane.Visible,
+                    width: taskPane.Width,
+                    height: taskPane.Height,
+                    dockPosition: taskPane.DockPosition);
+            }
+            catch (NetOffice.Exceptions.PropertyGetCOMException)
+            { }
 
             configurationsRepository.Save();
         }

@@ -130,7 +130,6 @@ namespace PrismTaskPanes.Settings
 
             result.DockRestriction = currentAttribute.DockRestriction;
             result.InvisibleAtStart = currentAttribute.InvisibleAtStart;
-            result.NavigationKey = currentAttribute.NavigationKey;
             result.NavigationValue = currentAttribute.NavigationValue;
             result.RegionContext = currentAttribute.RegionContext;
             result.RegionName = currentAttribute.RegionName;
