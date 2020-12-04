@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="NetOfficeFw.Excel" Version="1.7.8" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
