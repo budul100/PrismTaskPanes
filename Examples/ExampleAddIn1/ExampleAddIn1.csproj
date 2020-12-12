@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetOfficeFw.Excel" Version="1.7.8" />
+    <PackageReference Include="NetOfficeFw.Excel" Version="1.7.9" />
     <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0" />
   </ItemGroup>
 
