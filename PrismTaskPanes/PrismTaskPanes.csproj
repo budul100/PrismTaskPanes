@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>PrismTaskPanes</AssemblyName>
-    <AssemblyVersion>3.6.0.0</AssemblyVersion>
+    <AssemblyVersion>3.7.0.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>
@@ -47,8 +47,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetOfficeFw.Core" Version="1.7.9" />
-    <PackageReference Include="NetOfficeFw.Excel" Version="1.7.9" />
+    <PackageReference Include="NetOfficeFw.Core" Version="1.8.0" />
+    <PackageReference Include="NetOfficeFw.Excel" Version="1.8.0" />
     <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0" />
   </ItemGroup>
 
