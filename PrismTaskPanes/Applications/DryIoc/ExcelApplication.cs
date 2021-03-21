@@ -41,8 +41,6 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Protected Methods
 
-
-
         protected override void Dispose(bool disposing)
         {
             if (!isDisposed)
