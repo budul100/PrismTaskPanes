@@ -69,6 +69,12 @@ namespace PrismTaskPanes
                         application: application,
                         ctpFactoryInst: ctpFactoryInst);
                 }
+                else if (application is NetOffice.PowerPointApi.Application)
+                {
+                    officeApplication = new PowerPointApplication(
+                        application: application,
+                        ctpFactoryInst: ctpFactoryInst);
+                }
             }
         }
 

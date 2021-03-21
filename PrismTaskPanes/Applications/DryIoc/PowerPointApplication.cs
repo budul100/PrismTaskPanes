@@ -1,7 +1,9 @@
 ﻿using NetOffice.PowerPointApi;
 using Prism.Ioc;
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace PrismTaskPanes.Applications.DryIoc
 {
@@ -9,6 +11,8 @@ namespace PrismTaskPanes.Applications.DryIoc
         : OfficeApplication, IDisposable
     {
         #region Private Fields
+
+        private const string ProcessName = "POWERPNT";
 
         private readonly Application application;
 
@@ -21,8 +25,8 @@ namespace PrismTaskPanes.Applications.DryIoc
         {
             this.application = application as Application;
 
-            this.application.NewPresentationEvent += OnElementNew; ;
-            this.application.PresentationOpenEvent += OnElementOpen;
+            this.application.AfterNewPresentationEvent += OnElementNewAfter;
+            this.application.AfterPresentationOpenEvent += OnElementOpenAfter;
             this.application.PresentationSaveEvent += OnElementSaveAfter;
             this.application.PresentationBeforeCloseEvent += OnElementCloseBefore;
 
@@ -35,7 +39,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         protected override object TaskPaneWindow => GetActiveWindow();
 
-        protected override int? TaskPaneWindowKey => GetActiveWindow()?.HWND;
+        protected override int? TaskPaneWindowKey => GetActiveWindowKey();
 
         #endregion Protected Properties
 
@@ -103,17 +107,33 @@ namespace PrismTaskPanes.Applications.DryIoc
             return result;
         }
 
+        private int? GetActiveWindowKey()
+        {
+            var result = default(int?);
+
+            var activeWindowName = GetActiveWindow()?.Caption;
+
+            if (!string.IsNullOrWhiteSpace(activeWindowName))
+            {
+                result = Process.GetProcessesByName(ProcessName)
+                    .Where(p => p.MainWindowTitle == $"{activeWindowName} - PowerPoint")
+                    .SingleOrDefault()?.MainWindowHandle.ToInt32();
+            }
+
+            return result;
+        }
+
         private void OnElementCloseBefore(Presentation pres, ref bool cancel)
         {
             SaveScope();
         }
 
-        private void OnElementNew(Presentation pres)
+        private void OnElementNewAfter(Presentation pres)
         {
             OpenScope();
         }
 
-        private void OnElementOpen(Presentation pres)
+        private void OnElementOpenAfter(Presentation pres)
         {
             OpenScope();
         }
