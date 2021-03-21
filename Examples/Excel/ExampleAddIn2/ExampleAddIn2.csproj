@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PrismTaskPanes\PrismTaskPanes.csproj" />
-    <ProjectReference Include="..\ExampleView\ExampleView.csproj" />
+    <ProjectReference Include="..\..\..\PrismTaskPanes\PrismTaskPanes.csproj" />
+    <ProjectReference Include="..\..\Base\ExampleView\ExampleView.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

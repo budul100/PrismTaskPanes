@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PrismTaskPanes.Regions\PrismTaskPanes.Regions.csproj" />
-    <ProjectReference Include="..\..\PrismTaskPanes\PrismTaskPanes.csproj" />
+    <ProjectReference Include="..\..\..\PrismTaskPanes.Regions\PrismTaskPanes.Regions.csproj" />
+    <ProjectReference Include="..\..\..\PrismTaskPanes\PrismTaskPanes.csproj" />
     <ProjectReference Include="..\ExampleCommon\ExampleCommon.csproj" />
   </ItemGroup>
 
