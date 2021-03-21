@@ -21,8 +21,8 @@ namespace PrismTaskPanes.Applications.DryIoc
         {
             this.application = application as Application;
 
-            this.application.NewWorkbookEvent += OnElementNew;
-            this.application.WorkbookOpenEvent += OnElementOpen;
+            this.application.NewWorkbookEvent += OnElementNewAfter;
+            this.application.WorkbookOpenEvent += OnElementOpenAfter;
             this.application.WorkbookAfterSaveEvent += OnElementSaveAfter;
             this.application.WorkbookBeforeCloseEvent += OnElementCloseBefore;
 
@@ -108,12 +108,12 @@ namespace PrismTaskPanes.Applications.DryIoc
             SaveScope();
         }
 
-        private void OnElementNew(Workbook wb)
+        private void OnElementNewAfter(Workbook wb)
         {
             OpenScope();
         }
 
-        private void OnElementOpen(Workbook wb)
+        private void OnElementOpenAfter(Workbook wb)
         {
             OpenScope();
         }
