@@ -15,8 +15,8 @@ using TestCommon;
 
 namespace ExampleAddIn1
 {
-    [COMAddin("PrismTaskPanes.ExampleAddIn1", "This is an ExampleAddIn1 description.", LoadBehavior.LoadAtStartup),
-        ProgId("ExampleAddIn1.AddIn"),
+    [COMAddin("PrismTaskPanes.ExcelExampleAddIn1", "This is an ExampleAddIn1 description.", LoadBehavior.LoadAtStartup),
+        ProgId("ExcelExampleAddIn1.AddIn"),
         Guid("9F60AAAD-D3A1-40CF-9089-D46C000C75E0"),
         ComVisible(true),
         Codebase]
@@ -92,12 +92,17 @@ namespace ExampleAddIn1
 
         private void Addin_OnStartupComplete(ref Array custom)
         {
-            Application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose;
+            Application.WorkbookBeforeCloseEvent += OnBeforeClose;
 
             DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
             DryIocProvider.OnScopeInitialized += OnScopeInitialized;
 
             Console.WriteLine($"Addin started in Excel Version {Application.Version}");
+        }
+
+        private void OnBeforeClose(Workbook wb, ref bool cancel)
+        {
+            Console.WriteLine($"Workbook will be closed.");
         }
 
         private void OnScopeInitialized(object sender, PrismTaskPanes.Events.DryIocEventArgs e)
@@ -110,11 +115,6 @@ namespace ExampleAddIn1
         {
             var test1 = DryIocProvider.Container.Resolve<IExampleClass>();
             var test2 = e.Container.Resolve<IExampleClass>();
-        }
-
-        private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)
-        {
-            Console.WriteLine($"Workbook will be closed.");
         }
 
         #endregion Private Methods

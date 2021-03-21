@@ -13,8 +13,8 @@ using TestCommon;
 
 namespace ExampleAddIn2
 {
-    [COMAddin("PrismTaskPanes.ExampleAddIn2", "This is an example addin", LoadBehavior.LoadAtStartup),
-        ProgId("ExampleAddIn2.AddIn"),
+    [COMAddin("PrismTaskPanes.ExcelExampleAddIn2", "This is an example addin", LoadBehavior.LoadAtStartup),
+        ProgId("ExcelExampleAddIn2.AddIn"),
         Guid("26933ECD-AFCA-4498-B30E-D5F20BAD0E99"),
         ComVisible(true),
         Codebase]
