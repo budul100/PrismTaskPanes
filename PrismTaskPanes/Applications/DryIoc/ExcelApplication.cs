@@ -41,10 +41,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Protected Methods
 
-        protected override System.Windows.Window CreateShell()
-        {
-            return default;
-        }
+
 
         protected override void Dispose(bool disposing)
         {

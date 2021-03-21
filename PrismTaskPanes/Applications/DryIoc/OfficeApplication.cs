@@ -121,6 +121,11 @@ namespace PrismTaskPanes.Applications.DryIoc
             BaseProvider.ConfigureModuleCatalog(moduleCatalog);
         }
 
+        protected override Window CreateShell()
+        {
+            return default;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!isDisposed)
