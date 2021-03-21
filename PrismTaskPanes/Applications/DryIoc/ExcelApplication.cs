@@ -21,10 +21,10 @@ namespace PrismTaskPanes.Applications.DryIoc
         {
             this.application = application as Application;
 
-            this.application.NewWorkbookEvent += OnWorkbookNew;
-            this.application.WorkbookOpenEvent += OnWorkbookOpen;
-            this.application.WorkbookAfterSaveEvent += OnWorkbookSaveAfter;
-            this.application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose;
+            this.application.NewWorkbookEvent += OnElementNew;
+            this.application.WorkbookOpenEvent += OnElementOpen;
+            this.application.WorkbookAfterSaveEvent += OnElementSaveAfter;
+            this.application.WorkbookBeforeCloseEvent += OnElementCloseBefore;
 
             this.application.OnDispose += OnApplicationDispose;
         }
@@ -56,7 +56,7 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         protected override string GetTaskPaneIdentifier()
         {
-            var path = GetActiveWorkbook()?.FullName;
+            var path = GetActiveElement()?.FullName;
             var isPath = !string.IsNullOrWhiteSpace(Path.GetDirectoryName(path));
 
             return isPath
@@ -75,6 +75,20 @@ namespace PrismTaskPanes.Applications.DryIoc
 
         #region Private Methods
 
+        private Workbook GetActiveElement()
+        {
+            var result = default(Workbook);
+
+            try
+            {
+                result = application?.ActiveWorkbook;
+            }
+            catch (NetOffice.Exceptions.PropertyGetCOMException)
+            { }
+
+            return result;
+        }
+
         private Window GetActiveWindow()
         {
             var result = default(Window);
@@ -89,36 +103,22 @@ namespace PrismTaskPanes.Applications.DryIoc
             return result;
         }
 
-        private Workbook GetActiveWorkbook()
-        {
-            var result = default(Workbook);
-
-            try
-            {
-                result = application?.ActiveWorkbook;
-            }
-            catch (NetOffice.Exceptions.PropertyGetCOMException)
-            { }
-
-            return result;
-        }
-
-        private void OnWorkbookBeforeClose(Workbook wb, ref bool cancel)
+        private void OnElementCloseBefore(Workbook wb, ref bool cancel)
         {
             SaveScope();
         }
 
-        private void OnWorkbookNew(Workbook wb)
+        private void OnElementNew(Workbook wb)
         {
             OpenScope();
         }
 
-        private void OnWorkbookOpen(Workbook wb)
+        private void OnElementOpen(Workbook wb)
         {
             OpenScope();
         }
 
-        private void OnWorkbookSaveAfter(Workbook wb, bool success)
+        private void OnElementSaveAfter(Workbook wb, bool success)
         {
             SaveScope();
         }
