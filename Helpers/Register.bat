@@ -1,8 +1,8 @@
 @ECHO off
 
-SET ExampleDirectory=..\Examples\DryIoc
+SET ExampleDirectory=%~dp0\..\Examples\DryIoc
 
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /codebase ..\Base\PrismTaskPanes.Controls\bin\Debug\net472\PrismTaskPanes.Controls.dll
+"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /codebase %~dp0\..\Base\PrismTaskPanes.Controls\bin\Debug\net472\PrismTaskPanes.Controls.dll
 
 "%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /codebase %ExampleDirectory%\Excel\ExcelAddIn1\bin\Debug\net472\ExcelAddIn1.dll
 "%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /codebase %ExampleDirectory%\Excel\ExcelAddIn2\bin\Debug\net472\ExcelAddIn2.dll
