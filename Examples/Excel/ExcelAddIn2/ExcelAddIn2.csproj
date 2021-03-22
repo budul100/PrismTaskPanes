@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <EnableComHosting>true</EnableComHosting>
+    <EnableRegFreeCom>true</EnableRegFreeCom>
+    <!--<RegisterForComInterop>true</RegisterForComInterop>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="RibbonUI.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DryIoc\PrismTaskPane.DryIoc.Excel\PrismTaskPane.DryIoc.Excel.csproj" />
+    <ProjectReference Include="..\..\Base\ExampleView\ExampleView.csproj" />
+  </ItemGroup>
+
+</Project>

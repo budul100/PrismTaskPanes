@@ -6,7 +6,8 @@ using Prism.Regions;
 
 namespace ExampleView
 {
-    public class Module : IModule
+    public class Module
+        : IModule
     {
         #region Private Fields
 
