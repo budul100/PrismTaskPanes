@@ -1,4 +1,4 @@
-REM @echo off
+@echo off
 
 SET HelpersDir=.\Helpers
 SET SetupScripts=%HelpersDir%\Scripts
@@ -36,11 +36,11 @@ if /i "%config%" == "d" (
 	)
 )
 
-dotnet build "DryIoc\DryIoc.Excel\PrismTaskPane.DryIoc.Excel.csproj" --configuration %CONFIGURATION%
-dotnet build "DryIoc\DryIoc.PowerPoint\PrismTaskPane.DryIoc.PowerPoint.csproj" --configuration %CONFIGURATION%
+dotnet build ".\DryIoc\DryIoc.Excel\PrismTaskPane.DryIoc.Excel.csproj" --configuration %CONFIGURATION%
+dotnet build ".\DryIoc\DryIoc.PowerPoint\PrismTaskPane.DryIoc.PowerPoint.csproj" --configuration %CONFIGURATION%
 
-dotnet build "Base\PrismTaskPanes.Controls\PrismTaskPanes.Controls.csproj" --configuration %CONFIGURATION%
-dotnet build "Base\PrismTaskPanes.Regions\PrismTaskPanes.Regions.csproj" --configuration %CONFIGURATION%
+dotnet build ".\Base\PrismTaskPanes.Controls\PrismTaskPanes.Controls.csproj" --configuration %CONFIGURATION%
+dotnet build ".\Base\PrismTaskPanes.Regions\PrismTaskPanes.Regions.csproj" --configuration %CONFIGURATION%
 
 if %CONFIGURATION% == Debug (
 
@@ -60,6 +60,8 @@ if %CONFIGURATION% == Debug (
 	START powerpnt.exe
 
 ) else (
+
+	for /R %cd% %%f in (*.nupkg) do copy %%f .\_NuGet\
 
 	if /i "%update%" == "b" (
 		powershell "%SetupScripts%\Update_VersionBuild.ps1 -projectPaths %SlnPaths%"
