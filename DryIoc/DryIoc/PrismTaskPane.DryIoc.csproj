@@ -2,9 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <EnableComHosting>true</EnableComHosting>
-    <EnableRegFreeCom>true</EnableRegFreeCom>
-    <!--<RegisterForComInterop>True</RegisterForComInterop>-->
   </PropertyGroup>
 
   <ItemGroup>
