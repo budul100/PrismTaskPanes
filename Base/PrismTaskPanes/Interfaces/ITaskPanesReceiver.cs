@@ -1,8 +1,10 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
+using System.Runtime.InteropServices;
 
 namespace PrismTaskPanes.Interfaces
 {
+    [ComVisible(false)]
     public interface ITaskPanesReceiver
     {
         #region Public Methods

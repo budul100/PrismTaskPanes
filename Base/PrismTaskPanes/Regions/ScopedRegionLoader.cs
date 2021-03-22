@@ -6,9 +6,11 @@ using PrismTaskPanes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace PrismTaskPanes.Regions
 {
+    [ComVisible(false)]
     public class ScopedRegionLoader
         : RegionNavigationContentLoader, IRegionNavigationContentLoader
     {

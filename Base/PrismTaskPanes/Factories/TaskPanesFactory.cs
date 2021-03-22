@@ -10,12 +10,19 @@ using PrismTaskPanes.Settings;
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 
 namespace PrismTaskPanes.Factories
 {
+    [ComVisible(false)]
     public class TaskPanesFactory
     {
         #region Private Fields
+
+        private const string ProgID = "PrismTaskPanes.Controls.PrismTaskPanesHost";
 
         private readonly ICTPFactory ctpFactory;
         private readonly IRegionManager hostRegionManager;
@@ -28,7 +35,7 @@ namespace PrismTaskPanes.Factories
 
         public TaskPanesFactory(int key, ICTPFactory ctpFactory, IRegionManager hostRegionManager, object taskPaneWindow)
         {
-            if (Type.GetTypeFromProgID(PrismTaskPanesHost.ProgId) == default)
+            if (Type.GetTypeFromProgID(ProgID) == default)
             {
                 throw new LibraryNotRegisteredException();
             }
@@ -47,8 +54,11 @@ namespace PrismTaskPanes.Factories
         {
             var result = GetTaskPane(settings);
 
+            var hostRegion = GetHostRegion(result);
+            var hostView = GetHostView(hostRegion);
+
             SetRegions(
-                taskPane: result,
+                hostView: hostView,
                 settings: settings);
 
             return result;
@@ -58,10 +68,52 @@ namespace PrismTaskPanes.Factories
 
         #region Private Methods
 
+        private string GetHostRegion(CustomTaskPane taskPane)
+        {
+            var host = new ContentControl();
+
+            var result = host.GetHashCode()
+                .ToString(CultureInfo.InvariantCulture);
+
+            RegionManager.SetRegionManager(
+                target: host,
+                value: hostRegionManager);
+            RegionManager.SetRegionName(
+                regionTarget: host,
+                regionName: result);
+            RegionManager.UpdateRegions();
+
+            var contentControl = taskPane.ContentControl as ContainerControl;
+            var elementHost = contentControl.Controls[0] as ElementHost;
+
+            elementHost.Child = host;
+
+            return result;
+        }
+
+        private PrismTaskPanesView GetHostView(string hostRegion)
+        {
+            var horstUri = TaskPaneExtensions.GetUriHost();
+
+            hostRegionManager.RequestNavigate(
+                regionName: hostRegion,
+                source: horstUri);
+
+            var result = hostRegionManager.Regions[hostRegion].Views
+                .SingleOrDefault() as PrismTaskPanesView;
+
+            return result;
+        }
+
         private CustomTaskPane GetTaskPane(TaskPaneSettings settings)
         {
+            if (Type.GetTypeFromProgID(ProgID) == default)
+            {
+                throw new LibraryNotRegisteredException();
+            }
+
             var result = ctpFactory.CreateCTP(
-                cTPAxID: typeof(PrismTaskPanesHost).GetAxID(),
+                cTPAxID: ProgID,
                 cTPTitle: settings.Title,
                 cTPParentWindow: taskPaneWindow) as CustomTaskPane;
 
@@ -87,31 +139,14 @@ namespace PrismTaskPanes.Factories
             return result;
         }
 
-        private void SetRegions(CustomTaskPane taskPane, TaskPaneSettings settings)
+        private void SetRegions(PrismTaskPanesView hostView, TaskPaneSettings settings)
         {
-            var host = taskPane.ContentControl as PrismTaskPanesHost;
-            var hostRegionName = host.GetHashCode()
-                .ToString(CultureInfo.InvariantCulture);
-
-            host.SetLocalRegion(
-                regionName: hostRegionName,
-                regionManager: hostRegionManager);
-
-            var horstUri = TaskPaneExtensions.GetUriHost();
-
-            hostRegionManager.RequestNavigate(
-                regionName: hostRegionName,
-                source: horstUri);
-
-            var view = hostRegionManager.Regions[hostRegionName].Views
-                .SingleOrDefault() as PrismTaskPanesView;
-
-            view.SetLocalRegion(
+            hostView.SetLocalRegion(
                 regionName: settings.RegionName,
                 regionContext: settings.RegionContext);
 
             var viewUri = settings.GetUriView(windowKey);
-            var viewRegionManager = view.LocalRegionManager;
+            var viewRegionManager = hostView.LocalRegionManager;
 
             viewRegionManager.RequestNavigate(
                 regionName: settings.RegionName,

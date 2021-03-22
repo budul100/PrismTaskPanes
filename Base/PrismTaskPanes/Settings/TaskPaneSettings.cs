@@ -1,9 +1,11 @@
 ﻿using NetOffice.OfficeApi.Enums;
 using System;
+using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 
 namespace PrismTaskPanes.Settings
 {
+    [ComVisible(false)]
     [Serializable]
     [XmlType("PrismTaskPaneConfiguration")]
     public class TaskPaneSettings

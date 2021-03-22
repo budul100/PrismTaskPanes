@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <!--IMPORTANT! The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0) -->
+
+  <PropertyGroup>
+    <AssemblyName>PrismTaskPanes.Controls</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
+    <Version>$(AssemblyVersion)</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <EnableComHosting>true</EnableComHosting>
+    <EnableRegFreeCom>true</EnableRegFreeCom>
+    <!--<RegisterForComInterop>True</RegisterForComInterop>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="PrismTaskPanesHost.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PrismTaskPanesHostAdditional.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

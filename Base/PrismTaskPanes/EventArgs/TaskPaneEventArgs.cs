@@ -1,7 +1,9 @@
 ﻿using NetOffice.OfficeApi;
+using System.Runtime.InteropServices;
 
 namespace PrismTaskPanes.EventArgs
 {
+    [ComVisible(false)]
     public class TaskPaneEventArgs
         : System.EventArgs
     {

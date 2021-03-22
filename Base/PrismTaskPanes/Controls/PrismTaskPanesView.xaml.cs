@@ -1,11 +1,13 @@
 ﻿using Prism.Regions;
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.Interfaces;
+using System.Runtime.InteropServices;
 using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace PrismTaskPanes.Controls
 {
+    [ComVisible(false)]
     [ScopedRegion(
         CreateRegionManagerScope = true,
         ViewName = TaskPaneViewName)]

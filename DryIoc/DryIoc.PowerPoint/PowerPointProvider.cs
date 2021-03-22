@@ -6,12 +6,6 @@ namespace PrismTaskPane.DryIoc
 {
     public static class PowerPointProvider
     {
-        #region Private Fields
-
-        private static PrismTaskPanes.DryIoc.PowerPoint.PowerPointApplication dryIocApplication;
-
-        #endregion Private Fields
-
         #region Public Methods
 
         public static void InitializeProvider(this ITaskPanesReceiver receiver, object application,
@@ -24,9 +18,9 @@ namespace PrismTaskPane.DryIoc
 
             BaseProvider.AddReceiver(receiver);
 
-            if (dryIocApplication == default)
+            if (DryIocProvider.Application == default)
             {
-                dryIocApplication = new PrismTaskPanes.DryIoc.PowerPoint.PowerPointApplication(
+                var dryIocApplication = new PrismTaskPanes.DryIoc.PowerPoint.PowerPointApplication(
                     application: application,
                     ctpFactoryInst: ctpFactoryInst);
 

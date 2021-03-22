@@ -6,11 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace PrismTaskPanes.Settings
 {
+    [ComVisible(false)]
     public class TaskPaneSettingsRepository
     {
         #region Private Fields

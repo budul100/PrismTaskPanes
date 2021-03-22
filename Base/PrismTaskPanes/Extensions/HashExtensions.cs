@@ -1,9 +1,11 @@
 ﻿using PrismTaskPanes.Interfaces;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace PrismTaskPanes.Extensions
 {
+    [ComVisible(false)]
     public static class HashExtensions
     {
         #region Private Fields

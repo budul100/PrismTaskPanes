@@ -1,8 +1,10 @@
 ﻿using NetOffice.OfficeApi.Enums;
 using System;
+using System.Runtime.InteropServices;
 
 namespace PrismTaskPanes.Attributes
 {
+    [ComVisible(false)]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public sealed class PrismTaskPaneAttribute
         : Attribute

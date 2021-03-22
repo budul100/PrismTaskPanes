@@ -10,12 +10,6 @@ namespace PrismTaskPanes
 {
     public static class DryIocProvider
     {
-        #region Private Fields
-
-        private static DryIoc.DryIocApplication application;
-
-        #endregion Private Fields
-
         #region Public Events
 
         public static event EventHandler OnApplicationExitEvent;
@@ -38,7 +32,9 @@ namespace PrismTaskPanes
 
         #region Public Properties
 
-        public static IResolverContext Container => application?.GetContainer();
+        public static DryIoc.DryIocApplication Application { get; private set; }
+
+        public static IResolverContext Container => Application?.GetContainer();
 
         #endregion Public Properties
 
@@ -51,9 +47,9 @@ namespace PrismTaskPanes
                 throw new ArgumentNullException(nameof(dryIocApplication));
             }
 
-            if (application == default)
+            if (Application == default)
             {
-                application = dryIocApplication;
+                Application = dryIocApplication;
                 BaseProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
             }
         }
@@ -67,7 +63,7 @@ namespace PrismTaskPanes
 
             var receiverHash = receiver.GetReceiverHash(id);
 
-            application?.SetTaskPaneVisible(
+            Application?.SetTaskPaneVisible(
                 hash: receiverHash,
                 isVisible: isVisible);
         }
@@ -81,7 +77,7 @@ namespace PrismTaskPanes
 
             var receiverHash = receiver.GetReceiverHash(id);
 
-            var result = application?.TaskPaneExists(receiverHash);
+            var result = Application?.TaskPaneExists(receiverHash);
 
             return result ?? false;
         }
@@ -94,7 +90,7 @@ namespace PrismTaskPanes
             }
 
             var receiverHash = receiver.GetReceiverHash(id);
-            var result = application?.TaskPaneVisible(receiverHash);
+            var result = Application?.TaskPaneVisible(receiverHash);
 
             return result ?? false;
         }
@@ -106,7 +102,7 @@ namespace PrismTaskPanes
         internal static void OnApplicationExit()
         {
             OnApplicationExitEvent?.Invoke(
-                sender: application,
+                sender: Application,
                 e: default);
         }
 
@@ -115,7 +111,7 @@ namespace PrismTaskPanes
             var eventArgs = new DryIocEventArgs(scope);
 
             OnScopeInitialized?.Invoke(
-                sender: application,
+                sender: Application,
                 e: eventArgs);
         }
 
@@ -124,7 +120,7 @@ namespace PrismTaskPanes
             var eventArgs = new DryIocEventArgs(scope);
 
             OnScopeClosingEvent?.Invoke(
-                sender: application,
+                sender: Application,
                 e: eventArgs);
         }
 
@@ -133,18 +129,18 @@ namespace PrismTaskPanes
             var eventArgs = new DryIocEventArgs(scope);
 
             OnScopeProvided?.Invoke(
-                sender: application,
+                sender: Application,
                 e: eventArgs);
 
             OnScopeOpenedEvent?.Invoke(
-                sender: application,
+                sender: Application,
                 e: eventArgs);
         }
 
         internal static void OnTaskPaneChanged(object sender, TaskPaneEventArgs e)
         {
             OnTaskPaneChangedEvent?.Invoke(
-                sender: application,
+                sender: Application,
                 e: e);
         }
 

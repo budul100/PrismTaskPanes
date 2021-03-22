@@ -3,8 +3,8 @@
   <!--IMPORTANT! The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0) -->
 
   <PropertyGroup>
-    <AssemblyName>PrismTaskPanes.DryIoc.PowerPoint</AssemblyName>
-    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyName>PrismTaskPanes.DryIoc.Excel</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>
@@ -19,7 +19,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>$(Authors).$(AssemblyName)</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>PowerPoint, Office, Prism, Task panes, NetOffice</PackageTags>
+    <PackageTags>Excel, Office, Prism, Task panes, NetOffice</PackageTags>
     <RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
   </PropertyGroup>
 
@@ -47,11 +47,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetOfficeFw.PowerPoint" Version="1.8.1" />
+    <PackageReference Include="NetOfficeFw.Excel" Version="1.8.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PrismTaskPane.DryIoc\PrismTaskPane.DryIoc.csproj" />
+    <ProjectReference Include="..\DryIoc\PrismTaskPane.DryIoc.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,12 +6,6 @@ namespace PrismTaskPane.DryIoc
 {
     public static class ExcelProvider
     {
-        #region Private Fields
-
-        private static PrismTaskPanes.DryIoc.Excel.ExcelApplication dryIocApplication;
-
-        #endregion Private Fields
-
         #region Public Methods
 
         public static void InitializeProvider(this ITaskPanesReceiver receiver, object application,
@@ -24,9 +18,9 @@ namespace PrismTaskPane.DryIoc
 
             BaseProvider.AddReceiver(receiver);
 
-            if (dryIocApplication == default)
+            if (DryIocProvider.Application == default)
             {
-                dryIocApplication = new PrismTaskPanes.DryIoc.Excel.ExcelApplication(
+                var dryIocApplication = new PrismTaskPanes.DryIoc.Excel.ExcelApplication(
                     application: application,
                     ctpFactoryInst: ctpFactoryInst);
 

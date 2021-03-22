@@ -1,9 +1,11 @@
 ﻿using Prism.Regions;
 using System;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 
 namespace PrismTaskPanes.Exceptions
 {
+    [ComVisible(false)]
     [Serializable]
     public class RegionNotLoadedException
         : Exception

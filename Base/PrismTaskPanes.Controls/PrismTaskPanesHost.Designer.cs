@@ -40,12 +40,13 @@
             this.elementHost.Size = new System.Drawing.Size(150, 150);
             this.elementHost.TabIndex = 0;
             this.elementHost.Text = "elementHost";
-            this.elementHost.Child = default;
+
+            this.Controls.Add(this.elementHost);
 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.elementHost);
+
             this.Name = "PrismTaskPanesHost";
             this.ResumeLayout(false);
         }

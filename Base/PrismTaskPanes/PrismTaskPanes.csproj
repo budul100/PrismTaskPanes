@@ -11,4 +11,10 @@
     <PackageReference Include="NetOfficeFw.Core" Version="1.8.1" />
   </ItemGroup>
 
+  <!--This project can be referenced to ensure that the control is built. But there is no link to the project. -->
+
+  <!--<ItemGroup>
+    <ProjectReference Include="..\PrismTaskPanes.Controls\PrismTaskPanes.Controls.csproj" />
+  </ItemGroup>-->
+
 </Project>

@@ -11,9 +11,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace PrismTaskPanes
 {
+    [ComVisible(false)]
     public static class BaseProvider
     {
         #region Private Fields
