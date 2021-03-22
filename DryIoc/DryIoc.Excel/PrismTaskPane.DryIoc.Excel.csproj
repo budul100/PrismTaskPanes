@@ -54,4 +54,9 @@
     <ProjectReference Include="..\DryIoc\PrismTaskPane.DryIoc.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!--This project is referenced to ensure that the control is built. But there is no link to the project. -->
+    <ProjectReference Include="..\..\Base\PrismTaskPanes.Controls\PrismTaskPanes.Controls.csproj" />
+  </ItemGroup>
+
 </Project>
