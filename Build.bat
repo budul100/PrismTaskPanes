@@ -4,17 +4,6 @@ SET HelpersDir=.\Helpers
 SET SetupScripts=%HelpersDir%\Scripts
 SET SlnPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj','.\Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj','.\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj'
 
-echo.
-echo Clean solution
-echo.
-
-CALL "%HelpersDir%\Unregister.bat"
-CALL "%HelpersDir%\Clean.bat"
-
-echo.
-echo Build solution
-echo.
-
 set "config=d"
 set /p "config=Shall the [d]ebug version or the [r]elease version be compiled? "
 echo.
@@ -22,6 +11,12 @@ echo.
 if /i "%config%" == "d" (
 
 	SET CONFIGURATION=Debug
+
+	echo.
+	echo Clean solution
+	echo.
+
+	CALL "%HelpersDir%\Unregister.bat"
 
 ) else (
 
@@ -34,7 +29,18 @@ if /i "%config%" == "d" (
 	if /i "%update%" == "m" (
 		powershell "%SetupScripts%\Update_VersionMinor.ps1 -projectPaths %SlnPaths%"
 	)
+
+	echo.
+	echo Clean solution
+	echo.
+
+	CALL "%HelpersDir%\Unregister.bat"
+	CALL "%HelpersDir%\Clean.bat"
 )
+
+echo.
+echo Build solution
+echo.
 
 dotnet build ".\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj" --configuration %CONFIGURATION%
 dotnet build ".\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj" --configuration %CONFIGURATION%

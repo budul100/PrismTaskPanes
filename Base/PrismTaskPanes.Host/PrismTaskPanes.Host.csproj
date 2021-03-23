@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <AssemblyName>PrismTaskPanes.Host</AssemblyName>
-    <AssemblyVersion>4.0.8.0</AssemblyVersion>
+    <AssemblyVersion>4.0.9.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>
@@ -18,14 +18,6 @@
     <EnableComHosting>true</EnableComHosting>
     <EnableRegFreeCom>true</EnableRegFreeCom>
     <!--<RegisterForComInterop>True</RegisterForComInterop>-->
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>$(Authors).$(AssemblyName)</PackageId>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>Office, Excel, Word, PowerPoint, Prism, Task panes, NetOffice</PackageTags>
-    <RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
