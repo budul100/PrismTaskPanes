@@ -1,4 +1,6 @@
-﻿using NetOffice.OfficeApi;
+﻿#pragma warning disable CA1031 // Do not catch general exception types
+
+using NetOffice.OfficeApi;
 using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes.Attributes;
@@ -63,6 +65,11 @@ namespace PrismTaskPanes
             DoWithAllReceivers((r) => r.InvalidateRibbonUI());
         }
 
+        public static void RedirectAssembly()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssemblyOnCurrentDomain;
+        }
+
         public static void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterInstance(configurationsRepository);
@@ -124,6 +131,27 @@ namespace PrismTaskPanes
             return result;
         }
 
+        private static Assembly ResolveAssemblyOnCurrentDomain(object sender, ResolveEventArgs args)
+        {
+            var requestedAssembly = new AssemblyName(args.Name);
+            var assembly = default(Assembly);
+
+            AppDomain.CurrentDomain.AssemblyResolve -= ResolveAssemblyOnCurrentDomain;
+
+            try
+            {
+                assembly = Assembly.Load(requestedAssembly.Name);
+            }
+            catch
+            { }
+
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssemblyOnCurrentDomain;
+
+            return assembly;
+        }
+
         #endregion Private Methods
     }
 }
+
+#pragma warning restore CA1031 // Do not catch general exception types

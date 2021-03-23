@@ -1,4 +1,6 @@
-﻿using Prism.Regions;
+﻿using Prism.Commands;
+using Prism.Regions;
+using System;
 using TestCommon;
 
 namespace ExampleView.ViewModels
@@ -16,6 +18,8 @@ namespace ExampleView.ViewModels
 
         public ViewAViewModel(IExampleClass test)
         {
+            TestCommand = new DelegateCommand(TestAction);
+
             Message = test.Message;
         }
 
@@ -29,6 +33,8 @@ namespace ExampleView.ViewModels
             set { SetProperty(ref _message, value); }
         }
 
+        public DelegateCommand TestCommand { get; }
+
         #endregion Public Properties
 
         #region Protected Methods
@@ -38,5 +44,14 @@ namespace ExampleView.ViewModels
         }
 
         #endregion Protected Methods
+
+        #region Private Methods
+
+        private void TestAction()
+        {
+            Message = DateTime.Now.ToLongTimeString();
+        }
+
+        #endregion Private Methods
     }
 }

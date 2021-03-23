@@ -43,6 +43,8 @@ namespace PrismTaskPanes
 
             if (Application == default)
             {
+                BaseProvider.RedirectAssembly();
+
                 Application = dryIocApplication;
                 BaseProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
             }
