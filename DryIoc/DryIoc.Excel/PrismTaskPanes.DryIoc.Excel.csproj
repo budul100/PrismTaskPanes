@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <AssemblyName>PrismTaskPanes.DryIoc.Excel</AssemblyName>
-    <AssemblyVersion>4.0.7.0</AssemblyVersion>
+    <AssemblyVersion>4.0.8.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>

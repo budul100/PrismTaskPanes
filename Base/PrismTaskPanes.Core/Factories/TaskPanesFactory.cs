@@ -3,7 +3,7 @@
 using NetOffice.OfficeApi;
 using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
-using PrismTaskPanes.Controls;
+using PrismTaskPanes.Host;
 using PrismTaskPanes.Exceptions;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Settings;
@@ -22,7 +22,7 @@ namespace PrismTaskPanes.Factories
     {
         #region Private Fields
 
-        private const string ProgID = "PrismTaskPanes.Controls.PrismTaskPanesHost";
+        private const string ProgID = "PrismTaskPanes.Host.PrismTaskPanesHost";
 
         private readonly ICTPFactory ctpFactory;
         private readonly IRegionManager hostRegionManager;

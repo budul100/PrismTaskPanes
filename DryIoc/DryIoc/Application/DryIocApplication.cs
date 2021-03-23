@@ -3,7 +3,7 @@ using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
-using PrismTaskPanes.Controls;
+using PrismTaskPanes.Host;
 using PrismTaskPanes.DryIoc.Factories;
 using PrismTaskPanes.EventArgs;
 using PrismTaskPanes.Extensions;

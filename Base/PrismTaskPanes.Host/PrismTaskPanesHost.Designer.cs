@@ -1,4 +1,4 @@
-﻿namespace PrismTaskPanes.Controls
+﻿namespace PrismTaskPanes.Host
 {
     partial class PrismTaskPanesHost
     {

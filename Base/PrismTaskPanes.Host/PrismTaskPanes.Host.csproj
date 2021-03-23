@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <AssemblyName>PrismTaskPanes.Host</AssemblyName>
-    <AssemblyVersion>4.0.7.0</AssemblyVersion>
+    <AssemblyVersion>4.0.8.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>
@@ -32,9 +32,7 @@
     <Compile Update="PrismTaskPanesHost.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="PrismTaskPanesHostAdditional.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="PrismTaskPanesHostAdditional.cs" />
   </ItemGroup>
 
 </Project>

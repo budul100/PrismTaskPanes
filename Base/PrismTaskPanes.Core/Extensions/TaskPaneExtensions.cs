@@ -2,7 +2,7 @@
 using Prism.Regions;
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.Commons.Enums;
-using PrismTaskPanes.Controls;
+using PrismTaskPanes.Host;
 using PrismTaskPanes.Settings;
 using System;
 

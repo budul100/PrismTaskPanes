@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace PrismTaskPanes.Controls
+namespace PrismTaskPanes.Host
 {
     [ComVisible(false)]
     [ScopedRegion(
