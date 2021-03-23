@@ -1,4 +1,4 @@
-﻿using NetOffice.OfficeApi.Enums;
+﻿using PrismTaskPanes.Commons.Enums;
 using System;
 using System.Runtime.InteropServices;
 
@@ -20,8 +20,8 @@ namespace PrismTaskPanes.Attributes
             bool invisibleAtStart = false,
             int width = 0,
             int height = 0,
-            MsoCTPDockPosition dockPosition = MsoCTPDockPosition.msoCTPDockPositionRight,
-            MsoCTPDockPositionRestrict dockRestriction = MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone)
+            DockPosition dockPosition = DockPosition.Right,
+            DockRestriction dockRestriction = DockRestriction.None)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -50,12 +50,12 @@ namespace PrismTaskPanes.Attributes
             DockRestriction = dockRestriction;
 
             if (width > 0
-                && DockPosition != MsoCTPDockPosition.msoCTPDockPositionTop
-                && DockPosition != MsoCTPDockPosition.msoCTPDockPositionBottom)
+                && DockPosition != DockPosition.Top
+                && DockPosition != DockPosition.Bottom)
                 Width = width;
             if (height > 0
-                && DockPosition != MsoCTPDockPosition.msoCTPDockPositionLeft
-                && DockPosition != MsoCTPDockPosition.msoCTPDockPositionRight)
+                && DockPosition != DockPosition.Left
+                && DockPosition != DockPosition.Right)
                 Height = height;
         }
 
@@ -69,8 +69,8 @@ namespace PrismTaskPanes.Attributes
             bool invisibleAtStart = false,
             int width = 0,
             int height = 0,
-            MsoCTPDockPosition dockPosition = MsoCTPDockPosition.msoCTPDockPositionRight,
-            MsoCTPDockPositionRestrict dockRestriction = MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone) :
+            DockPosition dockPosition = DockPosition.Right,
+            DockRestriction dockRestriction = DockRestriction.None) :
             this(id: id, title: title, view: view, regionName: regionName, visible: visible,
                 invisibleAtStart: invisibleAtStart, width: width, height: height, dockPosition: dockPosition,
                 dockRestriction: dockRestriction)
@@ -94,8 +94,8 @@ namespace PrismTaskPanes.Attributes
             bool invisibleAtStart = false,
             int width = 0,
             int height = 0,
-            MsoCTPDockPosition dockPosition = MsoCTPDockPosition.msoCTPDockPositionRight,
-            MsoCTPDockPositionRestrict dockRestriction = MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone) :
+            DockPosition dockPosition = DockPosition.Right,
+            DockRestriction dockRestriction = DockRestriction.None) :
             this(id: id, title: title, view: view, regionName: regionName, navigationValue: navigationValue,
                 visible: visible, invisibleAtStart: invisibleAtStart, width: width, height: height,
                 dockPosition: dockPosition, dockRestriction: dockRestriction)
@@ -112,11 +112,9 @@ namespace PrismTaskPanes.Attributes
 
         #region Public Properties
 
-        public MsoCTPDockPosition DockPosition { get; set; } =
-            MsoCTPDockPosition.msoCTPDockPositionRight;
+        public DockPosition DockPosition { get; set; } = DockPosition.Right;
 
-        public MsoCTPDockPositionRestrict DockRestriction { get; set; } =
-            MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone;
+        public DockRestriction DockRestriction { get; set; } = DockRestriction.None;
 
         public int Height { get; set; }
 

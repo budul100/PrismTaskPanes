@@ -6,9 +6,9 @@ using NetOffice.Tools;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
-using PrismTaskPane.DryIoc;
 using PrismTaskPanes;
 using PrismTaskPanes.Attributes;
+using PrismTaskPanes.DryIoc;
 using PrismTaskPanes.DryIoc.EventArgs;
 using PrismTaskPanes.Interfaces;
 using System;
@@ -96,21 +96,21 @@ namespace ExcelAddIn1
         {
             Application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose;
 
-            DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
-            DryIocProvider.OnScopeInitialized += OnScopeInitialized;
+            ExcelProvider.OnScopeOpenedEvent += OnScopeOpened;
+            ExcelProvider.OnScopeInitializedEvent += OnScopeInitialized;
 
             Console.WriteLine($"Addin started in Excel Version {Application.Version}");
         }
 
-        private void OnScopeInitialized(object sender, DryIocEventArgs e)
+        private void OnScopeInitialized(object sender, ExcelEventArgs e)
         {
-            var test1 = DryIocProvider.Container.Resolve<IExampleClass>();
+            var test1 = ExcelProvider.Container.Resolve<IExampleClass>();
             var test2 = e.Container.Resolve<IExampleClass>();
         }
 
-        private void OnScopeOpened(object sender, DryIocEventArgs e)
+        private void OnScopeOpened(object sender, ExcelEventArgs e)
         {
-            var test1 = DryIocProvider.Container.Resolve<IExampleClass>();
+            var test1 = ExcelProvider.Container.Resolve<IExampleClass>();
             var test2 = e.Container.Resolve<IExampleClass>();
         }
 

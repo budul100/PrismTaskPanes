@@ -12,7 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\DryIoc\DryIoc.Excel\PrismTaskPane.DryIoc.Excel.csproj" />
+    <PackageReference Include="Prism.DryIoc" Version="8.0.0.1909" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" />
+    <ProjectReference Include="..\..\..\..\DryIoc\DryIoC.Excel\PrismTaskPanes.DryIoc.Excel.csproj" />
     <ProjectReference Include="..\..\..\Base\ExampleCommon\ExampleCommon.csproj" />
     <ProjectReference Include="..\..\..\Base\ExampleView\ExampleView.csproj" />
   </ItemGroup>

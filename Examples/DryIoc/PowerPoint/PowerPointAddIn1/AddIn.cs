@@ -6,9 +6,9 @@ using NetOffice.Tools;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
-using PrismTaskPane.DryIoc;
 using PrismTaskPanes;
 using PrismTaskPanes.Attributes;
+using PrismTaskPanes.DryIoc;
 using PrismTaskPanes.DryIoc.EventArgs;
 using PrismTaskPanes.Interfaces;
 using System;
@@ -94,21 +94,21 @@ namespace PowerPointAddIn1
 
         private void Addin_OnStartupComplete(ref Array custom)
         {
-            DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
-            DryIocProvider.OnScopeInitialized += OnScopeInitialized;
+            PowerPointProvider.OnScopeOpenedEvent += OnScopeOpened;
+            PowerPointProvider.OnScopeInitializedEvent += OnScopeInitialized;
 
             Console.WriteLine($"Addin started in Excel Version {Application.Version}");
         }
 
-        private void OnScopeInitialized(object sender, DryIocEventArgs e)
+        private void OnScopeInitialized(object sender, PowerPointEventArgs e)
         {
-            var test1 = DryIocProvider.Container.Resolve<IExampleClass>();
+            var test1 = PowerPointProvider.Container.Resolve<IExampleClass>();
             var test2 = e.Container.Resolve<IExampleClass>();
         }
 
-        private void OnScopeOpened(object sender, DryIocEventArgs e)
+        private void OnScopeOpened(object sender, PowerPointEventArgs e)
         {
-            var test1 = DryIocProvider.Container.Resolve<IExampleClass>();
+            var test1 = PowerPointProvider.Container.Resolve<IExampleClass>();
             var test2 = e.Container.Resolve<IExampleClass>();
         }
 

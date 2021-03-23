@@ -3,10 +3,12 @@
   <!--IMPORTANT! The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0) -->
 
   <PropertyGroup>
-    <AssemblyName>PrismTaskPanes.Controls</AssemblyName>
-    <AssemblyVersion>4.0.1.0</AssemblyVersion>
+    <AssemblyName>PrismTaskPanes.Host</AssemblyName>
+    <AssemblyVersion>4.0.6.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
+    <Authors>budul</Authors>
+    <Description>Host control for PrismTaskPanes</Description>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -16,6 +18,14 @@
     <EnableComHosting>true</EnableComHosting>
     <EnableRegFreeCom>true</EnableRegFreeCom>
     <!--<RegisterForComInterop>True</RegisterForComInterop>-->
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>$(Authors).$(AssemblyName)</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>Office, Excel, Word, PowerPoint, Prism, Task panes, NetOffice</PackageTags>
+    <RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

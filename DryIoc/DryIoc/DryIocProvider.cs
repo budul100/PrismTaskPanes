@@ -16,7 +16,7 @@ namespace PrismTaskPanes
 
         public static event EventHandler<DryIocEventArgs> OnScopeClosingEvent;
 
-        public static event EventHandler<DryIocEventArgs> OnScopeInitialized;
+        public static event EventHandler<DryIocEventArgs> OnScopeInitializedEvent;
 
         public static event EventHandler<DryIocEventArgs> OnScopeOpenedEvent;
 
@@ -24,15 +24,9 @@ namespace PrismTaskPanes
 
         #endregion Public Events
 
-        #region Internal Events
-
-        internal static event EventHandler<DryIocEventArgs> OnScopeProvided;
-
-        #endregion Internal Events
-
         #region Public Properties
 
-        public static DryIoc.DryIocApplication Application { get; private set; }
+        public static DryIoc.Application.DryIocApplication Application { get; private set; }
 
         public static IResolverContext Container => Application?.GetContainer();
 
@@ -40,7 +34,7 @@ namespace PrismTaskPanes
 
         #region Public Methods
 
-        public static void InitializeApplication(DryIoc.DryIocApplication dryIocApplication)
+        public static void InitializeApplication(DryIoc.Application.DryIocApplication dryIocApplication)
         {
             if (dryIocApplication == default)
             {
@@ -54,7 +48,7 @@ namespace PrismTaskPanes
             }
         }
 
-        public static void SetTaskPaneVisible(this ITaskPanesReceiver receiver, string id, bool isVisible)
+        public static void SetTaskPaneVisible(ITaskPanesReceiver receiver, string id, bool isVisible)
         {
             if (receiver == default)
             {
@@ -68,7 +62,7 @@ namespace PrismTaskPanes
                 isVisible: isVisible);
         }
 
-        public static bool TaskPaneExists(this ITaskPanesReceiver receiver, string id)
+        public static bool TaskPaneExists(ITaskPanesReceiver receiver, string id)
         {
             if (receiver == default)
             {
@@ -82,7 +76,7 @@ namespace PrismTaskPanes
             return result ?? false;
         }
 
-        public static bool TaskPaneVisible(this ITaskPanesReceiver receiver, string id)
+        public static bool TaskPaneVisible(ITaskPanesReceiver receiver, string id)
         {
             if (receiver == default)
             {
@@ -106,15 +100,6 @@ namespace PrismTaskPanes
                 e: default);
         }
 
-        internal static void OnRepositoryInitialized(IResolverContext scope)
-        {
-            var eventArgs = new DryIocEventArgs(scope);
-
-            OnScopeInitialized?.Invoke(
-                sender: Application,
-                e: eventArgs);
-        }
-
         internal static void OnScopeClosing(IResolverContext scope)
         {
             var eventArgs = new DryIocEventArgs(scope);
@@ -124,13 +109,18 @@ namespace PrismTaskPanes
                 e: eventArgs);
         }
 
-        internal static void OnScopeOpened(IResolverContext scope)
+        internal static void OnScopeInitialized(IResolverContext scope)
         {
             var eventArgs = new DryIocEventArgs(scope);
 
-            OnScopeProvided?.Invoke(
+            OnScopeInitializedEvent?.Invoke(
                 sender: Application,
                 e: eventArgs);
+        }
+
+        internal static void OnScopeOpened(IResolverContext scope)
+        {
+            var eventArgs = new DryIocEventArgs(scope);
 
             OnScopeOpenedEvent?.Invoke(
                 sender: Application,

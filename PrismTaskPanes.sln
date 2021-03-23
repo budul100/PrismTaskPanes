@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes", "Base\PrismTaskPanes\PrismTaskPanes.csproj", "{1989F0DA-4467-4CB0-9580-FFC6311495B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes.Core", "Base\PrismTaskPanes.Core\PrismTaskPanes.Core.csproj", "{1989F0DA-4467-4CB0-9580-FFC6311495B4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes.Regions", "Base\PrismTaskPanes.Regions\PrismTaskPanes.Regions.csproj", "{3A68C728-6F52-4383-99C9-720DFD5B1B3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes.Commons", "Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj", "{3A68C728-6F52-4383-99C9-720DFD5B1B3F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{DDD8B790-2428-4366-AFFA-702AB149EA15}"
 EndProject
@@ -21,13 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelAddIn1", "Examples\Dry
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelAddIn2", "Examples\DryIoc\Excel\ExcelAddIn2\ExcelAddIn2.csproj", "{55B2E071-CCBC-4057-8096-99CAC8EFA6C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPane.DryIoc.Excel", "DryIoC\DryIoC.Excel\PrismTaskPane.DryIoc.Excel.csproj", "{7718542A-855A-4F99-95ED-0413B0C2621E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes.DryIoc.Excel", "DryIoC\DryIoC.Excel\PrismTaskPanes.DryIoc.Excel.csproj", "{7718542A-855A-4F99-95ED-0413B0C2621E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DryIoc", "DryIoc", "{C68242B9-1D9E-45C9-95C0-7586930A293C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPane.DryIoc", "DryIoc\DryIoc\PrismTaskPane.DryIoc.csproj", "{995679F5-4D98-4822-BE7D-6A3B90B6DF44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes.DryIoc", "DryIoc\DryIoc\PrismTaskPanes.DryIoc.csproj", "{995679F5-4D98-4822-BE7D-6A3B90B6DF44}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPane.DryIoc.PowerPoint", "DryIoc\DryIoc.PowerPoint\PrismTaskPane.DryIoc.PowerPoint.csproj", "{3760CF8C-B014-4CBC-8AF1-0CB103C0F6DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes.DryIoc.PowerPoint", "DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj", "{3760CF8C-B014-4CBC-8AF1-0CB103C0F6DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{E232A836-70CE-4BB9-859E-75DF24EE10F0}"
 EndProject
@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerPointAddIn2", "Example
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DryIoc", "DryIoc", "{B313FBE4-7C1A-49E8-A555-6A9681FE44FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes.Controls", "Base\PrismTaskPanes.Controls\PrismTaskPanes.Controls.csproj", "{7F4A007A-287F-495D-A589-CFC81FF28C8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismTaskPanes.Host", "Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj", "{7F4A007A-287F-495D-A589-CFC81FF28C8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

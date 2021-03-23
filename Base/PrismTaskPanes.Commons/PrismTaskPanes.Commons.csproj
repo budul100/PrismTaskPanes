@@ -3,18 +3,17 @@
   <!--IMPORTANT! The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0) -->
 
   <PropertyGroup>
-    <AssemblyName>PrismTaskPanes.Regions</AssemblyName>
-    <AssemblyVersion>4.0.1.0</AssemblyVersion>
+    <AssemblyName>PrismTaskPanes.Commons</AssemblyName>
+    <AssemblyVersion>4.0.6.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>
-    <Description>Regions helper for PrismTaskPanes</Description>
+    <Description>Common classes for PrismTaskPanes</Description>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

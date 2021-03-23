@@ -1,36 +1,32 @@
 ﻿#pragma warning disable CA1031 // Do not catch general exception types
 
-using NetOffice.PowerPointApi;
+using NetOffice.ExcelApi;
 using Prism.Ioc;
 using System;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 
-namespace PrismTaskPanes.DryIoc.PowerPoint
+namespace PrismTaskPanes.DryIoc.Application
 {
-    internal class PowerPointApplication
+    internal class ExcelApplication
         : DryIocApplication, IDisposable
     {
         #region Private Fields
 
-        private const string ProcessName = "POWERPNT";
-
-        private readonly Application application;
+        private readonly NetOffice.ExcelApi.Application application;
 
         #endregion Private Fields
 
         #region Public Constructors
 
-        public PowerPointApplication(object application, object ctpFactoryInst)
+        public ExcelApplication(object application, object ctpFactoryInst)
             : base(application, ctpFactoryInst)
         {
-            this.application = application as Application;
+            this.application = application as NetOffice.ExcelApi.Application;
 
-            this.application.AfterNewPresentationEvent += OnAfterNewElement;
-            this.application.AfterPresentationOpenEvent += OnAfterOpenElement;
-            this.application.PresentationSaveEvent += OnAfterSaveElement; ;
-            this.application.PresentationBeforeCloseEvent += OnBeforeCloseElement;
+            this.application.NewWorkbookEvent += OnAfterNewElement;
+            this.application.WorkbookOpenEvent += OnAfterOpenElement;
+            this.application.WorkbookAfterSaveEvent += OnAfterSaveElement;
+            this.application.WorkbookBeforeCloseEvent += OnBeforeCloseElement;
 
             this.application.OnDispose += OnApplicationDispose;
         }
@@ -41,7 +37,7 @@ namespace PrismTaskPanes.DryIoc.PowerPoint
 
         protected override object TaskPaneWindow => GetActiveWindow();
 
-        protected override int? TaskPaneWindowKey => GetActiveWindowKey();
+        protected override int? TaskPaneWindowKey => GetActiveWindow()?.Hwnd;
 
         #endregion Protected Properties
 
@@ -81,13 +77,13 @@ namespace PrismTaskPanes.DryIoc.PowerPoint
 
         #region Private Methods
 
-        private Presentation GetActiveElement()
+        private Workbook GetActiveElement()
         {
-            var result = default(Presentation);
+            var result = default(Workbook);
 
             try
             {
-                result = application?.ActivePresentation;
+                result = application?.ActiveWorkbook;
             }
             catch (NetOffice.Exceptions.PropertyGetCOMException)
             { }
@@ -95,9 +91,9 @@ namespace PrismTaskPanes.DryIoc.PowerPoint
             return result;
         }
 
-        private DocumentWindow GetActiveWindow()
+        private Window GetActiveWindow()
         {
-            var result = default(DocumentWindow);
+            var result = default(Window);
 
             try
             {
@@ -109,33 +105,17 @@ namespace PrismTaskPanes.DryIoc.PowerPoint
             return result;
         }
 
-        private int? GetActiveWindowKey()
-        {
-            var result = default(int?);
-
-            var activeWindowName = GetActiveWindow()?.Caption;
-
-            if (!string.IsNullOrWhiteSpace(activeWindowName))
-            {
-                result = Process.GetProcessesByName(ProcessName)
-                    .Where(p => p.MainWindowTitle == $"{activeWindowName} - PowerPoint")
-                    .SingleOrDefault()?.MainWindowHandle.ToInt32();
-            }
-
-            return result;
-        }
-
-        private void OnAfterNewElement(Presentation pres)
+        private void OnAfterNewElement(Workbook wb)
         {
             OpenScope();
         }
 
-        private void OnAfterOpenElement(Presentation pres)
+        private void OnAfterOpenElement(Workbook wb)
         {
             OpenScope();
         }
 
-        private void OnAfterSaveElement(Presentation pres)
+        private void OnAfterSaveElement(Workbook wb, bool success)
         {
             SaveScope();
         }
@@ -145,7 +125,7 @@ namespace PrismTaskPanes.DryIoc.PowerPoint
             base.OnApplicationDispose();
         }
 
-        private void OnBeforeCloseElement(Presentation pres, ref bool cancel)
+        private void OnBeforeCloseElement(Workbook wb, ref bool cancel)
         {
             SaveScope();
         }

@@ -2,7 +2,7 @@
 
 SET HelpersDir=.\Helpers
 SET SetupScripts=%HelpersDir%\Scripts
-SET SlnPaths='.\DryIoc\DryIoc.Excel\PrismTaskPane.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPane.DryIoc.PowerPoint.csproj','.\Base\PrismTaskPanes.Controls\PrismTaskPanes.Controls.csproj','.\Base\PrismTaskPanes.Regions\PrismTaskPanes.Regions.csproj'
+SET SlnPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj','.\Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj','.\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj'
 
 echo.
 echo Clean solution
@@ -36,19 +36,19 @@ if /i "%config%" == "d" (
 	)
 )
 
-dotnet build ".\DryIoc\DryIoc.Excel\PrismTaskPane.DryIoc.Excel.csproj" --configuration %CONFIGURATION%
-dotnet build ".\DryIoc\DryIoc.PowerPoint\PrismTaskPane.DryIoc.PowerPoint.csproj" --configuration %CONFIGURATION%
+dotnet build ".\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj" --configuration %CONFIGURATION%
+dotnet build ".\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj" --configuration %CONFIGURATION%
 
-dotnet build ".\Base\PrismTaskPanes.Controls\PrismTaskPanes.Controls.csproj" --configuration %CONFIGURATION%
-dotnet build ".\Base\PrismTaskPanes.Regions\PrismTaskPanes.Regions.csproj" --configuration %CONFIGURATION%
+dotnet build ".\Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj" --configuration %CONFIGURATION%
+dotnet build ".\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" --configuration %CONFIGURATION%
 
 if %CONFIGURATION% == Debug (
 
-	dotnet build "Examples\DryIoc\Excel\ExcelAddIn1\ExcelAddIn1.csproj" --configuration %CONFIGURATION%
-	dotnet build "Examples\DryIoc\Excel\ExcelAddIn2\ExcelAddIn2.csproj" --configuration %CONFIGURATION%
+	dotnet build ".\Examples\DryIoc\Excel\ExcelAddIn1\ExcelAddIn1.csproj" --configuration %CONFIGURATION%
+	dotnet build ".\Examples\DryIoc\Excel\ExcelAddIn2\ExcelAddIn2.csproj" --configuration %CONFIGURATION%
 
-	dotnet build "Examples\DryIoc\PowerPoint\PowerPointAddIn1\PowerPointAddIn1.csproj" --configuration %CONFIGURATION%
-	dotnet build "Examples\DryIoc\PowerPoint\PowerPointAddIn2\PowerPointAddIn2.csproj" --configuration %CONFIGURATION%
+	dotnet build ".\Examples\DryIoc\PowerPoint\PowerPointAddIn1\PowerPointAddIn1.csproj" --configuration %CONFIGURATION%
+	dotnet build ".\Examples\DryIoc\PowerPoint\PowerPointAddIn2\PowerPointAddIn2.csproj" --configuration %CONFIGURATION%
 
 	echo.
 	CALL "%HelpersDir%\Register.bat"
@@ -61,6 +61,7 @@ if %CONFIGURATION% == Debug (
 
 ) else (
 
+	del .\_NuGet\*.nupkg
 	for /R %cd% %%f in (*.nupkg) do copy %%f .\_NuGet\
 
 	if /i "%update%" == "b" (

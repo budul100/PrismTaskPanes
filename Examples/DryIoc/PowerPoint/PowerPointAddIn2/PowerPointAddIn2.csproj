@@ -12,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\DryIoc\DryIoc.PowerPoint\PrismTaskPane.DryIoc.PowerPoint.csproj" />
+    <ProjectReference Include="..\..\..\..\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" />
+    <ProjectReference Include="..\..\..\..\DryIoc\DryIoC.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj" />
     <ProjectReference Include="..\..\..\Base\ExampleView\ExampleView.csproj" />
   </ItemGroup>
 

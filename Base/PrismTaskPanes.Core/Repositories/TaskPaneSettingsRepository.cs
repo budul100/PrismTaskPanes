@@ -2,6 +2,7 @@
 
 using NetOffice.OfficeApi.Enums;
 using PrismTaskPanes.Attributes;
+using PrismTaskPanes.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -119,7 +120,7 @@ namespace PrismTaskPanes.Settings
                 result = new TaskPaneSettings
                 {
                     ReceiverHash = receiverHash,
-                    DockPosition = currentAttribute.DockPosition,
+                    DockPosition = currentAttribute.GetDockPosition(),
                     DocumentHash = documentHash,
                     Height = currentAttribute.Height,
                     Visible = currentAttribute.Visible,
@@ -129,7 +130,7 @@ namespace PrismTaskPanes.Settings
                 configurations.Add(result);
             }
 
-            result.DockRestriction = currentAttribute.DockRestriction;
+            result.DockRestriction = currentAttribute.GetDockRestriction();
             result.InvisibleAtStart = currentAttribute.InvisibleAtStart;
             result.NavigationValue = currentAttribute.NavigationValue;
             result.RegionContext = currentAttribute.RegionContext;

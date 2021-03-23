@@ -165,7 +165,7 @@ namespace PrismTaskPanes.DryIoc.Factories
 
             repository.Initialise();
 
-            DryIocProvider.OnRepositoryInitialized(scope);
+            DryIocProvider.OnScopeInitialized(scope);
         }
 
         private void OnRepositoryClosing(object sender, System.EventArgs e)

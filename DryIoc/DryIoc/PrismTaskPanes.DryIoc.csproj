@@ -9,7 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Base\PrismTaskPanes\PrismTaskPanes.csproj" />
+    <ProjectReference Include="..\..\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" />
+    <ProjectReference Include="..\..\Base\PrismTaskPanes.Core\PrismTaskPanes.Core.csproj" />
   </ItemGroup>
 
 </Project>

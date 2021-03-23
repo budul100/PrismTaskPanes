@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Base\PrismTaskPanes.Regions\PrismTaskPanes.Regions.csproj" />
+    <ProjectReference Include="..\..\..\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" />
     <ProjectReference Include="..\ExampleCommon\ExampleCommon.csproj" />
   </ItemGroup>
 

@@ -11,7 +11,7 @@ using PrismTaskPanes.Regions;
 using System;
 using System.Windows;
 
-namespace PrismTaskPanes.DryIoc
+namespace PrismTaskPanes.DryIoc.Application
 {
     public abstract class DryIocApplication
         : PrismApplication, IDisposable
@@ -34,7 +34,7 @@ namespace PrismTaskPanes.DryIoc
 
         protected DryIocApplication(object application, object ctpFactoryInst)
         {
-            DryIocProvider.OnScopeProvided += OnScopeProvided;
+            DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
             DryIocProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
 
             repositoryFactory = new TaskPanesRepositoryFactory(
@@ -186,7 +186,7 @@ namespace PrismTaskPanes.DryIoc
 
         #region Private Methods
 
-        private void OnScopeProvided(object sender, EventArgs.DryIocEventArgs e)
+        private void OnScopeOpened(object sender, EventArgs.DryIocEventArgs e)
         {
             currentContainer = e.Container;
         }
