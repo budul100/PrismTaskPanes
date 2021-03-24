@@ -82,16 +82,18 @@ if %CONFIGURATION% == Debug (
 
 ) else (
 
+	echo.
+	echo Copy NuGet packages
+	echo.
+
 	del .\_NuGet\*.nupkg
 	for /R %cd% %%f in (*.nupkg) do copy %%f .\_NuGet\
 
-	if /i "%VERSIONSELECTION%" == "2" (
-		echo.
-		echo Update build version
-		echo.
+	echo.
+	echo Update build version
+	echo.
 
-		powershell "%SetupScripts%\Update_VersionBuild.ps1 -projectPaths %SlnPaths%"
-	)
+	powershell "%SetupScripts%\Update_VersionBuild.ps1 -projectPaths %SlnPaths%"
 
 	echo.
 	PAUSE
