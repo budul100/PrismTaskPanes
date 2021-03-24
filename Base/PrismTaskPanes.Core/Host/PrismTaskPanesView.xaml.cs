@@ -1,6 +1,9 @@
 ﻿using Prism.Regions;
 using PrismTaskPanes.Attributes;
+using PrismTaskPanes.Commons.Enums;
+using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
+using PrismTaskPanes.Settings;
 using System.Runtime.InteropServices;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,6 +21,8 @@ namespace PrismTaskPanes.Host
 
         private const string LocalRegionManagerName = nameof(LocalRegionManager);
         private const string TaskPaneViewName = nameof(PrismTaskPanesView);
+
+        private readonly ScrollViewer viewer;
 
         #endregion Private Fields
 
@@ -37,6 +42,8 @@ namespace PrismTaskPanes.Host
             SetBinding(
                 dp: RegionManager.RegionManagerProperty,
                 binding: binding);
+
+            viewer = Content as ScrollViewer;
         }
 
         #endregion Public Constructors
@@ -53,10 +60,28 @@ namespace PrismTaskPanes.Host
 
         #region Public Methods
 
-        public void SetLocalRegion(string regionName, object regionContext)
+        public void Initialize(TaskPaneSettings settings, int windowKey)
         {
-            var viewer = Content as ScrollViewer;
+            SetLocalRegion(
+                regionName: settings.RegionName,
+                regionContext: settings.RegionContext);
 
+            var viewUri = settings.GetUriView(windowKey);
+
+            LocalRegionManager.RequestNavigate(
+                regionName: settings.RegionName,
+                source: viewUri);
+
+            SetScrollBarHorizontal(settings.ScrollBarHorizontal);
+            SetScrollBarVertical(settings.ScrollBarVertical);
+        }
+
+        #endregion Public Methods
+
+        #region Private Methods
+
+        private void SetLocalRegion(string regionName, object regionContext)
+        {
             RegionManager.SetRegionManager(
                 target: viewer,
                 value: LocalRegionManager);
@@ -73,6 +98,50 @@ namespace PrismTaskPanes.Host
             }
         }
 
-        #endregion Public Methods
+        private void SetScrollBarHorizontal(ScrollVisibility scrollBarVisibility)
+        {
+            switch (scrollBarVisibility)
+            {
+                case ScrollVisibility.Disabled:
+                    viewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                    break;
+
+                case ScrollVisibility.Hidden:
+                    viewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
+                    break;
+
+                case ScrollVisibility.Visible:
+                    viewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
+                    break;
+
+                default:
+                    viewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+                    break;
+            }
+        }
+
+        private void SetScrollBarVertical(ScrollVisibility scrollBarVisibility)
+        {
+            switch (scrollBarVisibility)
+            {
+                case ScrollVisibility.Disabled:
+                    viewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                    break;
+
+                case ScrollVisibility.Hidden:
+                    viewer.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+                    break;
+
+                case ScrollVisibility.Visible:
+                    viewer.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+                    break;
+
+                default:
+                    viewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+                    break;
+            }
+        }
+
+        #endregion Private Methods
     }
 }

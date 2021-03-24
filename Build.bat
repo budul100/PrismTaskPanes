@@ -4,6 +4,11 @@ SET HelpersDir=.\Helpers
 SET SetupScripts=%HelpersDir%\Scripts
 SET SlnPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj','.\Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj','.\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj'
 
+echo.
+echo ##### Create PrismTaskPanes #####
+echo.
+echo.
+
 set "config=d"
 set /p "config=Shall the [d]ebug version or the [r]elease version be compiled? "
 echo.

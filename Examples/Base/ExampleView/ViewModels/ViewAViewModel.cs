@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Regions;
 using System;
+using System.Text;
 using TestCommon;
 
 namespace ExampleView.ViewModels
@@ -49,7 +50,14 @@ namespace ExampleView.ViewModels
 
         private void TestAction()
         {
-            Message = DateTime.Now.ToLongTimeString();
+            var message = new StringBuilder();
+
+            for (int i = 0; i < 300; i++)
+            {
+                message.AppendLine(DateTime.Now.ToLongTimeString());
+            }
+
+            Message = message.ToString();
         }
 
         #endregion Private Methods

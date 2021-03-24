@@ -1,6 +1,6 @@
-﻿using NetOffice.OfficeApi.Enums;
+﻿using NetOffice.OfficeApi;
+using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
-using PrismTaskPanes.Attributes;
 using PrismTaskPanes.Commons.Enums;
 using PrismTaskPanes.Host;
 using PrismTaskPanes.Settings;
@@ -12,9 +12,30 @@ namespace PrismTaskPanes.Extensions
     {
         #region Public Methods
 
-        public static MsoCTPDockPosition GetDockPosition(this PrismTaskPaneAttribute attribute)
+        public static DockPosition GetDockPosition(this CustomTaskPane taskPane)
         {
-            switch (attribute.DockPosition)
+            switch (taskPane.DockPosition)
+            {
+                case MsoCTPDockPosition.msoCTPDockPositionRight:
+                    return DockPosition.Right;
+
+                case MsoCTPDockPosition.msoCTPDockPositionLeft:
+                    return DockPosition.Left;
+
+                case MsoCTPDockPosition.msoCTPDockPositionTop:
+                    return DockPosition.Top;
+
+                case MsoCTPDockPosition.msoCTPDockPositionBottom:
+                    return DockPosition.Bottom;
+
+                default:
+                    return DockPosition.Floating;
+            }
+        }
+
+        public static MsoCTPDockPosition GetDockPosition(this TaskPaneSettings settings)
+        {
+            switch (settings.DockPosition)
             {
                 case DockPosition.Right:
                     return MsoCTPDockPosition.msoCTPDockPositionRight;
@@ -33,9 +54,9 @@ namespace PrismTaskPanes.Extensions
             }
         }
 
-        public static MsoCTPDockPositionRestrict GetDockRestriction(this PrismTaskPaneAttribute attribute)
+        public static MsoCTPDockPositionRestrict GetDockRestriction(this TaskPaneSettings settings)
         {
-            switch (attribute.DockRestriction)
+            switch (settings.DockRestriction)
             {
                 case DockRestriction.None:
                     return MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone;

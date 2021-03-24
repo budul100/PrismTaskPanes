@@ -3,14 +3,15 @@
 using NetOffice.OfficeApi;
 using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
-using PrismTaskPanes.Host;
 using PrismTaskPanes.Exceptions;
 using PrismTaskPanes.Extensions;
+using PrismTaskPanes.Host;
 using PrismTaskPanes.Settings;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -57,9 +58,9 @@ namespace PrismTaskPanes.Factories
             var hostRegion = GetHostRegion(result);
             var hostView = GetHostView(hostRegion);
 
-            SetRegions(
-                hostView: hostView,
-                settings: settings);
+            hostView.Initialize(
+                settings: settings,
+                windowKey: windowKey);
 
             return result;
         }
@@ -120,8 +121,8 @@ namespace PrismTaskPanes.Factories
             try
             {
                 result.Visible = false;
-                result.DockPosition = settings.DockPosition;
-                result.DockPositionRestrict = settings.DockRestriction;
+                result.DockPosition = settings.GetDockPosition();
+                result.DockPositionRestrict = settings.GetDockRestriction();
 
                 if (result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionLeft &&
                     result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionRight)
@@ -134,23 +135,10 @@ namespace PrismTaskPanes.Factories
             catch
             { }
 
-            result.VisibleStateChangeEvent += (taskPane) => BaseProvider.OnTaskPaneChanged(taskPane);
+            result.DockPositionStateChangeEvent += (t) => BaseProvider.OnTaskPaneChanged(t);
+            result.VisibleStateChangeEvent += (t) => BaseProvider.OnTaskPaneChanged(t);
 
             return result;
-        }
-
-        private void SetRegions(PrismTaskPanesView hostView, TaskPaneSettings settings)
-        {
-            hostView.SetLocalRegion(
-                regionName: settings.RegionName,
-                regionContext: settings.RegionContext);
-
-            var viewUri = settings.GetUriView(windowKey);
-            var viewRegionManager = hostView.LocalRegionManager;
-
-            viewRegionManager.RequestNavigate(
-                regionName: settings.RegionName,
-                source: viewUri);
         }
 
         #endregion Private Methods

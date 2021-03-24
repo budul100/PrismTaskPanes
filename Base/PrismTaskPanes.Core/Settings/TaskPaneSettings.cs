@@ -1,4 +1,4 @@
-﻿using NetOffice.OfficeApi.Enums;
+﻿using PrismTaskPanes.Commons.Enums;
 using System;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
@@ -12,12 +12,10 @@ namespace PrismTaskPanes.Settings
     {
         #region Public Properties
 
-        public MsoCTPDockPosition DockPosition { get; set; } =
-            MsoCTPDockPosition.msoCTPDockPositionRight;
+        public DockPosition DockPosition { get; set; } = DockPosition.Right;
 
         [XmlIgnore]
-        public MsoCTPDockPositionRestrict DockRestriction { get; set; } =
-            MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone;
+        public DockRestriction DockRestriction { get; set; } = DockRestriction.None;
 
         public string DocumentHash { get; set; }
 
@@ -38,10 +36,19 @@ namespace PrismTaskPanes.Settings
         public string RegionName { get; set; }
 
         [XmlIgnore]
+        public ScrollVisibility ScrollBarHorizontal { get; set; } = ScrollVisibility.Auto;
+
+        [XmlIgnore]
+        public ScrollVisibility ScrollBarVertical { get; set; } = ScrollVisibility.Auto;
+
+        [XmlIgnore]
         public string Title { get; set; }
 
         [XmlIgnore]
         public Type View { get; set; }
+
+        [XmlIgnore]
+        public Uri ViewUri { get; set; }
 
         public bool Visible { get; set; }
 

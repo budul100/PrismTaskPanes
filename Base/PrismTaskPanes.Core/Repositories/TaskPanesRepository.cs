@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CA1031 // Do not catch general exception types
 
 using NetOffice.OfficeApi;
+using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Settings;
 using System;
 using System.Collections.Generic;
@@ -196,7 +197,7 @@ namespace PrismTaskPanes.Factories
                     visible: taskPane.Visible,
                     width: taskPane.Width,
                     height: taskPane.Height,
-                    dockPosition: taskPane.DockPosition);
+                    dockPosition: taskPane.GetDockPosition());
             }
             catch (NetOffice.Exceptions.PropertyGetCOMException)
             { }

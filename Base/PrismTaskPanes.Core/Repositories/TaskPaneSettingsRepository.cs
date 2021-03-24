@@ -1,8 +1,7 @@
 ﻿#pragma warning disable CA1031 // Keine allgemeinen Ausnahmetypen abfangen
 
-using NetOffice.OfficeApi.Enums;
 using PrismTaskPanes.Attributes;
-using PrismTaskPanes.Extensions;
+using PrismTaskPanes.Commons.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -73,8 +72,8 @@ namespace PrismTaskPanes.Settings
             WriteConfigurations();
         }
 
-        public void Set(string receiverHash, string documentHash, bool visible,
-            int width, int height, MsoCTPDockPosition dockPosition)
+        public void Set(string receiverHash, string documentHash, bool visible, int width, int height,
+            DockPosition dockPosition)
         {
             UpdateConfiguration(
                 attributeHash: receiverHash,
@@ -119,10 +118,10 @@ namespace PrismTaskPanes.Settings
             {
                 result = new TaskPaneSettings
                 {
-                    ReceiverHash = receiverHash,
-                    DockPosition = currentAttribute.GetDockPosition(),
+                    DockPosition = currentAttribute.DockPosition,
                     DocumentHash = documentHash,
                     Height = currentAttribute.Height,
+                    ReceiverHash = receiverHash,
                     Visible = currentAttribute.Visible,
                     Width = currentAttribute.Width,
                 };
@@ -130,11 +129,13 @@ namespace PrismTaskPanes.Settings
                 configurations.Add(result);
             }
 
-            result.DockRestriction = currentAttribute.GetDockRestriction();
+            result.DockRestriction = currentAttribute.DockRestriction;
             result.InvisibleAtStart = currentAttribute.InvisibleAtStart;
             result.NavigationValue = currentAttribute.NavigationValue;
             result.RegionContext = currentAttribute.RegionContext;
             result.RegionName = currentAttribute.RegionName;
+            result.ScrollBarHorizontal = currentAttribute.ScrollBarHorizontal;
+            result.ScrollBarVertical = currentAttribute.ScrollBarVertical;
             result.Title = currentAttribute.Title;
             result.View = currentAttribute.View;
 
@@ -169,15 +170,15 @@ namespace PrismTaskPanes.Settings
         }
 
         private void UpdateConfiguration(string attributeHash, string documentHash, bool visible, int width, int height,
-            MsoCTPDockPosition dockPosition)
+            DockPosition dockPosition)
         {
             var currentConfiguration = GetCurrentConfiguration(
                 receiverHash: attributeHash,
                 documentHash: documentHash);
 
             currentConfiguration.DockPosition = dockPosition;
-            currentConfiguration.Height = height;
             currentConfiguration.DocumentHash = documentHash;
+            currentConfiguration.Height = height;
             currentConfiguration.Visible = visible;
             currentConfiguration.Width = width;
         }

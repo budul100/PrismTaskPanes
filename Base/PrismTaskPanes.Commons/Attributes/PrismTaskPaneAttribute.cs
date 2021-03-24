@@ -21,7 +21,9 @@ namespace PrismTaskPanes.Attributes
             int width = 0,
             int height = 0,
             DockPosition dockPosition = DockPosition.Right,
-            DockRestriction dockRestriction = DockRestriction.None)
+            DockRestriction dockRestriction = DockRestriction.None,
+            ScrollVisibility scrollBarHorizontal = ScrollVisibility.Auto,
+            ScrollVisibility scrollBarVertical = ScrollVisibility.Auto)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -48,6 +50,8 @@ namespace PrismTaskPanes.Attributes
             InvisibleAtStart = invisibleAtStart;
             DockPosition = dockPosition;
             DockRestriction = dockRestriction;
+            ScrollBarHorizontal = scrollBarHorizontal;
+            ScrollBarVertical = scrollBarVertical;
 
             if (width > 0
                 && DockPosition != DockPosition.Top
@@ -70,10 +74,12 @@ namespace PrismTaskPanes.Attributes
             int width = 0,
             int height = 0,
             DockPosition dockPosition = DockPosition.Right,
-            DockRestriction dockRestriction = DockRestriction.None) :
-            this(id: id, title: title, view: view, regionName: regionName, visible: visible,
-                invisibleAtStart: invisibleAtStart, width: width, height: height, dockPosition: dockPosition,
-                dockRestriction: dockRestriction)
+            DockRestriction dockRestriction = DockRestriction.None,
+            ScrollVisibility scrollBarHorizontal = ScrollVisibility.Auto,
+            ScrollVisibility scrollBarVertical = ScrollVisibility.Auto) :
+            this(id: id, title: title, view: view, regionName: regionName, visible: visible, invisibleAtStart: invisibleAtStart,
+                width: width, height: height, dockPosition: dockPosition, dockRestriction: dockRestriction,
+                scrollBarHorizontal: scrollBarHorizontal, scrollBarVertical: scrollBarVertical)
         {
             if (string.IsNullOrWhiteSpace(navigationValue))
             {
@@ -95,10 +101,12 @@ namespace PrismTaskPanes.Attributes
             int width = 0,
             int height = 0,
             DockPosition dockPosition = DockPosition.Right,
-            DockRestriction dockRestriction = DockRestriction.None) :
-            this(id: id, title: title, view: view, regionName: regionName, navigationValue: navigationValue,
-                visible: visible, invisibleAtStart: invisibleAtStart, width: width, height: height,
-                dockPosition: dockPosition, dockRestriction: dockRestriction)
+            DockRestriction dockRestriction = DockRestriction.None,
+            ScrollVisibility scrollBarHorizontal = ScrollVisibility.Auto,
+            ScrollVisibility scrollBarVertical = ScrollVisibility.Auto) :
+            this(id: id, title: title, view: view, regionName: regionName, navigationValue: navigationValue, visible: visible,
+                invisibleAtStart: invisibleAtStart, width: width, height: height, dockPosition: dockPosition,
+                dockRestriction: dockRestriction, scrollBarHorizontal: scrollBarHorizontal, scrollBarVertical: scrollBarVertical)
         {
             if (string.IsNullOrWhiteSpace(regionContext))
             {
@@ -129,6 +137,10 @@ namespace PrismTaskPanes.Attributes
         public string RegionContext { get; set; }
 
         public string RegionName { get; set; }
+
+        public ScrollVisibility ScrollBarHorizontal { get; set; } = ScrollVisibility.Auto;
+
+        public ScrollVisibility ScrollBarVertical { get; set; } = ScrollVisibility.Auto;
 
         public string Title { get; set; }
 
