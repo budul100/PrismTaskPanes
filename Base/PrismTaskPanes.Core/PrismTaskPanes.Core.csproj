@@ -6,9 +6,14 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="NuGetDebugTools" Version="1.4.2">
-      <PrivateAssets>all</PrivateAssets>
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
@@ -17,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" />
-    <ProjectReference Include="..\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj"/>
+    <ProjectReference Include="..\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj" />
   </ItemGroup>
 
 </Project>

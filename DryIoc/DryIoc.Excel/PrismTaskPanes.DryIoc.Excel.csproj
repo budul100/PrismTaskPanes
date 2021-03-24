@@ -3,16 +3,13 @@
   <!--IMPORTANT! The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0) -->
 
   <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
     <AssemblyName>PrismTaskPanes.DryIoc.Excel</AssemblyName>
-    <AssemblyVersion>4.2.2.0</AssemblyVersion>
+    <AssemblyVersion>4.2.3.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>
     <Description>Wrapper for PRISM based task panes in Microsoft Excel</Description>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -21,48 +18,20 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>Excel, Office, Prism, Task panes, NetOffice</PackageTags>
     <RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
-    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <UpdatePackageVersion>False</UpdatePackageVersion>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <AssemblyVersionSettings>None.IncrementOnDemand.NoneWithAutoReset.NoneWithAutoReset</AssemblyVersionSettings>
-    <UpdatePackageVersion>False</UpdatePackageVersion>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="NetOfficeFw.Excel" Version="1.8.1" />
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DryIoc\PrismTaskPanes.DryIoc.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\..\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" PrivateAssets="all" />
-    <!-- These project references has been add to have the respective libs available in the build. -->
-    <ProjectReference Include="..\..\Base\PrismTaskPanes.Core\PrismTaskPanes.Core.csproj" PrivateAssets="all" />
-    <ProjectReference Include="..\..\Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj" PrivateAssets="all" />
   </ItemGroup>
-
-  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
-    <ItemGroup>
-      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
-    </ItemGroup>
-  </Target>
 
 </Project>
