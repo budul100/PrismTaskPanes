@@ -7,41 +7,51 @@ SET SlnPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIo
 echo.
 echo ##### Create PrismTaskPanes #####
 echo.
+
+CHOICE /C dr /N /M "Shall the [d]ebug version or the [r]elease version be compiled?"
+SET CONFIGSELECTION=%ERRORLEVEL%
 echo.
 
-set "config=d"
-set /p "config=Shall the [d]ebug version or the [r]elease version be compiled? "
+if /i "%ERRORLEVEL%" == "2" GOTO RELEASE
+
+:DEBUG
+
+SET CONFIGURATION=Debug
+
+echo.
+echo Clean solution
 echo.
 
-if /i "%config%" == "d" (
+CALL "%HelpersDir%\Unregister.bat"
 
-	SET CONFIGURATION=Debug
+GOTO BUILD
 
+:RELEASE
+
+SET CONFIGURATION=Release
+
+CHOICE /C mb /N /M "Shall the [m]inor version (x._X_.0.0) or the [b]uild (x.x._X_.0) be increased?"
+SET VERSIONSELECTION=%ERRORLEVEL%
+echo.
+
+if /i "%VERSIONSELECTION%" == "1" (
 	echo.
-	echo Clean solution
-	echo.
-
-	CALL "%HelpersDir%\Unregister.bat"
-
-) else (
-
-	SET CONFIGURATION=Release
-
-	set "update=m"
-	set /p "update=Shall the [m]inor version (x._X_.0.0) or the [b]uild (x.x._X_.0) be increased? "
-	echo.
-
-	if /i "%update%" == "m" (
-		powershell "%SetupScripts%\Update_VersionMinor.ps1 -projectPaths %SlnPaths%"
-	)
-
-	echo.
-	echo Clean solution
+	echo Update minor version
 	echo.
 
-	CALL "%HelpersDir%\Unregister.bat"
-	CALL "%HelpersDir%\Clean.bat"
+	powershell "%SetupScripts%\Update_VersionMinor.ps1 -projectPaths %SlnPaths%"
 )
+
+echo.
+echo Clean solution
+echo.
+
+CALL "%HelpersDir%\Unregister.bat"
+CALL "%HelpersDir%\Clean.bat"
+
+GOTO BUILD
+
+:BUILD
 
 echo.
 echo Build solution
@@ -75,7 +85,11 @@ if %CONFIGURATION% == Debug (
 	del .\_NuGet\*.nupkg
 	for /R %cd% %%f in (*.nupkg) do copy %%f .\_NuGet\
 
-	if /i "%update%" == "b" (
+	if /i "%VERSIONSELECTION%" == "2" (
+		echo.
+		echo Update build version
+		echo.
+
 		powershell "%SetupScripts%\Update_VersionBuild.ps1 -projectPaths %SlnPaths%"
 	)
 
