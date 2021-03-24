@@ -13,8 +13,7 @@ namespace PrismTaskPanes.Extensions
         {
             return (ScopedRegionAttribute)view
                 .GetType()
-                .GetCustomAttributes(typeof(ScopedRegionAttribute), false)
-                .FirstOrDefault();
+                .GetCustomAttributes(typeof(ScopedRegionAttribute), false).FirstOrDefault();
         }
 
         public static bool IsCandidate(this object view, NavigationContext navigationContext)

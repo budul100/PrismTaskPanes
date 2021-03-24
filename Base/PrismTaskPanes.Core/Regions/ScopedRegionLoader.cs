@@ -51,8 +51,7 @@ namespace PrismTaskPanes.Regions
                 candidateNavigationContract: candidateTargetContract).ToArray();
 
             var result = candidates
-                .Where((v) => v.IsCandidate(navigationContext))
-                .FirstOrDefault();
+                .Where((v) => v.IsCandidate(navigationContext)).FirstOrDefault();
 
             if (result == default)
             {
