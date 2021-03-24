@@ -2,7 +2,6 @@
 using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
 using PrismTaskPanes.Commons.Enums;
-using PrismTaskPanes.Host;
 using PrismTaskPanes.Settings;
 using System;
 
@@ -70,17 +69,6 @@ namespace PrismTaskPanes.Extensions
                 default:
                     return MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNoChange;
             }
-        }
-
-        public static Uri GetUriHost()
-        {
-            var view = typeof(PrismTaskPanesView).Name;
-
-            var result = new Uri(
-                uriString: view,
-                uriKind: UriKind.Relative);
-
-            return result;
         }
 
         public static Uri GetUriView(this TaskPaneSettings settings, int windowKey)

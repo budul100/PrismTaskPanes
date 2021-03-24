@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace PrismTaskPanes.Host
+namespace PrismTaskPanes.Controls
 {
     public partial class PrismTaskPanesHost
         : UserControl

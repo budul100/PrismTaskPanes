@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" />
+    <ProjectReference Include="..\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj"/>
   </ItemGroup>
 
 </Project>

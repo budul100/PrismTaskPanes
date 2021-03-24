@@ -3,15 +3,15 @@
 using NetOffice.OfficeApi;
 using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
+using PrismTaskPanes.Controls;
+using PrismTaskPanes.Core.Extensions;
 using PrismTaskPanes.Exceptions;
 using PrismTaskPanes.Extensions;
-using PrismTaskPanes.Host;
 using PrismTaskPanes.Settings;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
-
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -23,7 +23,8 @@ namespace PrismTaskPanes.Factories
     {
         #region Private Fields
 
-        private const string ProgID = "PrismTaskPanes.Host.PrismTaskPanesHost";
+        private readonly static Uri horstUri = ControlsExtensions.GetHostUri();
+        private readonly static string progId = ControlsExtensions.GetProgId();
 
         private readonly ICTPFactory ctpFactory;
         private readonly IRegionManager hostRegionManager;
@@ -36,7 +37,7 @@ namespace PrismTaskPanes.Factories
 
         public TaskPanesFactory(int key, ICTPFactory ctpFactory, IRegionManager hostRegionManager, object taskPaneWindow)
         {
-            if (Type.GetTypeFromProgID(ProgID) == default)
+            if (Type.GetTypeFromProgID(progId) == default)
             {
                 throw new LibraryNotRegisteredException();
             }
@@ -94,8 +95,6 @@ namespace PrismTaskPanes.Factories
 
         private PrismTaskPanesView GetHostView(string hostRegion)
         {
-            var horstUri = TaskPaneExtensions.GetUriHost();
-
             hostRegionManager.RequestNavigate(
                 regionName: hostRegion,
                 source: horstUri);
@@ -108,13 +107,13 @@ namespace PrismTaskPanes.Factories
 
         private CustomTaskPane GetTaskPane(TaskPaneSettings settings)
         {
-            if (Type.GetTypeFromProgID(ProgID) == default)
+            if (Type.GetTypeFromProgID(progId) == default)
             {
                 throw new LibraryNotRegisteredException();
             }
 
             var result = ctpFactory.CreateCTP(
-                cTPAxID: ProgID,
+                cTPAxID: progId,
                 cTPTitle: settings.Title,
                 cTPParentWindow: taskPaneWindow) as CustomTaskPane;
 

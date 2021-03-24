@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace PrismTaskPanes.Host
+namespace PrismTaskPanes.Controls
 {
     [ComVisible(true),
         ProgId("PrismTaskPanes.Host.PrismTaskPanesHost"),
