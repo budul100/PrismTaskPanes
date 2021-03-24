@@ -30,7 +30,7 @@ GOTO BUILD
 
 SET CONFIGURATION=Release
 
-CHOICE /C mb /N /M "Shall the [m]inor version (x._X_.0.0) or the [b]uild (x.x._X_.0) be increased?"
+CHOICE /C mb /N /M "Shall the [b]uild (x.x._X_.0) or the [m]inor version (x._X_.0.0) be increased?"
 SET VERSIONSELECTION=%ERRORLEVEL%
 echo.
 
