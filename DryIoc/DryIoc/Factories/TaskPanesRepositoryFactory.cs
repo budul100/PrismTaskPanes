@@ -122,6 +122,8 @@ namespace PrismTaskPanes.DryIoc.Factories
         private static void CloseRepository(TaskPanesRepository repository)
         {
             repository?.Save();
+
+            DryIocProvider.OnScopeClosing(repository?.Scope as IResolverContext);
         }
 
         private void CloseRepositories()
@@ -161,18 +163,9 @@ namespace PrismTaskPanes.DryIoc.Factories
                 key: key,
                 value: repository);
 
-            repository.OnRepositoryClosing += OnRepositoryClosing;
-
             repository.Initialise();
 
             DryIocProvider.OnScopeInitialized(scope);
-        }
-
-        private void OnRepositoryClosing(object sender, System.EventArgs e)
-        {
-            var repository = sender as TaskPanesRepository;
-
-            DryIocProvider.OnScopeClosing(repository?.Scope as IResolverContext);
         }
 
         #endregion Private Methods

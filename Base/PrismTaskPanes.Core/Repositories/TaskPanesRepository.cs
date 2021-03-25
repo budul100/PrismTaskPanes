@@ -40,12 +40,6 @@ namespace PrismTaskPanes.Factories
 
         #endregion Public Constructors
 
-        #region Public Events
-
-        public event EventHandler OnRepositoryClosing;
-
-        #endregion Public Events
-
         #region Public Properties
 
         public int Key { get; }
@@ -176,10 +170,6 @@ namespace PrismTaskPanes.Factories
                     taskPane: taskPane.Value);
 
                 taskPanes.Remove(taskPane.Key);
-
-                OnRepositoryClosing?.Invoke(
-                    sender: this,
-                    e: default);
             }
         }
 

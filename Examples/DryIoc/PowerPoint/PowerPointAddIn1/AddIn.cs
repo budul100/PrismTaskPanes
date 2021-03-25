@@ -6,7 +6,6 @@ using NetOffice.Tools;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
-using PrismTaskPanes;
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.DryIoc;
 using PrismTaskPanes.DryIoc.EventArgs;
@@ -76,6 +75,11 @@ namespace PowerPointAddIn1
             this.SetTaskPaneVisible(
                 id: "2",
                 isVisible: pressed);
+        }
+
+        public bool TooglePaneVisibleButton_GetEnabled(IRibbonControl control)
+        {
+            return this.TaskPaneExists("1");
         }
 
         public bool TooglePaneVisibleButton_GetPressed(IRibbonControl control)

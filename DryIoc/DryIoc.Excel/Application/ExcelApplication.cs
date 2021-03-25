@@ -108,11 +108,15 @@ namespace PrismTaskPanes.DryIoc.Application
         private void OnAfterNewElement(Workbook wb)
         {
             OpenScope();
+
+            BaseProvider.InvalidateRibbonUI();
         }
 
         private void OnAfterOpenElement(Workbook wb)
         {
             OpenScope();
+
+            BaseProvider.InvalidateRibbonUI();
         }
 
         private void OnAfterSaveElement(Workbook wb, bool success)
@@ -128,6 +132,8 @@ namespace PrismTaskPanes.DryIoc.Application
         private void OnBeforeCloseElement(Workbook wb, ref bool cancel)
         {
             SaveScope();
+
+            BaseProvider.InvalidateRibbonUI();
         }
 
         #endregion Private Methods

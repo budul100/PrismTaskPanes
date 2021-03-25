@@ -6,7 +6,7 @@
     <TargetFramework>net472</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>PrismTaskPanes.Commons</AssemblyName>
-    <AssemblyVersion>4.2.3.0</AssemblyVersion>
+    <AssemblyVersion>4.2.5.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>
@@ -27,7 +27,7 @@
     <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
+    <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

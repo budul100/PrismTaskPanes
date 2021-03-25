@@ -31,6 +31,7 @@ namespace PrismTaskPanes.DryIoc.Application
             this.application.AfterPresentationOpenEvent += OnAfterOpenElement;
             this.application.PresentationSaveEvent += OnAfterSaveElement; ;
             this.application.PresentationBeforeCloseEvent += OnBeforeCloseElement;
+            this.application.PresentationCloseEvent += OnAfterCloseEvent;
 
             this.application.OnDispose += OnApplicationDispose;
         }
@@ -125,14 +126,23 @@ namespace PrismTaskPanes.DryIoc.Application
             return result;
         }
 
+        private void OnAfterCloseEvent(Presentation pres)
+        {
+            BaseProvider.InvalidateRibbonUI();
+        }
+
         private void OnAfterNewElement(Presentation pres)
         {
             OpenScope();
+
+            BaseProvider.InvalidateRibbonUI();
         }
 
         private void OnAfterOpenElement(Presentation pres)
         {
             OpenScope();
+
+            BaseProvider.InvalidateRibbonUI();
         }
 
         private void OnAfterSaveElement(Presentation pres)
@@ -148,6 +158,8 @@ namespace PrismTaskPanes.DryIoc.Application
         private void OnBeforeCloseElement(Presentation pres, ref bool cancel)
         {
             SaveScope();
+
+            BaseProvider.InvalidateRibbonUI();
         }
 
         #endregion Private Methods

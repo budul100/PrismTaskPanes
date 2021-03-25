@@ -4,8 +4,8 @@ using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 using PrismTaskPanes.Controls;
+using PrismTaskPanes.DryIoc.EventArgs;
 using PrismTaskPanes.DryIoc.Factories;
-using PrismTaskPanes.EventArgs;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Regions;
 using System;
@@ -35,7 +35,7 @@ namespace PrismTaskPanes.DryIoc.Application
         protected DryIocApplication(object application, object ctpFactoryInst)
         {
             DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
-            DryIocProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
+            DryIocProvider.OnScopeClosingEvent += OnScopeClosing;
 
             repositoryFactory = new TaskPanesRepositoryFactory(
                 application: application,
@@ -186,13 +186,15 @@ namespace PrismTaskPanes.DryIoc.Application
 
         #region Private Methods
 
+        private void OnScopeClosing(object sender, DryIocEventArgs e)
+        {
+            BaseProvider.InvalidateRibbonUI();
+        }
+
         private void OnScopeOpened(object sender, EventArgs.DryIocEventArgs e)
         {
             currentContainer = e.Container;
-        }
 
-        private void OnTaskPaneChanged(object sender, TaskPaneEventArgs e)
-        {
             BaseProvider.InvalidateRibbonUI();
         }
 
