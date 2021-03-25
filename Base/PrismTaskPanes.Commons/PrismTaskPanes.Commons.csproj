@@ -6,7 +6,7 @@
     <TargetFramework>net472</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>PrismTaskPanes.Commons</AssemblyName>
-    <AssemblyVersion>4.2.5.0</AssemblyVersion>
+    <AssemblyVersion>4.2.6.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>

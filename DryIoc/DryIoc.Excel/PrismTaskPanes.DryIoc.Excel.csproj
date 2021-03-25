@@ -5,7 +5,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>PrismTaskPanes.DryIoc.Excel</AssemblyName>
-    <AssemblyVersion>4.2.5.0</AssemblyVersion>
+    <AssemblyVersion>4.2.6.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <Version>$(AssemblyVersion)</Version>
     <Authors>budul</Authors>

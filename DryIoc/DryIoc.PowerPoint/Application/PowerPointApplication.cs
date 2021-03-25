@@ -30,7 +30,6 @@ namespace PrismTaskPanes.DryIoc.Application
             this.application.AfterNewPresentationEvent += OnAfterNewElement;
             this.application.AfterPresentationOpenEvent += OnAfterOpenElement;
             this.application.PresentationSaveEvent += OnAfterSaveElement; ;
-            this.application.PresentationBeforeCloseEvent += OnBeforeCloseElement;
             this.application.PresentationCloseEvent += OnAfterCloseEvent;
 
             this.application.OnDispose += OnApplicationDispose;
@@ -40,9 +39,9 @@ namespace PrismTaskPanes.DryIoc.Application
 
         #region Protected Properties
 
-        protected override object TaskPaneWindow => GetActiveWindow();
+        protected override Func<object> TaskPaneWindowGetter => () => GetActiveWindow();
 
-        protected override int? TaskPaneWindowKey => GetActiveWindowKey();
+        protected override Func<int?> TaskPaneWindowKeyGetter => () => GetActiveWindowKey();
 
         #endregion Protected Properties
 
@@ -112,22 +111,35 @@ namespace PrismTaskPanes.DryIoc.Application
 
         private int? GetActiveWindowKey()
         {
-            var result = default(int?);
+            var result = default(Process);
 
-            var activeWindowName = GetActiveWindow()?.Caption;
+            var processes = Process.GetProcessesByName(ProcessName).ToArray();
 
-            if (!string.IsNullOrWhiteSpace(activeWindowName))
+            if (processes.Count() == 1)
             {
-                result = Process.GetProcessesByName(ProcessName)
-                    .Where(p => p.MainWindowTitle == $"{activeWindowName} - PowerPoint")
-                    .SingleOrDefault()?.MainWindowHandle.ToInt32();
+                result = processes.SingleOrDefault();
+            }
+            else if (processes.Any())
+            {
+                var activeWindowName = GetActiveWindow()?.Caption;
+
+                result = processes
+                    .Where(p => p.MainWindowTitle == $"{activeWindowName} - PowerPoint").SingleOrDefault();
+
+                if (result == default)
+                {
+                    result = processes
+                        .Where(p => string.IsNullOrWhiteSpace(p.MainWindowTitle)).SingleOrDefault();
+                }
             }
 
-            return result;
+            return result?.MainWindowHandle.ToInt32();
         }
 
         private void OnAfterCloseEvent(Presentation pres)
         {
+            SaveScope();
+
             BaseProvider.InvalidateRibbonUI();
         }
 
@@ -153,13 +165,6 @@ namespace PrismTaskPanes.DryIoc.Application
         private void OnApplicationDispose(NetOffice.OnDisposeEventArgs eventArgs)
         {
             base.OnApplicationDispose();
-        }
-
-        private void OnBeforeCloseElement(Presentation pres, ref bool cancel)
-        {
-            SaveScope();
-
-            BaseProvider.InvalidateRibbonUI();
         }
 
         #endregion Private Methods

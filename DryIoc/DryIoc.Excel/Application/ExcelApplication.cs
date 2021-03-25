@@ -35,9 +35,9 @@ namespace PrismTaskPanes.DryIoc.Application
 
         #region Protected Properties
 
-        protected override object TaskPaneWindow => GetActiveWindow();
+        protected override Func<object> TaskPaneWindowGetter => () => GetActiveWindow();
 
-        protected override int? TaskPaneWindowKey => GetActiveWindow()?.Hwnd;
+        protected override Func<int?> TaskPaneWindowKeyGetter => () => GetActiveWindow()?.Hwnd;
 
         #endregion Protected Properties
 

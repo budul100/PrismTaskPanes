@@ -41,8 +41,8 @@ namespace PrismTaskPanes.DryIoc.Application
                 application: application,
                 ctpFactoryInst: ctpFactoryInst,
                 containerGetter: () => Container.GetContainer(),
-                taskPaneWindowGetter: () => TaskPaneWindow,
-                taskPaneWindowKeyGetter: () => TaskPaneWindowKey,
+                taskPaneWindowGetter: TaskPaneWindowGetter,
+                taskPaneWindowKeyGetter: TaskPaneWindowKeyGetter,
                 taskPaneIdentifierGetter: () => GetTaskPaneIdentifier().GetHashString());
         }
 
@@ -50,9 +50,9 @@ namespace PrismTaskPanes.DryIoc.Application
 
         #region Protected Properties
 
-        protected abstract object TaskPaneWindow { get; }
+        protected abstract Func<object> TaskPaneWindowGetter { get; }
 
-        protected abstract int? TaskPaneWindowKey { get; }
+        protected abstract Func<int?> TaskPaneWindowKeyGetter { get; }
 
         #endregion Protected Properties
 
@@ -89,10 +89,11 @@ namespace PrismTaskPanes.DryIoc.Application
 
         public bool TaskPaneExists(string hash)
         {
-            var result = repositoryFactory.Get()?
-                .Exists(hash);
+            var repository = repositoryFactory.Get();
 
-            return result ?? false;
+            var result = repository?.Exists(hash) ?? false;
+
+            return result;
         }
 
         public bool TaskPaneVisible(string hash)
