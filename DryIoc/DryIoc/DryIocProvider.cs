@@ -72,7 +72,6 @@ namespace PrismTaskPanes
             }
 
             var receiverHash = receiver.GetReceiverHash(id);
-
             var result = Application?.TaskPaneExists(receiverHash);
 
             return result ?? false;

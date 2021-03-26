@@ -3,6 +3,7 @@
 using NetOffice.PowerPointApi;
 using Prism.Ioc;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -17,20 +18,21 @@ namespace PrismTaskPanes.DryIoc.Application
         private const string ProcessName = "POWERPNT";
 
         private readonly NetOffice.PowerPointApi.Application application;
+        private readonly IDictionary<string, int> handles = new Dictionary<string, int>();
 
         #endregion Private Fields
 
         #region Public Constructors
 
         public PowerPointApplication(object application, object ctpFactoryInst)
-            : base(application, ctpFactoryInst)
+                    : base(application, ctpFactoryInst)
         {
             this.application = application as NetOffice.PowerPointApi.Application;
 
             this.application.AfterNewPresentationEvent += OnAfterNewElement;
             this.application.AfterPresentationOpenEvent += OnAfterOpenElement;
             this.application.PresentationSaveEvent += OnAfterSaveElement; ;
-            this.application.PresentationCloseEvent += OnAfterCloseEvent;
+            this.application.PresentationCloseFinalEvent += OnAfterCloseEvent;
 
             this.application.OnDispose += OnApplicationDispose;
         }
@@ -111,35 +113,43 @@ namespace PrismTaskPanes.DryIoc.Application
 
         private int? GetActiveWindowKey()
         {
-            var result = default(Process);
+            var result = default(int);
 
             var processes = Process.GetProcessesByName(ProcessName).ToArray();
 
-            if (processes.Count() == 1)
-            {
-                result = processes.SingleOrDefault();
-            }
-            else if (processes.Any())
+            if (processes.Any())
             {
                 var activeWindowName = GetActiveWindow()?.Caption;
+                var key = $"{activeWindowName} - PowerPoint";
 
-                result = processes
-                    .Where(p => p.MainWindowTitle == $"{activeWindowName} - PowerPoint").SingleOrDefault();
+                var process = processes
+                    .Where(p => p.MainWindowTitle == key).SingleOrDefault();
 
-                if (result == default)
+                if (process?.MainWindowTitle == key)
                 {
-                    result = processes
-                        .Where(p => string.IsNullOrWhiteSpace(p.MainWindowTitle)).SingleOrDefault();
+                    if (handles.ContainsKey(key))
+                    {
+                        handles[key] = process.MainWindowHandle.ToInt32();
+                    }
+                    else
+                    {
+                        handles.Add(
+                            key: key,
+                            value: process.MainWindowHandle.ToInt32());
+                    }
+                }
+
+                if (handles.ContainsKey(key))
+                {
+                    result = handles[key];
                 }
             }
 
-            return result?.MainWindowHandle.ToInt32();
+            return result;
         }
 
         private void OnAfterCloseEvent(Presentation pres)
         {
-            SaveScope();
-
             BaseProvider.InvalidateRibbonUI();
         }
 
