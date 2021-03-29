@@ -1,6 +1,6 @@
 @echo off
 
-PUSHD "%~dp0..\"
+PUSHD "%~dp0..\..\"
 
 echo.
 echo Clean empty dirs, obj dirs and bin dirs in '%cd%'.
