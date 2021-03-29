@@ -140,8 +140,6 @@ namespace PrismTaskPanes.DryIoc.Factories
         {
             var scope = containerGetter.Invoke().OpenScope(key);
 
-            DryIocProvider.OnScopeOpened(scope);
-
             var hostRegionManager = scope.Resolve<IRegionManager>();
 
             var taskPanesFactory = new TaskPanesFactory(
@@ -162,6 +160,8 @@ namespace PrismTaskPanes.DryIoc.Factories
             repositories.Add(
                 key: key,
                 value: repository);
+
+            DryIocProvider.OnScopeOpened(scope);
 
             repository.Initialise();
 
