@@ -1,8 +1,9 @@
 @echo off
 
-SET HelpersDir=.\Helpers
-SET SetupScripts=%HelpersDir%\Scripts
-SET SlnPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj','.\Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj','.\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj'
+SET AdditionalsDir=.\Additionals
+SET HelperScripts=%AdditionalsDir%\Scripts
+SET SetupScripts=%AdditionalsDir%\Setup\Scripts
+SET ProjectPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj','.\Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj','.\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj'
 
 echo.
 echo ##### Create PrismTaskPanes #####
@@ -22,7 +23,7 @@ echo.
 echo Clean solution
 echo.
 
-CALL "%HelpersDir%\Unregister.bat"
+CALL "%HelperScripts%\Unregister.bat"
 
 GOTO BUILD
 
@@ -39,15 +40,15 @@ if /i "%VERSIONSELECTION%" == "1" (
 	echo Update minor version
 	echo.
 
-	powershell "%SetupScripts%\Update_VersionMinor.ps1 -projectPaths %SlnPaths%"
+	powershell "%SetupScripts%\Update_VersionMinor.ps1 -projectPaths %ProjectPaths%"
 )
 
 echo.
 echo Clean solution
 echo.
 
-CALL "%HelpersDir%\Unregister.bat"
-CALL "%HelpersDir%\Clean.bat"
+CALL "%HelperScripts%\Unregister.bat"
+CALL "%HelperScripts%\Clean.bat"
 
 GOTO BUILD
 
@@ -72,7 +73,7 @@ if %CONFIGURATION% == Debug (
 	dotnet build ".\Examples\DryIoc\PowerPoint\PowerPointAddIn2\PowerPointAddIn2.csproj" --configuration %CONFIGURATION%
 
 	echo.
-	CALL "%HelpersDir%\Register.bat"
+	CALL "%HelperScripts%\Register.bat"
 	
 	echo.
 	PAUSE
@@ -93,7 +94,7 @@ if %CONFIGURATION% == Debug (
 	echo Update build version
 	echo.
 
-	powershell "%SetupScripts%\Update_VersionBuild.ps1 -projectPaths %SlnPaths%"
+	powershell "%SetupScripts%\Update_VersionBuild.ps1 -projectPaths %ProjectPaths%"
 
 	echo.
 	PAUSE
