@@ -170,6 +170,8 @@ namespace PrismTaskPanes.DryIoc.Application
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IResolverContext>(() => GetContainer());
+
             containerRegistry.Register<object, PrismTaskPanesView>(typeof(PrismTaskPanesView).FullName);
             containerRegistry.RegisterForNavigation<PrismTaskPanesView>();
 

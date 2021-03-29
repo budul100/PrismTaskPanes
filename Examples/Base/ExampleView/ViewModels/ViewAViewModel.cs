@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using DryIoc;
+using Prism.Commands;
 using Prism.Regions;
 using System;
 using System.Text;
@@ -17,11 +18,13 @@ namespace ExampleView.ViewModels
 
         #region Public Constructors
 
-        public ViewAViewModel(IExampleClass test)
+        public ViewAViewModel(IResolverContext container, IExampleClass test)
         {
             TestCommand = new DelegateCommand(TestAction);
 
-            Message = test.Message;
+            var test2 = container.Resolve<IExampleClass>();
+
+            Message = $"{test.Message} - {test2.Message}";
         }
 
         #endregion Public Constructors
