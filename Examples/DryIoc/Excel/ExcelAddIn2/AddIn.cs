@@ -4,7 +4,6 @@ using NetOffice.OfficeApi;
 using NetOffice.Tools;
 using Prism.Ioc;
 using Prism.Modularity;
-using PrismTaskPanes;
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.DryIoc;
 using PrismTaskPanes.Interfaces;

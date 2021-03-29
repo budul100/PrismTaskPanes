@@ -5,8 +5,8 @@
     <tabs>
       <tab id="ExampleAddIn1" label="ExampleAddIn1">
         <group id="group1" label="ExampleAddIn1">
-           <toggleButton id="tooglePaneVisibleButton11" label="TaskPane" imageMso="CreateFormBlankForm" size="large" getPressed="TooglePaneVisibleButton_GetPressed" onAction="TooglePaneVisibleButton_Click" />
-           <toggleButton id="tooglePaneVisibleButton12" label="TaskPane" imageMso="CreateFormBlankForm" size="large" getPressed="TooglePaneVisibleButton_GetPressed2" onAction="TooglePaneVisibleButton_Click2" />
+          <toggleButton id="tooglePaneVisibleButton11" label="TaskPane" imageMso="CreateFormBlankForm" size="large" getPressed="TooglePaneVisibleButton_GetPressed" onAction="TooglePaneVisibleButton_Click" />
+          <toggleButton id="tooglePaneVisibleButton12" label="TaskPane" imageMso="CreateFormBlankForm" size="large" getPressed="TooglePaneVisibleButton_GetPressed2" onAction="TooglePaneVisibleButton_Click2" />
         </group>
       </tab>
     </tabs>

@@ -4,7 +4,6 @@ using NetOffice.PowerPointApi.Tools;
 using NetOffice.Tools;
 using Prism.Ioc;
 using Prism.Modularity;
-using PrismTaskPanes;
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.DryIoc;
 using PrismTaskPanes.Interfaces;
@@ -16,7 +15,7 @@ namespace PowerPointAddIn2
 {
     [COMAddin("PrismTaskPanes.PowerPointAddIn2", "This is an example addin", LoadBehavior.LoadAtStartup),
         ProgId("PowerPointAddIn2.AddIn"),
-        Guid("26933ECD-AFCA-4498-B30E-D5F20BAD0E99"),
+        Guid("1E6A69D6-D2BC-4D96-8824-4BEC4C1CAE88"),
         ComVisible(true),
         Codebase]
     [CustomUI("RibbonUI.xml", true),

@@ -3,7 +3,6 @@ using NetOffice.ExcelApi;
 using NetOffice.ExcelApi.Tools;
 using NetOffice.OfficeApi;
 using NetOffice.Tools;
-using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes.Attributes;
@@ -65,7 +64,9 @@ namespace ExcelAddIn1
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.GetContainer().Register<IExampleClass, ExampleClass>();
+            var test = new ExampleClass();
+
+            containerRegistry.RegisterInstance<IExampleClass>(test);
         }
 
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)
@@ -112,8 +113,18 @@ namespace ExcelAddIn1
 
         private void OnScopeInitialized(object sender, ExcelEventArgs e)
         {
+            if (e.Container != ExcelProvider.Container)
+            {
+                throw new ApplicationException($"{ExcelProvider.Container} and {e.Container} must be equal.");
+            }
+
             var test1 = ExcelProvider.Container.Resolve<IExampleClass>();
             var test2 = e.Container.Resolve<IExampleClass>();
+
+            if (test1 != test2)
+            {
+                throw new ApplicationException($"{test1} and {test2} must be equal.");
+            }
         }
 
         private void OnScopeOpened(object sender, ExcelEventArgs e)
