@@ -2,7 +2,8 @@
 
 SET AdditionalsDir=.\Additionals
 SET HelperScripts=%AdditionalsDir%\Scripts
-SET SetupScripts=%AdditionalsDir%\Setup\Scripts
+SET SetupScripts=%AdditionalsDir%\Setup
+SET NuGetDir=%AdditionalsDir%\NuGet
 SET ProjectPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj','.\Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj','.\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj'
 
 echo.
@@ -87,8 +88,8 @@ if %CONFIGURATION% == Debug (
 	echo Copy NuGet packages
 	echo.
 
-	del .\_NuGet\*.nupkg
-	for /R %cd% %%f in (*.nupkg) do copy %%f .\_NuGet\
+	del %NuGetDir%\*.nupkg
+	for /R %cd% %%f in (*.nupkg) do copy %%f %NuGetDir%\
 
 	echo.
 	echo Update build version
