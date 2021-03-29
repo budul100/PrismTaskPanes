@@ -1,7 +1,7 @@
 ﻿#pragma warning disable CA1031 // Keine allgemeinen Ausnahmetypen abfangen
 
 using PrismTaskPanes.Attributes;
-using PrismTaskPanes.Commons.Enums;
+using PrismTaskPanes.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;

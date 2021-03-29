@@ -22,9 +22,7 @@ namespace PrismTaskPanes
     {
         #region Private Fields
 
-        private const string navigationKey = "Navigation";
-        private const string TXTSettingsFileName = "PrismTaskPanes.xml";
-        private const string windowKey = "Window";
+        private const string SettingsFile = "PrismTaskPanes.xml";
 
         private static readonly TaskPaneSettingsRepository configurationsRepository = GetConfigurationsRepository();
         private static readonly HashSet<ITaskPanesReceiver> receivers = new HashSet<ITaskPanesReceiver>();
@@ -36,14 +34,6 @@ namespace PrismTaskPanes
         public static event EventHandler<TaskPaneEventArgs> OnTaskPaneChangedEvent;
 
         #endregion Public Events
-
-        #region Public Properties
-
-        public static string NavigationKey => navigationKey;
-
-        public static string WindowKey => windowKey;
-
-        #endregion Public Properties
 
         #region Public Methods
 
@@ -125,7 +115,7 @@ namespace PrismTaskPanes
             var directory = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 Assembly.GetExecutingAssembly().GetName().Name);
-            var path = Path.Combine(directory, TXTSettingsFileName);
+            var path = Path.Combine(directory, SettingsFile);
 
             var result = new TaskPaneSettingsRepository(path);
             return result;

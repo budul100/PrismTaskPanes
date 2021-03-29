@@ -1,4 +1,4 @@
-﻿using PrismTaskPanes.Commons.Enums;
+﻿using PrismTaskPanes.Enums;
 using System;
 using System.Runtime.InteropServices;
 

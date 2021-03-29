@@ -1,6 +1,6 @@
 ﻿using Prism.Regions;
 using PrismTaskPanes.Attributes;
-using PrismTaskPanes.Commons.Enums;
+using PrismTaskPanes.Enums;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using PrismTaskPanes.Settings;

@@ -1,7 +1,8 @@
 ﻿using NetOffice.OfficeApi;
 using NetOffice.OfficeApi.Enums;
 using Prism.Regions;
-using PrismTaskPanes.Commons.Enums;
+using PrismTaskPanes.Constants;
+using PrismTaskPanes.Enums;
 using PrismTaskPanes.Settings;
 using System;
 
@@ -76,13 +77,13 @@ namespace PrismTaskPanes.Extensions
             var parameter = new NavigationParameters();
 
             parameter.Add(
-                key: BaseProvider.WindowKey,
+                key: ProviderConstants.WindowKey,
                 value: windowKey);
 
             if (!string.IsNullOrWhiteSpace(settings.NavigationValue))
             {
                 parameter.Add(
-                    key: BaseProvider.NavigationKey,
+                    key: ProviderConstants.NavigationKey,
                     value: settings.NavigationValue);
             }
 

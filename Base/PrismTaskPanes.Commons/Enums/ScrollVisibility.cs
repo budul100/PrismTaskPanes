@@ -1,4 +1,4 @@
-﻿namespace PrismTaskPanes.Commons.Enums
+﻿namespace PrismTaskPanes.Enums
 {
     public enum ScrollVisibility
     {
