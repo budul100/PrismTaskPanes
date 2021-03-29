@@ -26,8 +26,6 @@ namespace PrismTaskPanes.DryIoc.Application
 
         private readonly TaskPanesRepositoryFactory repositoryFactory;
 
-        private IResolverContext currentContainer;
-
         #endregion Private Fields
 
         #region Protected Constructors
@@ -68,7 +66,7 @@ namespace PrismTaskPanes.DryIoc.Application
         {
             var result = repositoryFactory.IsAvailable()
                 ? repositoryFactory.Get().Scope as IResolverContext
-                : currentContainer;
+                : Container.GetContainer();
 
             return result;
         }
@@ -126,6 +124,8 @@ namespace PrismTaskPanes.DryIoc.Application
 
         protected override Window CreateShell()
         {
+            DryIocProvider.OnProviderReady();
+
             return default;
         }
 
@@ -194,10 +194,8 @@ namespace PrismTaskPanes.DryIoc.Application
             BaseProvider.InvalidateRibbonUI();
         }
 
-        private void OnScopeOpened(object sender, EventArgs.DryIocEventArgs e)
+        private void OnScopeOpened(object sender, DryIocEventArgs e)
         {
-            currentContainer = e.Container;
-
             BaseProvider.InvalidateRibbonUI();
         }
 

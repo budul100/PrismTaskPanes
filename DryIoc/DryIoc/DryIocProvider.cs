@@ -14,6 +14,8 @@ namespace PrismTaskPanes
 
         public static event EventHandler OnApplicationExitEvent;
 
+        public static event EventHandler OnProviderReadyEvent;
+
         public static event EventHandler<DryIocEventArgs> OnScopeClosingEvent;
 
         public static event EventHandler<DryIocEventArgs> OnScopeInitializedEvent;
@@ -97,6 +99,13 @@ namespace PrismTaskPanes
         internal static void OnApplicationExit()
         {
             OnApplicationExitEvent?.Invoke(
+                sender: Application,
+                e: default);
+        }
+
+        internal static void OnProviderReady()
+        {
+            OnProviderReadyEvent?.Invoke(
                 sender: Application,
                 e: default);
         }

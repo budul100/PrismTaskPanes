@@ -12,6 +12,8 @@ namespace PrismTaskPanes.DryIoc
 
         public static event EventHandler OnApplicationExitEvent;
 
+        public static event EventHandler OnProviderReadyEvent;
+
         public static event EventHandler<PowerPointEventArgs> OnScopeClosingEvent;
 
         public static event EventHandler<PowerPointEventArgs> OnScopeInitializedEvent;
@@ -52,6 +54,7 @@ namespace PrismTaskPanes.DryIoc
                 DryIocProvider.OnScopeClosingEvent += OnScopeClosing;
                 DryIocProvider.OnScopeInitializedEvent += OnScopeInitialized;
                 DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
+                DryIocProvider.OnProviderReadyEvent += OnProviderReady;
                 DryIocProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
             }
         }
@@ -89,7 +92,14 @@ namespace PrismTaskPanes.DryIoc
                 e: e);
         }
 
-        private static void OnScopeClosing(object sender, EventArgs.DryIocEventArgs e)
+        private static void OnProviderReady(object sender, System.EventArgs e)
+        {
+            OnProviderReadyEvent?.Invoke(
+                sender: sender,
+                e: e);
+        }
+
+        private static void OnScopeClosing(object sender, DryIocEventArgs e)
         {
             var eventArgs = new PowerPointEventArgs(e.Container);
 
@@ -98,7 +108,7 @@ namespace PrismTaskPanes.DryIoc
                 e: eventArgs);
         }
 
-        private static void OnScopeInitialized(object sender, EventArgs.DryIocEventArgs e)
+        private static void OnScopeInitialized(object sender, DryIocEventArgs e)
         {
             var eventArgs = new PowerPointEventArgs(e.Container);
 
@@ -107,7 +117,7 @@ namespace PrismTaskPanes.DryIoc
                 e: eventArgs);
         }
 
-        private static void OnScopeOpened(object sender, EventArgs.DryIocEventArgs e)
+        private static void OnScopeOpened(object sender, DryIocEventArgs e)
         {
             var eventArgs = new PowerPointEventArgs(e.Container);
 

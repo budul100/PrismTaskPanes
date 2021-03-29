@@ -33,7 +33,11 @@ namespace ExcelAddIn1
 
         public AddIn()
         {
-            OnStartupComplete += Addin_OnStartupComplete;
+            OnStartupComplete += OnAddinStartupComplete;
+
+            ExcelProvider.OnProviderReadyEvent += OnProviderReady;
+            ExcelProvider.OnScopeOpenedEvent += OnScopeOpened;
+            ExcelProvider.OnScopeInitializedEvent += OnScopeInitialized;
         }
 
         #endregion Public Constructors
@@ -92,14 +96,18 @@ namespace ExcelAddIn1
 
         #region Private Methods
 
-        private void Addin_OnStartupComplete(ref Array custom)
+        private void OnAddinStartupComplete(ref Array custom)
         {
             Application.WorkbookBeforeCloseEvent += OnWorkbookBeforeClose;
 
-            ExcelProvider.OnScopeOpenedEvent += OnScopeOpened;
-            ExcelProvider.OnScopeInitializedEvent += OnScopeInitialized;
-
             Console.WriteLine($"Addin started in Excel Version {Application.Version}");
+        }
+
+        private void OnProviderReady(object sender, EventArgs e)
+        {
+            var test = ExcelProvider.Container.Resolve<IExampleClass>();
+
+            Console.WriteLine(test.Message);
         }
 
         private void OnScopeInitialized(object sender, ExcelEventArgs e)
