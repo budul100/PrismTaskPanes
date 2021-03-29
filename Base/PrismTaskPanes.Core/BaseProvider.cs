@@ -3,9 +3,8 @@
 using NetOffice.OfficeApi;
 using Prism.Ioc;
 using Prism.Modularity;
-using PrismTaskPanes.Attributes;
+using PrismTaskPanes.Core.Extensions;
 using PrismTaskPanes.EventArgs;
-using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using PrismTaskPanes.Settings;
 using System;
@@ -39,9 +38,10 @@ namespace PrismTaskPanes
 
         public static void AddReceiver(ITaskPanesReceiver receiver)
         {
-            var attributes = GetAttributes(receiver).ToArray();
-            configurationsRepository.AddAttributes(attributes);
+            var attributes = receiver
+                .GetAttributes().ToArray();
 
+            configurationsRepository.AddAttributes(attributes);
             receivers.Add(receiver);
         }
 
@@ -89,24 +89,6 @@ namespace PrismTaskPanes
             foreach (var receiver in receivers)
             {
                 setter?.Invoke(receiver);
-            }
-        }
-
-        private static IEnumerable<PrismTaskPaneAttribute> GetAttributes(ITaskPanesReceiver receiver)
-        {
-            var type = receiver.GetType();
-
-            var attributes = type.GetCustomAttributes(
-                attributeType: typeof(PrismTaskPaneAttribute),
-                inherit: true);
-
-            foreach (var attribute in attributes)
-            {
-                var result = attribute as PrismTaskPaneAttribute;
-
-                result.ReceiverHash = receiver.GetReceiverHash(result.ID);
-
-                yield return result;
             }
         }
 

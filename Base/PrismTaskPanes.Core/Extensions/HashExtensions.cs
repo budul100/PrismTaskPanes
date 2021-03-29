@@ -1,5 +1,4 @@
-﻿using PrismTaskPanes.Interfaces;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -12,7 +11,6 @@ namespace PrismTaskPanes.Extensions
 
         private const string AllCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private const int HashLength = 20;
-        private const string Separator = "\n";
 
         #endregion Private Fields
 
@@ -20,19 +18,8 @@ namespace PrismTaskPanes.Extensions
 
         public static string GetHashString(this string value, int length = HashLength)
         {
-            return value.GetHashString(length, AllCharacters);
-        }
-
-        public static string GetReceiverHash(this ITaskPanesReceiver receiver, string id)
-        {
-            var value = string.Join(
-                Separator,
-                id,
-                receiver.GetType().FullName);
-
-            var result = GetHashString(
-                value: value,
-                length: HashLength,
+            var result = value.GetHashString(
+                length: length,
                 chars: AllCharacters);
 
             return result;

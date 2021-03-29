@@ -1,8 +1,7 @@
 ﻿using DryIoc;
+using PrismTaskPanes.Core.Extensions;
 using PrismTaskPanes.DryIoc.EventArgs;
 using PrismTaskPanes.EventArgs;
-
-using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using System;
 
