@@ -24,16 +24,16 @@ namespace PrismTaskPanes.DryIoc.Application
 
         #region Private Fields
 
+        private readonly Type contentType;
         private readonly TaskPanesRepositoryFactory repositoryFactory;
 
         #endregion Private Fields
 
         #region Protected Constructors
 
-        protected DryIocApplication(object application, object ctpFactoryInst)
+        protected DryIocApplication(object application, object ctpFactoryInst, Type contentType)
         {
-            DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
-            DryIocProvider.OnScopeClosingEvent += OnScopeClosing;
+            this.contentType = contentType;
 
             repositoryFactory = new TaskPanesRepositoryFactory(
                 application: application,
@@ -42,6 +42,9 @@ namespace PrismTaskPanes.DryIoc.Application
                 taskPaneWindowGetter: TaskPaneWindowGetter,
                 taskPaneWindowKeyGetter: TaskPaneWindowKeyGetter,
                 taskPaneIdentifierGetter: () => GetTaskPaneIdentifier().GetHashString());
+
+            DryIocProvider.OnScopeOpenedEvent += OnScopeOpened;
+            DryIocProvider.OnScopeClosingEvent += OnScopeClosing;
         }
 
         #endregion Protected Constructors
@@ -158,7 +161,7 @@ namespace PrismTaskPanes.DryIoc.Application
 
         protected void OpenScope()
         {
-            repositoryFactory.Create();
+            repositoryFactory.Create(contentType);
         }
 
         protected override void RegisterRequiredTypes(IContainerRegistry containerRegistry)

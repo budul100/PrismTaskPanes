@@ -46,7 +46,8 @@ namespace PrismTaskPanes.DryIoc
             {
                 var dryIocApplication = new Application.ExcelApplication(
                     application: application,
-                    ctpFactoryInst: ctpFactoryInst);
+                    ctpFactoryInst: ctpFactoryInst,
+                    contentType: receiver.GetType());
 
                 DryIocProvider.InitializeApplication(dryIocApplication);
 
@@ -57,6 +58,13 @@ namespace PrismTaskPanes.DryIoc
                 DryIocProvider.OnProviderReadyEvent += OnProviderReady;
                 DryIocProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
             }
+        }
+
+        public static void RegisterAddin<T>()
+            where T : class
+        {
+            DryIocProvider.RegisterAddin(
+                contentType: typeof(T));
         }
 
         public static void SetTaskPaneVisible(this ITaskPanesReceiver receiver, string id, bool isVisible)
@@ -79,6 +87,13 @@ namespace PrismTaskPanes.DryIoc
             return DryIocProvider.TaskPaneVisible(
                 receiver: receiver,
                 id: id);
+        }
+
+        public static void UnregisterAddin<T>()
+            where T : class
+        {
+            DryIocProvider.UnregisterAddin(
+                contentType: typeof(T));
         }
 
         #endregion Public Methods

@@ -3,6 +3,7 @@
 using NetOffice.OfficeApi;
 using Prism.Ioc;
 using Prism.Modularity;
+using PrismTaskPanes.Controls;
 using PrismTaskPanes.Core.Extensions;
 using PrismTaskPanes.EventArgs;
 using PrismTaskPanes.Interfaces;
@@ -60,11 +61,32 @@ namespace PrismTaskPanes
             AppDomain.CurrentDomain.AssemblyResolve += ResolveAssemblyOnCurrentDomain;
         }
 
+        public static void RegisterAddin(Type contentType)
+        {
+            var progId = ComExtensions.GetProgId(
+                hostType: typeof(PrismTaskPanesHost),
+                contentType: contentType);
+
+            ComExtensions.Register(
+                progId: progId,
+                type: typeof(PrismTaskPanesHost));
+        }
+
         public static void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterInstance(configurationsRepository);
 
             DoWithAllReceivers((r) => r.RegisterTypes(containerRegistry));
+        }
+
+        public static void UnregisterAddin(Type contentType)
+        {
+            var progId = ComExtensions.GetProgId(
+                hostType: typeof(PrismTaskPanesHost),
+                contentType: contentType);
+
+            ComExtensions.Unregister(
+                progId: progId);
         }
 
         #endregion Public Methods

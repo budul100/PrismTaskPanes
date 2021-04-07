@@ -2,9 +2,9 @@
 
 namespace PrismTaskPanes.Controls
 {
-    [ComVisible(true),
-        ProgId("PrismTaskPanes.Host.PrismTaskPanesHost"),
-        Guid("6F14B2C2-3F59-456D-A224-50D76DF08176")]
+    [ProgId("PrismTaskPanes.Host.PrismTaskPanesHost"),
+        Guid("EFB770FC-6A2A-4D19-8AF8-5856F2BE6C34"),
+        ComVisible(true)]
     public partial class PrismTaskPanesHost
     { }
 }

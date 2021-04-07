@@ -1,5 +1,6 @@
 ﻿using DryIoc;
 using PrismTaskPanes.Core.Extensions;
+using PrismTaskPanes.DryIoc.Application;
 using PrismTaskPanes.DryIoc.EventArgs;
 using PrismTaskPanes.EventArgs;
 using PrismTaskPanes.Interfaces;
@@ -27,7 +28,7 @@ namespace PrismTaskPanes
 
         #region Public Properties
 
-        public static DryIoc.Application.DryIocApplication Application { get; private set; }
+        public static DryIocApplication Application { get; private set; }
 
         public static IResolverContext Container => Application?.GetContainer();
 
@@ -35,20 +36,25 @@ namespace PrismTaskPanes
 
         #region Public Methods
 
-        public static void InitializeApplication(DryIoc.Application.DryIocApplication dryIocApplication)
+        public static void InitializeApplication(DryIocApplication application)
         {
-            if (dryIocApplication == default)
+            if (application == default)
             {
-                throw new ArgumentNullException(nameof(dryIocApplication));
+                throw new ArgumentNullException(nameof(application));
             }
 
             if (Application == default)
             {
                 BaseProvider.RedirectAssembly();
 
-                Application = dryIocApplication;
+                Application = application;
                 BaseProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;
             }
+        }
+
+        public static void RegisterAddin(Type contentType)
+        {
+            BaseProvider.RegisterAddin(contentType);
         }
 
         public static void SetTaskPaneVisible(ITaskPanesReceiver receiver, string id, bool isVisible)
@@ -89,6 +95,11 @@ namespace PrismTaskPanes
             var result = Application?.TaskPaneVisible(receiverHash);
 
             return result ?? false;
+        }
+
+        public static void UnregisterAddin(Type contentType)
+        {
+            BaseProvider.UnregisterAddin(contentType);
         }
 
         #endregion Public Methods

@@ -23,11 +23,9 @@ namespace PrismTaskPanes.Factories
     {
         #region Private Fields
 
-        private readonly static Uri horstUri = ControlsExtensions.GetHostUri();
-        private readonly static string progId = ControlsExtensions.GetProgId();
-
         private readonly ICTPFactory ctpFactory;
         private readonly IRegionManager hostRegionManager;
+        private readonly string progId;
         private readonly object taskPaneWindow;
         private readonly int windowKey;
 
@@ -35,14 +33,19 @@ namespace PrismTaskPanes.Factories
 
         #region Public Constructors
 
-        public TaskPanesFactory(int key, ICTPFactory ctpFactory, IRegionManager hostRegionManager, object taskPaneWindow)
+        public TaskPanesFactory(int windowKey, ICTPFactory ctpFactory, IRegionManager hostRegionManager,
+            object taskPaneWindow, Type contentType)
         {
+            progId = ComExtensions.GetProgId(
+                hostType: typeof(PrismTaskPanesHost),
+                contentType: contentType);
+
             if (Type.GetTypeFromProgID(progId) == default)
             {
-                throw new LibraryNotRegisteredException();
+                throw new HostNotRegisteredException();
             }
 
-            this.windowKey = key;
+            this.windowKey = windowKey;
             this.ctpFactory = ctpFactory;
             this.hostRegionManager = hostRegionManager;
             this.taskPaneWindow = taskPaneWindow;
@@ -97,7 +100,7 @@ namespace PrismTaskPanes.Factories
         {
             hostRegionManager.RequestNavigate(
                 regionName: hostRegion,
-                source: horstUri);
+                source: PrismTaskPanesView.GetHostUri());
 
             var result = hostRegionManager.Regions[hostRegion].Views
                 .SingleOrDefault() as PrismTaskPanesView;
@@ -107,12 +110,9 @@ namespace PrismTaskPanes.Factories
 
         private CustomTaskPane GetTaskPane(TaskPaneSettings settings)
         {
-            if (Type.GetTypeFromProgID(progId) == default)
-            {
-                throw new LibraryNotRegisteredException();
-            }
+            var result = default(CustomTaskPane);
 
-            var result = ctpFactory.CreateCTP(
+            result = ctpFactory.CreateCTP(
                 cTPAxID: progId,
                 cTPTitle: settings.Title,
                 cTPParentWindow: taskPaneWindow) as CustomTaskPane;
@@ -130,12 +130,12 @@ namespace PrismTaskPanes.Factories
                 if (result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionBottom &&
                     result.DockPosition != MsoCTPDockPosition.msoCTPDockPositionTop)
                     result.Width = settings.Width;
+
+                result.DockPositionStateChangeEvent += (t) => BaseProvider.OnTaskPaneChanged(t);
+                result.VisibleStateChangeEvent += (t) => BaseProvider.OnTaskPaneChanged(t);
             }
             catch
             { }
-
-            result.DockPositionStateChangeEvent += (t) => BaseProvider.OnTaskPaneChanged(t);
-            result.VisibleStateChangeEvent += (t) => BaseProvider.OnTaskPaneChanged(t);
 
             return result;
         }

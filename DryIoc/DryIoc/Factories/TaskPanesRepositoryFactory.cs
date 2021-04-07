@@ -49,7 +49,7 @@ namespace PrismTaskPanes.DryIoc.Factories
             CloseRepositories();
         }
 
-        public void Create()
+        public void Create(Type contentType)
         {
             var result = Get();
 
@@ -59,7 +59,9 @@ namespace PrismTaskPanes.DryIoc.Factories
 
                 if (key.HasValue)
                 {
-                    CreateRepository(key.Value);
+                    CreateRepository(
+                        key: key.Value,
+                        contentType: contentType);
                 }
             }
         }
@@ -136,17 +138,18 @@ namespace PrismTaskPanes.DryIoc.Factories
             repositories.Clear();
         }
 
-        private void CreateRepository(int key)
+        private void CreateRepository(int key, Type contentType)
         {
             var scope = containerGetter.Invoke().OpenScope(key);
 
             var hostRegionManager = scope.Resolve<IRegionManager>();
 
             var taskPanesFactory = new TaskPanesFactory(
-                key: key,
+                windowKey: key,
                 ctpFactory: ctpFactory,
                 hostRegionManager: hostRegionManager,
-                taskPaneWindow: taskPaneWindowGetter.Invoke());
+                taskPaneWindow: taskPaneWindowGetter.Invoke(),
+                contentType: contentType);
 
             var configurationsRepository = scope.Resolve<TaskPaneSettingsRepository>();
 

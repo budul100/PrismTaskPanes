@@ -11,8 +11,8 @@ using System.Runtime.InteropServices;
 namespace PrismTaskPanes.Factories
 {
     [ComVisible(false)]
-    public class TaskPanesRepository :
-        IDisposable
+    public class TaskPanesRepository
+        : IDisposable
     {
         #region Private Fields
 

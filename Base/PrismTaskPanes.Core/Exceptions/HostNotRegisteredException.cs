@@ -6,20 +6,20 @@ namespace PrismTaskPanes.Exceptions
 {
     [ComVisible(false)]
     [Serializable]
-    public class LibraryNotRegisteredException
+    public class HostNotRegisteredException
         : Exception
     {
         #region Public Constructors
 
-        public LibraryNotRegisteredException()
+        public HostNotRegisteredException()
             : this(GetMessage())
         { }
 
-        public LibraryNotRegisteredException(string message)
+        public HostNotRegisteredException(string message)
             : base(message)
         { }
 
-        public LibraryNotRegisteredException(string message, Exception innerException)
+        public HostNotRegisteredException(string message, Exception innerException)
             : base(message, innerException)
         { }
 
@@ -27,7 +27,7 @@ namespace PrismTaskPanes.Exceptions
 
         #region Protected Constructors
 
-        protected LibraryNotRegisteredException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected HostNotRegisteredException(SerializationInfo info, StreamingContext context) : base(info, context)
         { }
 
         #endregion Protected Constructors

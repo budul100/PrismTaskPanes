@@ -22,7 +22,7 @@ namespace PowerPointAddIn1
         ComVisible(true),
         Codebase]
     [CustomUI("RibbonUI.xml", true),
-        RegistryLocation(RegistrySaveLocation.LocalMachine)]
+        RegistryLocation(RegistrySaveLocation.CurrentUser)]
     [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ExampleView.Views.ViewAView), "ExampleRegion", invisibleAtStart: true)]
     [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ExampleView.Views.ViewAView), "ExampleRegion", navigationValue: "abc")]
     public class AddIn
@@ -38,6 +38,18 @@ namespace PowerPointAddIn1
         #endregion Public Constructors
 
         #region Public Methods
+
+        [ComRegisterFunction]
+        public static void RegisterAddin(Type type)
+        {
+            PowerPointProvider.RegisterAddin<AddIn>();
+        }
+
+        [ComUnregisterFunction]
+        public static void UnregisterAddin(Type type)
+        {
+            PowerPointProvider.UnregisterAddin<AddIn>();
+        }
 
         public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {

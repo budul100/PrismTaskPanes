@@ -18,8 +18,8 @@ namespace PrismTaskPanes.DryIoc.Application
 
         #region Public Constructors
 
-        public ExcelApplication(object application, object ctpFactoryInst)
-            : base(application, ctpFactoryInst)
+        public ExcelApplication(object application, object ctpFactoryInst, Type contentType)
+            : base(application, ctpFactoryInst, contentType)
         {
             this.application = application as NetOffice.ExcelApi.Application;
 

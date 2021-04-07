@@ -4,6 +4,7 @@ using PrismTaskPanes.Enums;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using PrismTaskPanes.Settings;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -59,6 +60,17 @@ namespace PrismTaskPanes.Controls
         #endregion Public Properties
 
         #region Public Methods
+
+        public static Uri GetHostUri()
+        {
+            var view = typeof(PrismTaskPanesView).Name;
+
+            var result = new Uri(
+                uriString: view,
+                uriKind: UriKind.Relative);
+
+            return result;
+        }
 
         public void Initialize(TaskPaneSettings settings, int windowKey)
         {
