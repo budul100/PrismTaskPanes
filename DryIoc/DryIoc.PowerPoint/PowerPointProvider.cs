@@ -60,10 +60,10 @@ namespace PrismTaskPanes.DryIoc
             }
         }
 
-        public static void RegisterAddin<T>()
+        public static void RegisterProvider<T>()
             where T : class
         {
-            DryIocProvider.RegisterAddin(
+            DryIocProvider.RegisterProvider(
                 contentType: typeof(T));
         }
 
@@ -89,10 +89,10 @@ namespace PrismTaskPanes.DryIoc
                 id: id);
         }
 
-        public static void UnregisterAddin<T>()
+        public static void UnregisterProvider<T>()
             where T : class
         {
-            DryIocProvider.UnregisterAddin(
+            DryIocProvider.UnregisterProvider(
                 contentType: typeof(T));
         }
 

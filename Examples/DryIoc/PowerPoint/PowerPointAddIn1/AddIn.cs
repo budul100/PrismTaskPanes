@@ -40,15 +40,19 @@ namespace PowerPointAddIn1
         #region Public Methods
 
         [ComRegisterFunction]
-        public static void RegisterAddin(Type type)
+        public static void Register(Type type)
         {
-            PowerPointProvider.RegisterAddin<AddIn>();
+            RegisterFunction(type);
+
+            PowerPointProvider.RegisterProvider<AddIn>();
         }
 
         [ComUnregisterFunction]
-        public static void UnregisterAddin(Type type)
+        public static void Unregister(Type type)
         {
-            PowerPointProvider.UnregisterAddin<AddIn>();
+            UnregisterFunction(type);
+
+            PowerPointProvider.UnregisterProvider<AddIn>();
         }
 
         public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

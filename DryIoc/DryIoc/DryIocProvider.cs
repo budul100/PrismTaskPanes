@@ -52,9 +52,9 @@ namespace PrismTaskPanes
             }
         }
 
-        public static void RegisterAddin(Type contentType)
+        public static void RegisterProvider(Type contentType)
         {
-            BaseProvider.RegisterAddin(contentType);
+            BaseProvider.RegisterProvider(contentType);
         }
 
         public static void SetTaskPaneVisible(ITaskPanesReceiver receiver, string id, bool isVisible)
@@ -97,9 +97,9 @@ namespace PrismTaskPanes
             return result ?? false;
         }
 
-        public static void UnregisterAddin(Type contentType)
+        public static void UnregisterProvider(Type contentType)
         {
-            BaseProvider.UnregisterAddin(contentType);
+            BaseProvider.UnregisterProvider(contentType);
         }
 
         #endregion Public Methods

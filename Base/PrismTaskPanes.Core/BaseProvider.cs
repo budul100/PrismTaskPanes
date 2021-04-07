@@ -61,7 +61,7 @@ namespace PrismTaskPanes
             AppDomain.CurrentDomain.AssemblyResolve += ResolveAssemblyOnCurrentDomain;
         }
 
-        public static void RegisterAddin(Type contentType)
+        public static void RegisterProvider(Type contentType)
         {
             var progId = ComExtensions.GetProgId(
                 hostType: typeof(PrismTaskPanesHost),
@@ -79,7 +79,7 @@ namespace PrismTaskPanes
             DoWithAllReceivers((r) => r.RegisterTypes(containerRegistry));
         }
 
-        public static void UnregisterAddin(Type contentType)
+        public static void UnregisterProvider(Type contentType)
         {
             var progId = ComExtensions.GetProgId(
                 hostType: typeof(PrismTaskPanesHost),

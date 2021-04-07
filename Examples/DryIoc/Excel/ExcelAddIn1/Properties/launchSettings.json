@@ -1,0 +1,18 @@
+{
+  "profiles": {
+    "Register add-in": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\RegAsm.exe",
+      "commandLineArgs": "\"D:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn1\\bin\\Debug\\net472\\ExcelAddIn1.dll\""
+    },
+    "Unregister add-in": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\RegAsm.exe",
+      "commandLineArgs": "\"D:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn1\\bin\\Debug\\net472\\ExcelAddIn1.dll\" /unregister"
+    },
+    "Run Excel": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
+    }
+  }
+}

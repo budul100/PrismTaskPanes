@@ -9,60 +9,69 @@ namespace PrismTaskPanes.Core.Extensions
 {
     internal static class ComExtensions
     {
+        #region Private Fields
+
+        private const string ClassesSeparator = "_";
+
+        #endregion Private Fields
+
         #region Public Methods
 
         public static string GetProgId(Type hostType, Type contentType)
         {
             var result = string.Join(
-                "_",
+                ClassesSeparator,
                 hostType.FullName,
                 contentType.FullName);
 
             return result;
         }
 
-        public static string Register(string progId, Type type)
+        public static void Register(string progId, Type type)
         {
-            var clsId = CreateClsId();
+            var given = Type.GetTypeFromProgID(progId);
 
-            RegistryKey progIdKeyGetter(string name) => GetKeyProgId(
-                progId: progId,
-                name: name);
+            if (given == default)
+            {
+                var clsId = Guid.NewGuid().AsString();
 
-            RegisterProgId(
-                keyGetter: progIdKeyGetter,
-                type: type,
-                clsId: clsId);
+                RegistryKey progIdKeyGetter(string name) => GetKeyProgId(
+                    progId: progId,
+                    name: name);
 
-            RegistryKey clsIdKeyGetter(string name) => GetKeyClsId(
-                clsId: clsId,
-                name: name);
+                RegisterProgId(
+                    keyGetter: progIdKeyGetter,
+                    type: type,
+                    clsId: clsId);
 
-            RegisterClsId(
-                keyGetter: clsIdKeyGetter,
-                type: type,
-                progId: progId);
+                RegistryKey clsIdKeyGetter(string name) => GetKeyClsId(
+                    clsId: clsId,
+                    name: name);
 
-            return progId;
+                RegisterClsId(
+                    keyGetter: clsIdKeyGetter,
+                    type: type,
+                    progId: progId);
+            }
         }
 
         public static void Unregister(string progId)
         {
-            using (var key = GetKeyClassesRoot())
-            {
-                key?.DeleteSubKeyTree(
-                    subkey: progId,
-                    throwOnMissingSubKey: false);
-            }
+            var given = Type.GetTypeFromProgID(progId);
 
-            var clsId = GetClsId(progId);
-
-            if (!string.IsNullOrWhiteSpace(clsId))
+            if (given != default)
             {
+                using (var key = GetKeyClassesRoot())
+                {
+                    key?.DeleteSubKeyTree(
+                        subkey: progId,
+                        throwOnMissingSubKey: false);
+                }
+
                 using (var key = GetKeyClsIdRoot())
                 {
                     key?.DeleteSubKeyTree(
-                        subkey: clsId,
+                        subkey: given.GUID.AsString(),
                         throwOnMissingSubKey: false);
                 }
             }
@@ -72,9 +81,9 @@ namespace PrismTaskPanes.Core.Extensions
 
         #region Private Methods
 
-        private static string CreateClsId()
+        private static string AsString(this Guid guid)
         {
-            return Guid.NewGuid().ToString("B").ToUpperInvariant();
+            return guid.ToString("B").ToUpperInvariant();
         }
 
         private static string GetAssemblyPath(this Type type)
@@ -82,42 +91,18 @@ namespace PrismTaskPanes.Core.Extensions
             return new Uri(type.Assembly.Location).LocalPath;
         }
 
-        private static string GetClsId(string progId)
-        {
-            var result = default(string);
-
-            using (var key = GetKeyProgId(
-                progId: progId,
-                name: "CLSID"))
-            {
-                result = key?.GetValue(default)?.ToString();
-            }
-
-            return result;
-        }
-
         private static RegistryKey GetKeyClassesRoot(string name = default)
         {
-            var key = Registry.ClassesRoot.OpenSubKey(
-                name: name,
-                writable: true);
+            var path = Path.Combine(
+                "Software",
+                "Classes",
+                name ?? string.Empty);
 
-            if (key != default)
-            {
-                return key;
-            }
+            var result = GetSubKey(
+                root: Registry.LocalMachine,
+                name: path);
 
-            var parentPath = Path.GetDirectoryName(name);
-
-            if (string.IsNullOrEmpty(parentPath))
-            {
-                return Registry.CurrentUser.CreateSubKey(name);
-            }
-
-            using (var parentKey = GetKeyClassesRoot(parentPath))
-            {
-                return parentKey?.CreateSubKey(Path.GetFileName(name));
-            }
+            return result;
         }
 
         private static RegistryKey GetKeyClsId(string clsId, string name = default)
@@ -175,6 +160,42 @@ namespace PrismTaskPanes.Core.Extensions
             return definition;
         }
 
+        private static RegistryKey GetSubKey(RegistryKey root, string name)
+        {
+            name = name ?? string.Empty;
+
+            var result = root.OpenSubKey(
+                name: name,
+                writable: true);
+
+            if (result == default)
+            {
+                var parent = Path.GetDirectoryName(name);
+
+                if (string.IsNullOrEmpty(parent))
+                {
+                    root.CreateSubKey(
+                        subkey: name);
+                }
+                else
+                {
+                    using (RegistryKey key = GetSubKey(
+                        root: root,
+                        name: parent))
+                    {
+                        key.CreateSubKey(
+                            subkey: Path.GetFileName(name));
+                    }
+                }
+
+                result = root.OpenSubKey(
+                    name: name,
+                    writable: true);
+            }
+
+            return result;
+        }
+
         private static void RegisterClsId(Func<string, RegistryKey> keyGetter, Type type, string progId)
         {
             using (var key = keyGetter.Invoke(default))
@@ -230,7 +251,7 @@ namespace PrismTaskPanes.Core.Extensions
 
             var versionPath = Path.Combine(
                 path1: "InprocServer32",
-                path2: type.Assembly.FullName);
+                path2: type.Assembly.GetName().Version.ToString());
 
             using (var key = keyGetter.Invoke(versionPath))
             {
@@ -258,14 +279,16 @@ namespace PrismTaskPanes.Core.Extensions
             {
                 key?.SetValue(
                     name: default,
-                    value: type.FullName);
+                    value: (string)type.FullName,
+                    valueKind: RegistryValueKind.String);
             }
 
             using (var key = keyGetter.Invoke("CLSID"))
             {
                 key?.SetValue(
                     name: default,
-                    value: clsId);
+                    value: (string)clsId,
+                    valueKind: RegistryValueKind.String);
             }
         }
 

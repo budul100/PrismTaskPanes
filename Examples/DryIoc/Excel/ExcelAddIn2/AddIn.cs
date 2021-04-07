@@ -37,15 +37,19 @@ namespace ExcelAddIn2
         #region Public Methods
 
         [ComRegisterFunction]
-        public static void RegisterAddin(Type type)
+        public static void Register(Type type)
         {
-            ExcelProvider.RegisterAddin<AddIn>();
+            RegisterFunction(type);
+
+            ExcelProvider.RegisterProvider<AddIn>();
         }
 
         [ComUnregisterFunction]
-        public static void UnregisterAddin(Type type)
+        public static void Unregister(Type type)
         {
-            ExcelProvider.UnregisterAddin<AddIn>();
+            UnregisterFunction(type);
+
+            ExcelProvider.UnregisterProvider<AddIn>();
         }
 
         public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

@@ -19,7 +19,7 @@ namespace ExcelAddIn1
     [COMAddin("PrismTaskPanes Excel Example-AddIn 1", "This is an ExampleAddIn1 description.", LoadBehavior.LoadAtStartup),
         RegistryLocation(RegistrySaveLocation.CurrentUser),
         ProgId("PrismTaskPanes.ExcelAddIn1.AddIn"),
-        Guid("43BFA36D-D6A0-4558-8079-C07919C3CA76")]
+        Guid("43BFA36D-D6A0-4558-8079-C07919C3CA75")]
     [CustomUI("RibbonUI.xml", true)]
     [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ExampleView.Views.ViewAView), "ExampleRegion", invisibleAtStart: true, ScrollBarVertical = ScrollVisibility.Disabled)]
     [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ExampleView.Views.ViewAView), "ExampleRegion", navigationValue: "abc")]
@@ -42,15 +42,19 @@ namespace ExcelAddIn1
         #region Public Methods
 
         [ComRegisterFunction]
-        public static void RegisterAddin(Type type)
+        public static void Register(Type type)
         {
-            ExcelProvider.RegisterAddin<AddIn>();
+            RegisterFunction(type);
+
+            ExcelProvider.RegisterProvider<AddIn>();
         }
 
         [ComUnregisterFunction]
-        public static void UnregisterAddin(Type type)
+        public static void Unregister(Type type)
         {
-            ExcelProvider.UnregisterAddin<AddIn>();
+            UnregisterFunction(type);
+
+            ExcelProvider.UnregisterProvider<AddIn>();
         }
 
         public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
