@@ -1,5 +1,6 @@
 ﻿using PrismTaskPanes.Interfaces;
 using System;
+using System.Runtime.InteropServices;
 
 namespace PrismTaskPanes.Attributes
 {
@@ -8,6 +9,7 @@ namespace PrismTaskPanes.Attributes
     /// instantiated and attached to created view.
     /// </summary>
     [AttributeUsage(validOn: AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [ComVisible(false)]
     internal sealed class ScopedRegionAttribute
         : Attribute, IScopedRegion
     {

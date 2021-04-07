@@ -4,9 +4,11 @@ using Microsoft.Win32;
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace PrismTaskPanes.Core.Extensions
 {
+    [ComVisible(false)]
     internal static class ComExtensions
     {
         #region Private Fields

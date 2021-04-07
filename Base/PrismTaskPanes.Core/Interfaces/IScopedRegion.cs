@@ -1,9 +1,12 @@
-﻿namespace PrismTaskPanes.Interfaces
+﻿using System.Runtime.InteropServices;
+
+namespace PrismTaskPanes.Interfaces
 {
     /// <summary>
     /// Interface used to indicate if scoped region manager needs to be
     /// instantiated and attached to created view.
     /// </summary>
+    [ComVisible(false)]
     internal interface IScopedRegion
     {
         #region Public Properties

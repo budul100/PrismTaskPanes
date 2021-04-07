@@ -1,10 +1,12 @@
 ﻿using Prism.Regions;
 using PrismTaskPanes.Attributes;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 
 namespace PrismTaskPanes.Extensions
 {
+    [ComVisible(false)]
     internal static class ScopedRegionExtensions
     {
         #region Public Methods

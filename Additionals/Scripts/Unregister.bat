@@ -2,7 +2,7 @@
 
 SET ExampleDirectory=%~dp0..\..\Examples\DryIoc
 
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister "%~dp0..\..\Base\PrismTaskPanes.Host\bin\Debug\net472\PrismTaskPanes.Host.dll"
+REM "%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister "%~dp0..\..\Base\PrismTaskPanes.Host\bin\Debug\net472\PrismTaskPanes.Host.dll"
 
 "%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister "%ExampleDirectory%\Excel\ExcelAddIn1\bin\Debug\net472\ExcelAddIn1.dll"
 "%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister "%ExampleDirectory%\Excel\ExcelAddIn2\bin\Debug\net472\ExcelAddIn2.dll"

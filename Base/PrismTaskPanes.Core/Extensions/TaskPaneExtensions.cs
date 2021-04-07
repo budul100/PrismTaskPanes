@@ -5,9 +5,11 @@ using PrismTaskPanes.Constants;
 using PrismTaskPanes.Enums;
 using PrismTaskPanes.Settings;
 using System;
+using System.Runtime.InteropServices;
 
 namespace PrismTaskPanes.Extensions
 {
+    [ComVisible(false)]
     internal static class TaskPaneExtensions
     {
         #region Public Methods

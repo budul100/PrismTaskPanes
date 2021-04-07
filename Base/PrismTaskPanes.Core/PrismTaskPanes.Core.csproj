@@ -22,7 +22,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" />
-    <ProjectReference Include="..\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\PrismTaskPanesHost.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\PrismTaskPanesHostAdditional.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>
