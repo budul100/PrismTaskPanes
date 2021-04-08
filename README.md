@@ -16,3 +16,25 @@ These elements must be registered by using regasm.exe with the parameter /codeba
 The relevant helper packages can be found on the following locations:
 
 * Package for common values on [https://www.nuget.org/packages/budul.PrismTaskPanes.Commons](https://www.nuget.org/packages/budul.PrismTaskPanes.Commons)
+
+## How-To
+
+These two register functions must be added to each NetOffice addin:
+
+```
+[ComRegisterFunction]
+public static void Register(Type type)
+{
+    RegisterFunction(type);
+
+    ExcelProvider.RegisterProvider<AddIn>();
+}
+
+[ComUnregisterFunction]
+public static void Unregister(Type type)
+{
+    UnregisterFunction(type);
+
+    ExcelProvider.UnregisterProvider<AddIn>();
+}
+```
