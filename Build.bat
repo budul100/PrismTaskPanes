@@ -4,7 +4,7 @@ SET AdditionalsDir=.\Additionals
 SET HelperScripts=%AdditionalsDir%\Scripts
 SET SetupScripts=%AdditionalsDir%\Setup
 SET NuGetDir=%AdditionalsDir%\NuGet
-SET ProjectPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj','.\Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj','.\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj'
+SET ProjectPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj','.\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj'
 
 echo.
 echo ##### Create PrismTaskPanes #####
@@ -61,8 +61,6 @@ echo.
 
 dotnet build ".\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj" --configuration %CONFIGURATION%
 dotnet build ".\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj" --configuration %CONFIGURATION%
-
-dotnet build ".\Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj" --configuration %CONFIGURATION%
 dotnet build ".\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" --configuration %CONFIGURATION%
 
 if %CONFIGURATION% == Debug (
