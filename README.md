@@ -19,7 +19,7 @@ The relevant helper packages can be found on the following locations:
 
 ## How-To
 
-These two register functions must be added to each NetOffice addin:
+These two register functions must be added to each Excel addin:
 
 ```
 [ComRegisterFunction]
@@ -36,5 +36,25 @@ public static void Unregister(Type type)
     UnregisterFunction(type);
 
     ExcelProvider.UnregisterProvider<AddIn>();
+}
+```
+
+These two register functions must be added to each PowerPoint addin:
+
+```
+[ComRegisterFunction]
+public static void Register(Type type)
+{
+    RegisterFunction(type);
+
+    PowerPointProvider.RegisterProvider<AddIn>();
+}
+
+[ComUnregisterFunction]
+public static void Unregister(Type type)
+{
+    UnregisterFunction(type);
+
+    PowerPointProvider.UnregisterProvider<AddIn>();
 }
 ```
