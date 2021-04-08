@@ -25,12 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Controls\PrismTaskPanesHost.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Controls\PrismTaskPanesHostAdditional.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Controls\PrismTaskPanesHost.cs" />
+    <Compile Update="Controls\PrismTaskPanesHostAdditional.cs" />
   </ItemGroup>
 
 </Project>

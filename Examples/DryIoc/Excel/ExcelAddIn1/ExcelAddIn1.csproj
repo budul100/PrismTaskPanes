@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>net472</TargetFrameworks>
     <EnableComHosting>true</EnableComHosting>
-    <EnableRegFreeCom>true</EnableRegFreeCom>
-    <RegisterForComInterop>true</RegisterForComInterop>
+    <!--<EnableRegFreeCom>true</EnableRegFreeCom>-->
+    <!--<RegisterForComInterop>true</RegisterForComInterop>-->
   </PropertyGroup>
 
   <ItemGroup>

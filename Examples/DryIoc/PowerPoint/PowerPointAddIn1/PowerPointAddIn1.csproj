@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472</TargetFrameworks>
+    <TargetFramework>net472</TargetFramework>
     <EnableComHosting>true</EnableComHosting>
-    <EnableRegFreeCom>true</EnableRegFreeCom>
-    <RegisterForComInterop>true</RegisterForComInterop>
+    <!--<EnableRegFreeCom>true</EnableRegFreeCom>-->
+    <!--<RegisterForComInterop>true</RegisterForComInterop>-->
   </PropertyGroup>
 
   <ItemGroup>

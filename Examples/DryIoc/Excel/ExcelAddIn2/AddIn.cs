@@ -14,12 +14,10 @@ using TestCommon;
 namespace ExcelAddIn2
 {
     [COMAddin("PrismTaskPanes.ExcelAddIn2", "This is an example addin", LoadBehavior.LoadAtStartup),
-        ProgId("ExcelAddIn2.AddIn"),
-        Guid("26933ECD-AFCA-4498-B30E-D5F20BAD0E99"),
-        ComVisible(true),
-        Codebase]
-    [CustomUI("RibbonUI.xml", true),
+        ProgId("PrismTaskPanes.ExcelAddIn2"),
+        Guid("26933ECD-AFCA-4498-B30E-D5F20BAD0E95"),
         RegistryLocation(RegistrySaveLocation.CurrentUser)]
+    [CustomUI("RibbonUI.xml", true)]
     [PrismTaskPane("1", "ExampleAddin 2 A", typeof(ViewAView), "ExampleRegion", invisibleAtStart: true)]
     [PrismTaskPane("2", "ExampleAddin 2 B", typeof(ViewAView), "ExampleRegion")]
     public class AddIn

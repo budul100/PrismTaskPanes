@@ -19,10 +19,8 @@ namespace PowerPointAddIn1
     [COMAddin("PrismTaskPanes.PowerPointAddIn1", "This is an PowerPointAddIn1 description.", LoadBehavior.LoadAtStartup),
         ProgId("PowerPointAddIn1.AddIn"),
         Guid("6EAFFBCE-AB05-4DC2-9709-B12595A192FF"),
-        ComVisible(true),
-        Codebase]
-    [CustomUI("RibbonUI.xml", true),
         RegistryLocation(RegistrySaveLocation.CurrentUser)]
+    [CustomUI("RibbonUI.xml", true)]
     [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ExampleView.Views.ViewAView), "ExampleRegion", invisibleAtStart: true)]
     [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ExampleView.Views.ViewAView), "ExampleRegion", navigationValue: "abc")]
     public class AddIn
