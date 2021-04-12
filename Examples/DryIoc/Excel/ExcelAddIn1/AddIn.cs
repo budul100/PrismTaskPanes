@@ -21,7 +21,9 @@ namespace ExcelAddIn1
     [COMAddin("PrismTaskPanes Excel Example-AddIn 1", "This is an ExampleAddIn1 description.", LoadBehavior.LoadAtStartup),
         ProgId("PrismTaskPanes.ExcelAddIn1"),
         Guid("43BFA36D-D6A0-4558-8079-C07919C3CA73"),
-        RegistryLocation(RegistrySaveLocation.CurrentUser)]
+        RegistryLocation(RegistrySaveLocation.LocalMachine),
+        Codebase,
+        ComVisible(true)]
     [CustomUI("RibbonUI.xml", true)]
     [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ExampleView.Views.ViewAView), "ExampleRegion", invisibleAtStart: true, ScrollBarVertical = ScrollVisibility.Disabled)]
     [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ExampleView.Views.ViewAView), "ExampleRegion", navigationValue: "abc")]

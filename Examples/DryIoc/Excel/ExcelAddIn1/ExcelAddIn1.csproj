@@ -23,7 +23,7 @@
 
   <!--Only needed for development purposes. Can be removed in production.-->
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if $(ConfigurationName)==Debug powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File _PreBuild.ps1" />
+    <Exec Command="if $(ConfigurationName)==Debug powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File ..\..\..\..\Additionals\Scripts\_PreBuild.ps1 -baseDir $(ProjectDir)" />
   </Target>
 
 </Project>
