@@ -4,6 +4,8 @@
     {
         #region Public Properties
 
+        string ContainerMessage { get; }
+
         string Message { get; }
 
         #endregion Public Properties
