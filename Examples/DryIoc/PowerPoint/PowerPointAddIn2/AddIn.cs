@@ -1,4 +1,6 @@
-﻿using ExampleView.Views;
+﻿#pragma warning disable IDE0060 // Nicht verwendete Parameter entfernen
+
+using ExampleView.Views;
 using NetOffice.OfficeApi;
 using NetOffice.PowerPointApi.Tools;
 using NetOffice.Tools;
@@ -79,9 +81,6 @@ namespace PowerPointAddIn2
             builder.Register<IExampleClass, ExampleClass>();
         }
 
-        public void RegisterTypes(IContainerProvider containerProvider)
-        { }
-
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)
         {
             this.SetTaskPaneVisible(
@@ -118,3 +117,5 @@ namespace PowerPointAddIn2
         #endregion Private Methods
     }
 }
+
+#pragma warning restore IDE0060 // Nicht verwendete Parameter entfernen

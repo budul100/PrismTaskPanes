@@ -1,4 +1,6 @@
-﻿using DryIoc;
+﻿#pragma warning disable IDE0060 // Nicht verwendete Parameter entfernen
+
+using DryIoc;
 using NetOffice.OfficeApi;
 using NetOffice.PowerPointApi;
 using NetOffice.PowerPointApi.Tools;
@@ -19,7 +21,9 @@ namespace PowerPointAddIn1
     [COMAddin("PrismTaskPanes.PowerPointAddIn1", "This is an PowerPointAddIn1 description.", LoadBehavior.LoadAtStartup),
         ProgId("PowerPointAddIn1.AddIn"),
         Guid("6EAFFBCE-AB05-4DC2-9709-B12595A192FF"),
-        RegistryLocation(RegistrySaveLocation.CurrentUser)]
+        RegistryLocation(RegistrySaveLocation.LocalMachine),
+        Codebase,
+        ComVisible(true)]
     [CustomUI("RibbonUI.xml", true)]
     [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ExampleView.Views.ViewAView), "ExampleRegion", invisibleAtStart: true)]
     [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ExampleView.Views.ViewAView), "ExampleRegion", navigationValue: "abc")]
@@ -133,3 +137,5 @@ namespace PowerPointAddIn1
         #endregion Private Methods
     }
 }
+
+#pragma warning restore IDE0060 // Nicht verwendete Parameter entfernen

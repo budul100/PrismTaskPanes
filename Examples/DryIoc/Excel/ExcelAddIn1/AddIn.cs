@@ -1,4 +1,6 @@
-﻿using DryIoc;
+﻿#pragma warning disable IDE0060 // Nicht verwendete Parameter entfernen
+
+using DryIoc;
 using NetOffice.ExcelApi;
 using NetOffice.ExcelApi.Tools;
 using NetOffice.OfficeApi;
@@ -155,3 +157,5 @@ namespace ExcelAddIn1
         #endregion Private Methods
     }
 }
+
+#pragma warning restore IDE0060 // Nicht verwendete Parameter entfernen
