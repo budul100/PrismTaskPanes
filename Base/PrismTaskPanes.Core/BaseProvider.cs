@@ -95,6 +95,8 @@ namespace PrismTaskPanes
 
         internal static void OnTaskPaneChanged(_CustomTaskPane taskPane)
         {
+            InvalidateRibbonUI();
+
             var eventArgs = new TaskPaneEventArgs(taskPane);
 
             OnTaskPaneChangedEvent?.Invoke(
