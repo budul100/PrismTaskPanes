@@ -1,16 +1,9 @@
 @echo off
 
-PUSHD "%~dp0..\..\"
+SET BaseDir=%~dp0..\..
 
-echo.
-echo Clean empty dirs, obj dirs and bin dirs in '%cd%'.
-echo.
+echo %BaseDir%
+Pause
 
-PAUSE
-
-for /f "usebackq delims=" %%d in (`"dir /ad-h /b /s | sort /R"`) do rd "%%d"
-
-FOR /F "tokens=*" %%G IN ('DIR /B /ad-h /S bin') DO RMDIR /S /Q "%%G"
-FOR /F "tokens=*" %%G IN ('DIR /B /ad-h /S obj') DO RMDIR /S /Q "%%G"
-
-POPD
+powershell ".\_PreBuild.ps1 -baseDir %BaseDir%"
+powershell ".\_CleanFolders.ps1 -baseDir %BaseDir%"
