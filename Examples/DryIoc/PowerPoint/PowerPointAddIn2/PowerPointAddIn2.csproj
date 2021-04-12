@@ -2,10 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <RegisterForComInterop>true</RegisterForComInterop>
     <EnableComHosting>true</EnableComHosting>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  
   <ItemGroup>
     <EmbeddedResource Include="RibbonUI.xml" />
   </ItemGroup>
