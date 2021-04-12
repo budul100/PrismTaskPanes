@@ -2,9 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
+    <RegisterForComInterop>true</RegisterForComInterop>
     <EnableComHosting>true</EnableComHosting>
-    <!--<EnableRegFreeCom>true</EnableRegFreeCom>-->
-    <!--<RegisterForComInterop>true</RegisterForComInterop>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,5 +15,10 @@
     <ProjectReference Include="..\..\..\..\DryIoc\DryIoC.Excel\PrismTaskPanes.DryIoc.Excel.csproj" />
     <ProjectReference Include="..\..\..\Base\ExampleView\ExampleView.csproj" />
   </ItemGroup>
+
+  <!--Only needed for development purposes. Can be removed in production.-->
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="if $(ConfigurationName)==Debug powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File _PreBuild.ps1" />
+  </Target>
 
 </Project>
