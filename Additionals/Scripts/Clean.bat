@@ -8,3 +8,5 @@ powershell ".\_PreBuild.ps1 -baseDir %BaseDir%"
 powershell ".\_CleanFolders.ps1 -baseDir %BaseDir%"
 
 popd
+
+pause

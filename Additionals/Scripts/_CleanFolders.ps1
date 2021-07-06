@@ -15,4 +15,4 @@ do
 } 
 while ($dirs.count -gt 0)
 
-Get-ChildItem $baseDir -include bin,obj -Recurse | ForEach-Object ($_) { Remove-Item $_.FullName -Force -Recurse }
+Get-ChildItem $baseDir -include bin,obj -Recurse | ForEach-Object ($_) { Remove-Item $_.FullName -Recurse -Force }
