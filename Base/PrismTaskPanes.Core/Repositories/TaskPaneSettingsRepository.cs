@@ -2,7 +2,7 @@
 
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.Enums;
-using System;
+using PrismTaskPanes.Exceptions;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,15 +28,7 @@ namespace PrismTaskPanes.Settings
         public TaskPaneSettingsRepository(string configurationsPath)
         {
             this.configurationsPath = configurationsPath;
-
-            try
-            {
-                configurations = ReadConfigurations().ToList();
-            }
-            catch
-            {
-                configurations = new List<TaskPaneSettings>();
-            }
+            configurations = ReadConfigurations();
         }
 
         #endregion Public Constructors
@@ -107,12 +99,12 @@ namespace PrismTaskPanes.Settings
 
             if (currentAttribute == default)
             {
-                throw new ApplicationException("There is no respective Prism Task Pane defined.");
+                throw new ConfigurationMissingException();
             }
 
             var result = configurations?
                 .Where(s => s.ReceiverHash == receiverHash)
-                .Where(s => s.DocumentHash == documentHash).LastOrDefault();
+                .LastOrDefault(s => s.DocumentHash == documentHash);
 
             if (result == default)
             {
@@ -142,31 +134,28 @@ namespace PrismTaskPanes.Settings
             return result;
         }
 
-        private IEnumerable<TaskPaneSettings> ReadConfigurations()
+        private IList<TaskPaneSettings> ReadConfigurations()
         {
+            var result = default(IList<TaskPaneSettings>);
+
             if (File.Exists(configurationsPath))
             {
-                var configurations = Enumerable.Empty<TaskPaneSettings>();
-
-                using (var file = new FileStream(
+                using var file = new FileStream(
                     path: configurationsPath,
-                    mode: FileMode.Open))
-                {
-                    using (var reader = XmlReader.Create(file))
-                    {
-                        var serializer = new XmlSerializer(configurations.GetType());
-                        configurations = serializer.Deserialize(reader) as TaskPaneSettings[];
-                    }
-                }
+                    mode: FileMode.Open);
 
-                if (configurations?.Any() ?? false)
+                using var reader = XmlReader.Create(file);
+
+                try
                 {
-                    foreach (var configuration in configurations)
-                    {
-                        yield return configuration;
-                    }
+                    var serializer = new XmlSerializer(typeof(List<TaskPaneSettings>));
+                    result = serializer.Deserialize(reader) as List<TaskPaneSettings>;
                 }
+                catch (System.Exception x)
+                { }
             }
+
+            return result ?? new List<TaskPaneSettings>();
         }
 
         private void UpdateConfiguration(string attributeHash, string documentHash, bool visible, int width, int height,
@@ -186,19 +175,21 @@ namespace PrismTaskPanes.Settings
         private void WriteConfigurations()
         {
             var relevantConfigurations = configurations
-                .GroupBy(s => new { s.ReceiverHash, s.DocumentHash })
+                .GroupBy(s => (s.ReceiverHash, s.DocumentHash))
                 .Select(g => g.Last()).ToArray();
 
             if (!Directory.Exists(Path.GetDirectoryName(configurationsPath)))
-                Directory.CreateDirectory(Path.GetDirectoryName(configurationsPath));
+            {
+                _ = Directory.CreateDirectory(Path.GetDirectoryName(configurationsPath));
+            }
 
             var writer = new XmlSerializer(relevantConfigurations.GetType());
-            using (var file = File.Create(configurationsPath))
-            {
-                writer.Serialize(
-                    stream: file,
-                    o: relevantConfigurations);
-            }
+
+            using var file = File.Create(configurationsPath);
+
+            writer.Serialize(
+                stream: file,
+                o: relevantConfigurations);
         }
 
         #endregion Private Methods

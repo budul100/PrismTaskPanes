@@ -56,7 +56,7 @@ namespace ExcelAddIn2
 
         public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<ExampleView.Module>(nameof(ExcelAddIn2));
+            moduleCatalog.AddModule<ExampleView.ExampleModule>(nameof(ExcelAddIn2));
         }
 
         public override void CTPFactoryAvailable(object CTPFactoryInst)

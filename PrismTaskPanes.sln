@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerPointAddIn2", "Example
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DryIoc", "DryIoc", "{B313FBE4-7C1A-49E8-A555-6A9681FE44FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismTaskPanes.Host", "Base\PrismTaskPanes.Host\PrismTaskPanes.Host.csproj", "{43C426AE-B509-41FE-B274-B09CE29FC15C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{4D3944FE-3741-4AA5-89FE-C0586C8A400A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D3944FE-3741-4AA5-89FE-C0586C8A400A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D3944FE-3741-4AA5-89FE-C0586C8A400A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C426AE-B509-41FE-B274-B09CE29FC15C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C426AE-B509-41FE-B274-B09CE29FC15C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C426AE-B509-41FE-B274-B09CE29FC15C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C426AE-B509-41FE-B274-B09CE29FC15C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{8DE5BFB4-3429-46B5-B614-5AEB89BE1645} = {53F8D693-0CEE-47EA-851E-65F9B3FE6A23}
 		{4D3944FE-3741-4AA5-89FE-C0586C8A400A} = {53F8D693-0CEE-47EA-851E-65F9B3FE6A23}
 		{B313FBE4-7C1A-49E8-A555-6A9681FE44FD} = {DDD8B790-2428-4366-AFFA-702AB149EA15}
+		{43C426AE-B509-41FE-B274-B09CE29FC15C} = {E232A836-70CE-4BB9-859E-75DF24EE10F0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DACADB1B-5786-44FA-AACA-C55066FE0CF8}

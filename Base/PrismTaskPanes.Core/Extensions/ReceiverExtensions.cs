@@ -1,10 +1,9 @@
 ﻿using PrismTaskPanes.Attributes;
-using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace PrismTaskPanes.Core.Extensions
+namespace PrismTaskPanes.Extensions
 {
     [ComVisible(false)]
     public static class ReceiverExtensions

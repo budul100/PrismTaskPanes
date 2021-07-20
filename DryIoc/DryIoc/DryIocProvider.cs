@@ -45,7 +45,7 @@ namespace PrismTaskPanes
 
             if (Application == default)
             {
-                BaseProvider.RedirectAssembly();
+                //BaseProvider.RedirectAssembly();
 
                 Application = application;
                 BaseProvider.OnTaskPaneChangedEvent += OnTaskPaneChanged;

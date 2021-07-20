@@ -11,7 +11,7 @@ using System.Windows.Data;
 
 namespace PrismTaskPanes.Controls
 {
-    [ComVisible(false)]
+    //[ComVisible(false)]
     [ScopedRegion(
         CreateRegionManagerScope = true,
         ViewName = TaskPaneViewName)]
@@ -63,7 +63,7 @@ namespace PrismTaskPanes.Controls
 
         public static Uri GetHostUri()
         {
-            var view = typeof(PrismTaskPanesView).Name;
+            var view = typeof(PrismTaskPanesView).FullName;
 
             var result = new Uri(
                 uriString: view,

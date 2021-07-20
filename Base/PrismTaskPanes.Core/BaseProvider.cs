@@ -4,8 +4,8 @@ using NetOffice.OfficeApi;
 using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes.Controls;
-using PrismTaskPanes.Core.Extensions;
 using PrismTaskPanes.EventArgs;
+using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using PrismTaskPanes.Settings;
 using System;
@@ -25,7 +25,7 @@ namespace PrismTaskPanes
         private const string SettingsFile = "PrismTaskPanes.xml";
 
         private static readonly TaskPaneSettingsRepository configurationsRepository = GetConfigurationsRepository();
-        private static readonly HashSet<ITaskPanesReceiver> receivers = new HashSet<ITaskPanesReceiver>();
+        private static readonly HashSet<ITaskPanesReceiver> receivers = new();
 
         #endregion Private Fields
 
@@ -43,7 +43,8 @@ namespace PrismTaskPanes
                 .GetAttributes().ToArray();
 
             configurationsRepository.AddAttributes(attributes);
-            receivers.Add(receiver);
+
+            _ = receivers.Add(receiver);
         }
 
         public static void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
@@ -63,27 +64,28 @@ namespace PrismTaskPanes
 
         public static void RegisterProvider(Type contentType)
         {
-            var progId = ComExtensions.GetProgId(
-                hostType: typeof(PrismTaskPanesHost),
-                contentType: contentType);
+            var progId = typeof(PrismTaskPanesHost).GetProgId(contentType);
+
+            var directory = Path.Combine(
+                path1: Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles),
+                path2: nameof(PrismTaskPanesHost));
 
             ComExtensions.Register(
                 progId: progId,
-                type: typeof(PrismTaskPanesHost));
+                type: typeof(PrismTaskPanesHost),
+                directory: directory);
         }
 
         public static void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterInstance(configurationsRepository);
+            _ = containerRegistry.RegisterInstance(configurationsRepository);
 
             DoWithAllReceivers((r) => r.RegisterTypes(containerRegistry));
         }
 
         public static void UnregisterProvider(Type contentType)
         {
-            var progId = ComExtensions.GetProgId(
-                hostType: typeof(PrismTaskPanesHost),
-                contentType: contentType);
+            var progId = typeof(PrismTaskPanesHost).GetProgId(contentType);
 
             ComExtensions.Unregister(
                 progId: progId);
