@@ -26,7 +26,7 @@ namespace TestCommon
 
         #region Public Properties
 
-        public string ContainerMessage => container?.GetHashCode().ToString();
+        public string ContainerMessage => container.GetHashCode().ToString();
 
         public string Message => $"View at {DateTime.Now:fff}.";
 

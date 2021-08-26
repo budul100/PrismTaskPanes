@@ -1,8 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFrameworks>net472</TargetFrameworks>
     <EnableComHosting>true</EnableComHosting>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <RegisterForComInterop>true</RegisterForComInterop>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,8 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetOfficeFw.Core" Version="1.8.1" />
-    <PackageReference Include="NetOfficeFw.Excel" Version="1.8.1" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
 
@@ -22,10 +24,9 @@
     <ProjectReference Include="..\..\..\Base\ExampleView\ExampleView.csproj" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if $(ConfigurationName)==Debug regsvr32 /s $(TargetDir)$(TargetName).comhost.dll" />
-  </Target>
-
   <!--Only needed for development purposes. Can be removed in production.-->
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="if $(ConfigurationName)==Debug powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File ..\..\..\..\Additionals\Scripts\_PreBuild.ps1 -baseDir $(ProjectDir)" />
+  </Target>
 
 </Project>

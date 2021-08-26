@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <!--IMPORTANT! The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0) -->
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <AssemblyName>PrismTaskPanes.DryIoc.Excel</AssemblyName>
     <AssemblyVersion>4.4.3</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
@@ -23,7 +23,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetOfficeFw.Core" Version="1.8.1" />
     <PackageReference Include="NetOfficeFw.Excel" Version="1.8.1" />
     <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

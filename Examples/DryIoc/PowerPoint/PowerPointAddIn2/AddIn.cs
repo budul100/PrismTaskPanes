@@ -56,7 +56,7 @@ namespace PowerPointAddIn2
 
         public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<ExampleView.ExampleModule>(nameof(PowerPointAddIn2));
+            moduleCatalog.AddModule<ExampleView.Module>(nameof(PowerPointAddIn2));
         }
 
         public override void CTPFactoryAvailable(object CTPFactoryInst)

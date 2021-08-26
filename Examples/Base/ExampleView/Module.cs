@@ -6,7 +6,7 @@ using Prism.Regions;
 
 namespace ExampleView
 {
-    public class ExampleModule
+    public class Module
         : IModule
     {
         #region Private Fields
@@ -15,20 +15,11 @@ namespace ExampleView
 
         #endregion Private Fields
 
-        #region Public Constructors
-
-        public ExampleModule()
-        {
-            DummyClass.Dummy<Microsoft.Xaml.Behaviors.EventObserver>();
-        }
-
-        #endregion Public Constructors
-
         #region Public Methods
 
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _ = containerProvider.Resolve<IRegionManager>().RegisterViewWithRegion(
+            containerProvider.Resolve<IRegionManager>().RegisterViewWithRegion(
                 regionName: TXTRegionName,
                 viewType: typeof(ViewAView));
         }
