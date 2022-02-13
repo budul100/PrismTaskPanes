@@ -62,9 +62,14 @@ namespace PrismTaskPanes.Factories
             var hostRegion = GetHostRegion(result);
             var hostView = GetHostView(hostRegion);
 
+            var viewUri = settings.GetUriView(windowKey);
+
             hostView.Initialize(
-                settings: settings,
-                windowKey: windowKey);
+                regionName: settings.RegionName,
+                regionContext: settings.RegionContext,
+                viewUri: viewUri,
+                scrollBarHorizontal: settings.ScrollBarHorizontal,
+                scrollBarVertical: settings.ScrollBarVertical);
 
             return result;
         }

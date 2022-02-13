@@ -7,7 +7,7 @@ namespace PrismTaskPanes.Interfaces
     /// instantiated and attached to created view.
     /// </summary>
     [ComVisible(false)]
-    internal interface IScopedRegion
+    public interface IScopedRegion
     {
         #region Public Properties
 

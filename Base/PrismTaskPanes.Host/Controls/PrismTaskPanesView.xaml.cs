@@ -1,9 +1,7 @@
 ﻿using Prism.Regions;
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.Enums;
-using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
-using PrismTaskPanes.Settings;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Controls;
@@ -72,20 +70,19 @@ namespace PrismTaskPanes.Controls
             return result;
         }
 
-        public void Initialize(TaskPaneSettings settings, int windowKey)
+        public void Initialize(string regionName, object regionContext, Uri viewUri,
+            ScrollVisibility scrollBarHorizontal, ScrollVisibility scrollBarVertical)
         {
             SetLocalRegion(
-                regionName: settings.RegionName,
-                regionContext: settings.RegionContext);
-
-            var viewUri = settings.GetUriView(windowKey);
+                regionName: regionName,
+                regionContext: regionContext);
 
             LocalRegionManager.RequestNavigate(
-                regionName: settings.RegionName,
+                regionName: regionName,
                 source: viewUri);
 
-            SetScrollBarHorizontal(settings.ScrollBarHorizontal);
-            SetScrollBarVertical(settings.ScrollBarVertical);
+            SetScrollBarHorizontal(scrollBarHorizontal);
+            SetScrollBarVertical(scrollBarVertical);
         }
 
         #endregion Public Methods

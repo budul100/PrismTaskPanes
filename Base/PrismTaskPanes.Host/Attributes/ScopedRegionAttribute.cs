@@ -10,7 +10,7 @@ namespace PrismTaskPanes.Attributes
     /// </summary>
     [AttributeUsage(validOn: AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     [ComVisible(false)]
-    internal sealed class ScopedRegionAttribute
+    public sealed class ScopedRegionAttribute
         : Attribute, IScopedRegion
     {
         #region Public Constructors

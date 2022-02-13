@@ -7,7 +7,7 @@ using System.Windows;
 namespace PrismTaskPanes.Extensions
 {
     [ComVisible(false)]
-    internal static class ScopedRegionExtensions
+    public static class ScopedRegionExtensions
     {
         #region Public Methods
 
