@@ -1,12 +1,8 @@
-@echo off
+ECHO off
 
-SET BaseDir=%~dp0..\..
+pushd ..\..
 
-pushd %~dp0
+for /f "usebackq delims=" %%d in (`"dir /ad/b/s | sort /R"`) do rd "%%d"
 
-powershell ".\_PreBuild.ps1 -baseDir %BaseDir%"
-powershell ".\_CleanFolders.ps1 -baseDir %BaseDir%"
-
-popd
-
-pause
+FOR /F "tokens=*" %%G IN ('DIR /B /AD /S bin') DO RMDIR /S /Q "%%G"
+FOR /F "tokens=*" %%G IN ('DIR /B /AD /S obj') DO RMDIR /S /Q "%%G"

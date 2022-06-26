@@ -1,9 +1,8 @@
 ﻿using DryIoc;
 using NetOffice.OfficeApi;
-using Prism.Ioc;
 using Prism.Regions;
+using PrismTaskPanes.EventArgs;
 using PrismTaskPanes.Factories;
-using PrismTaskPanes.Settings;
 using System;
 using System.Collections.Generic;
 
@@ -14,8 +13,8 @@ namespace PrismTaskPanes.DryIoc.Factories
     {
         #region Private Fields
 
-        private readonly Func<IContainer> containerGetter;
         private readonly ICTPFactory ctpFactory;
+        private readonly Application dryIocApplication;
         private readonly IDictionary<int, TaskPanesRepository> repositories = new Dictionary<int, TaskPanesRepository>();
         private readonly Func<string> taskPaneIdentifierGetter;
         private readonly Func<object> taskPaneWindowGetter;
@@ -27,20 +26,25 @@ namespace PrismTaskPanes.DryIoc.Factories
 
         #region Public Constructors
 
-        public TaskPanesRepositoryFactory(object application, object ctpFactoryInst, Func<IContainer> containerGetter,
+        public TaskPanesRepositoryFactory(ICTPFactory ctpFactory, Application dryIocApplication,
             Func<object> taskPaneWindowGetter, Func<int?> taskPaneWindowKeyGetter, Func<string> taskPaneIdentifierGetter)
         {
-            this.containerGetter = containerGetter;
+            this.ctpFactory = ctpFactory;
+            this.dryIocApplication = dryIocApplication;
             this.taskPaneWindowGetter = taskPaneWindowGetter;
             this.taskPaneWindowKeyGetter = taskPaneWindowKeyGetter;
             this.taskPaneIdentifierGetter = taskPaneIdentifierGetter;
-
-            ctpFactory = new ICTPFactory(
-                parentObject: application as NetOffice.ICOMObject,
-                comProxy: ctpFactoryInst);
         }
 
         #endregion Public Constructors
+
+        #region Public Events
+
+        public event EventHandler<ProviderEventArgs<IResolverContext>> OnScopeClosingEvent;
+
+        public event EventHandler<ProviderEventArgs<IResolverContext>> OnScopeOpenedEvent;
+
+        #endregion Public Events
 
         #region Public Methods
 
@@ -49,7 +53,7 @@ namespace PrismTaskPanes.DryIoc.Factories
             CloseRepositories();
         }
 
-        public void Create(Type contentType)
+        public void Create()
         {
             var result = Get();
 
@@ -59,9 +63,7 @@ namespace PrismTaskPanes.DryIoc.Factories
 
                 if (key.HasValue)
                 {
-                    CreateRepository(
-                        key: key.Value,
-                        contentType: contentType);
+                    CreateRepository(key.Value);
                 }
             }
         }
@@ -108,8 +110,6 @@ namespace PrismTaskPanes.DryIoc.Factories
                 if (disposing)
                 {
                     CloseRepositories();
-
-                    containerGetter.Invoke().Dispose();
                     ctpFactory?.Dispose();
                 }
 
@@ -121,13 +121,6 @@ namespace PrismTaskPanes.DryIoc.Factories
 
         #region Private Methods
 
-        private static void CloseRepository(TaskPanesRepository repository)
-        {
-            repository?.Save();
-
-            DryIocProvider.OnScopeClosing(repository?.Scope as IResolverContext);
-        }
-
         private void CloseRepositories()
         {
             foreach (var repository in repositories)
@@ -138,37 +131,60 @@ namespace PrismTaskPanes.DryIoc.Factories
             repositories.Clear();
         }
 
-        private void CreateRepository(int key, Type contentType)
+        private void CloseRepository(TaskPanesRepository repository)
         {
-            var scope = containerGetter.Invoke().OpenScope(key);
+            var scope = repository.Scope as IResolverContext;
+
+            OnScopeClosing(scope);
+
+            repository.Save();
+            scope?.Dispose();
+        }
+
+        private void CreateRepository(int key)
+        {
+            var scope = dryIocApplication.OpenScope(key);
 
             var hostRegionManager = scope.Resolve<IRegionManager>();
 
             var taskPanesFactory = new TaskPanesFactory(
-                windowKey: key,
                 ctpFactory: ctpFactory,
                 hostRegionManager: hostRegionManager,
                 taskPaneWindow: taskPaneWindowGetter.Invoke(),
-                contentType: contentType);
-
-            var configurationsRepository = scope.Resolve<TaskPaneSettingsRepository>();
+                windowKey: key);
 
             var repository = new TaskPanesRepository(
                 key: key,
                 scope: scope,
                 taskPanesFactory: taskPanesFactory,
-                configurationsRepository: configurationsRepository,
+                configurationsRepository: Service.ConfigurationsRepository,
                 documentHashGetter: taskPaneIdentifierGetter);
 
             repositories.Add(
                 key: key,
                 value: repository);
 
-            DryIocProvider.OnScopeOpened(scope);
-
             repository.Initialise();
 
-            DryIocProvider.OnScopeInitialized(scope);
+            OnScopeOpened(scope);
+        }
+
+        private void OnScopeClosing(IResolverContext scope)
+        {
+            var eventArgs = new ProviderEventArgs<IResolverContext>(scope);
+
+            OnScopeClosingEvent?.Invoke(
+                sender: this,
+                e: eventArgs);
+        }
+
+        private void OnScopeOpened(IResolverContext scope)
+        {
+            var eventArgs = new ProviderEventArgs<IResolverContext>(scope);
+
+            OnScopeOpenedEvent?.Invoke(
+                sender: this,
+                e: eventArgs);
         }
 
         #endregion Private Methods

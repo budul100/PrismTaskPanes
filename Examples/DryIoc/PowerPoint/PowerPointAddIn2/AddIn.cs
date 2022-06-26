@@ -1,4 +1,6 @@
 ﻿#pragma warning disable IDE0060 // Nicht verwendete Parameter entfernen
+#pragma warning disable RCS1163 // Unused parameter.
+#pragma warning disable RCS1132 // Remove redundant overriding member.
 
 using ExampleView.Views;
 using NetOffice.OfficeApi;
@@ -8,6 +10,9 @@ using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes.Attributes;
 using PrismTaskPanes.DryIoc;
+using PrismTaskPanes.DryIoc.PowerPoint;
+using PrismTaskPanes.EventArgs;
+using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using System;
 using System.Runtime.InteropServices;
@@ -27,6 +32,12 @@ namespace PowerPointAddIn2
     public class AddIn
         : COMAddin, ITaskPanesReceiver
     {
+        #region Private Fields
+
+        private TaskPanesProvider provider;
+
+        #endregion Private Fields
+
         #region Public Constructors
 
         public AddIn()
@@ -42,30 +53,25 @@ namespace PowerPointAddIn2
         public static void Register(Type type)
         {
             RegisterFunction(type);
-
-            PowerPointProvider.RegisterProvider<AddIn>();
+            //type.RegisterTaskPaneHost();
         }
 
         [ComUnregisterFunction]
         public static void Unregister(Type type)
         {
             UnregisterFunction(type);
-
-            PowerPointProvider.UnregisterProvider<AddIn>();
-        }
-
-        public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
-        {
-            moduleCatalog.AddModule<ExampleView.Module>(nameof(PowerPointAddIn2));
+            type.UnregisterTaskPaneHost();
         }
 
         public override void CTPFactoryAvailable(object CTPFactoryInst)
         {
-            base.CTPFactoryAvailable(CTPFactoryInst);
-
-            this.InitializeProvider(
-                application: Application,
+            provider = new TaskPanesProvider(
+                receiver: this,
+                officeApplication: Application,
                 ctpFactoryInst: CTPFactoryInst);
+
+            provider.OnConfigureModuleCatalogEvent += OnConfigureModuleCatalog;
+            provider.OnRegisterTypesEvent += OnRegisterTypes;
         }
 
         public override void CustomUI_OnLoad(NetOffice.OfficeApi.Native.IRibbonUI ribbonUI)
@@ -78,33 +84,28 @@ namespace PowerPointAddIn2
             RibbonUI?.Invalidate();
         }
 
-        public void RegisterTypes(IContainerRegistry builder)
-        {
-            builder.Register<IExampleClass, ExampleClass>();
-        }
-
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)
         {
-            this.SetTaskPaneVisible(
+            provider.SetTaskPaneVisibility(
                 id: "1",
                 isVisible: pressed);
         }
 
         public void TooglePaneVisibleButton_Click2(IRibbonControl control, bool pressed)
         {
-            this.SetTaskPaneVisible(
+            provider.SetTaskPaneVisibility(
                 id: "2",
                 isVisible: pressed);
         }
 
         public bool TooglePaneVisibleButton_GetPressed(IRibbonControl control)
         {
-            return this.TaskPaneVisible("1");
+            return provider.TaskPaneIsVisible("1");
         }
 
         public bool TooglePaneVisibleButton_GetPressed2(IRibbonControl control)
         {
-            return this.TaskPaneVisible("2");
+            return provider.TaskPaneIsVisible("2");
         }
 
         #endregion Public Methods
@@ -116,8 +117,21 @@ namespace PowerPointAddIn2
             Console.WriteLine($"Addin started in Excel Version {Application.Version}");
         }
 
+        private void OnConfigureModuleCatalog(object sender, ProviderEventArgs<IModuleCatalog> e)
+        {
+            e.Content.AddModule<ExampleView.ExampleModule>(nameof(PowerPointAddIn2));
+        }
+
+        private void OnRegisterTypes(object sender, ProviderEventArgs<IContainerRegistry> e)
+        {
+            e.Content.Register<IExampleClass, ExampleClass>();
+        }
+
         #endregion Private Methods
+
     }
 }
 
+#pragma warning restore RCS1132 // Remove redundant overriding member.
+#pragma warning restore RCS1163 // Unused parameter.
 #pragma warning restore IDE0060 // Nicht verwendete Parameter entfernen

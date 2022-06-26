@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<RootNamespace>PrismTaskPanes</RootNamespace>
+		<AssemblyName>PrismTaskPanes.Core</AssemblyName>
+		<AssemblyVersion>5.0.0.0</AssemblyVersion>
+		<FileVersion>$(AssemblyVersion)</FileVersion>
+		<Version>$(AssemblyVersion)</Version>
+		<Authors>budul</Authors>
+		<Description>Core service for PrismTaskPanes</Description>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Prism.Wpf" Version="8.1.97"/>
+		<PackageReference Include="NetOfficeFw.Core" Version="1.8.1"/>
+		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.2">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Commons\Commons.csproj"/>
+	</ItemGroup>
+
+</Project>

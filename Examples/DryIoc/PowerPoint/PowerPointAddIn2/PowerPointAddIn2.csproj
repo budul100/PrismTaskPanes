@@ -1,26 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <EnableComHosting>true</EnableComHosting>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<EnableComHosting>true</EnableComHosting>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <RegisterForComInterop>true</RegisterForComInterop>
-  </PropertyGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="RibbonUI.xml"/>
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="RibbonUI.xml" />
-  </ItemGroup>
+		<ItemGroup>
+		<PackageReference Include="NetOfficeFw.Core" Version="1.8.1"/>
+		<PackageReference Include="NetOfficeFw.PowerPoint" Version="1.8.1"/>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj" />
-    <ProjectReference Include="..\..\..\..\DryIoc\DryIoC.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj" />
-    <ProjectReference Include="..\..\..\Base\ExampleView\ExampleView.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\DryIoc\DryIoc.PowerPoint\DryIoc.PowerPoint.csproj"/>
+		<ProjectReference Include="..\..\..\Base\ExampleView\ExampleView.csproj"/>
+	</ItemGroup>
 
-  <!--Only needed for development purposes. Can be removed in production.-->
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if $(ConfigurationName)==Debug powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File ..\..\..\..\Additionals\Scripts\_PreBuild.ps1 -baseDir $(ProjectDir)" />
-  </Target>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<OutputPath>..\..\..\..\_Debug\PowerPoint</OutputPath>
+	</PropertyGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if $(ConfigurationName)==Debug regsvr32 /s $(TargetDir)$(TargetName).comhost.dll"/>
+	</Target>
+
 </Project>

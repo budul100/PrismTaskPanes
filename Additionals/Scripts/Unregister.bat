@@ -1,10 +1,12 @@
 @ECHO off
 
 SET ExamplesDir=%~dp0..\..\Examples\DryIoc
-SET Target=net472
+SET Target=net5.0-windows
 
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister /tlb "%ExamplesDir%\Excel\ExcelAddIn1\bin\Debug\%Target%\ExcelAddIn1.dll"
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister /tlb "%ExamplesDir%\Excel\ExcelAddIn2\bin\Debug\%Target%\ExcelAddIn2.dll"
+regsvr32 /u "%CommonProgramFiles%\PrismTaskPanes\PrismTaskPanes.Commons.comhost.dll"
 
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister /tlb "%ExamplesDir%\PowerPoint\PowerPointAddIn1\bin\Debug\%Target%\PowerPointAddIn1.dll"
-"%windir%\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe" /unregister /tlb "%ExamplesDir%\PowerPoint\PowerPointAddIn2\bin\Debug\%Target%\PowerPointAddIn2.dll"
+regsvr32 /u /s "%ExamplesDir%\Excel\ExcelAddIn1\bin\Debug\%Target%\ExcelAddIn1.comhost.dll"
+regsvr32 /u /s "%ExamplesDir%\Excel\ExcelAddIn2\bin\Debug\%Target%\ExcelAddIn2.comhost.dll"
+
+regsvr32 /u /s "%ExamplesDir%\PowerPoint\PowerPointAddIn1\bin\Debug\%Target%\PowerPointAddIn1.comhost.dll"
+regsvr32 /u /s "%ExamplesDir%\PowerPoint\PowerPointAddIn2\bin\Debug\%Target%\PowerPointAddIn2.comhost.dll"

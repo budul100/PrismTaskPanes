@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<RootNamespace>PrismTaskPanes.DryIoc.PowerPoint</RootNamespace>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<AssemblyName>PrismTaskPanes.DryIoc.PowerPoint</AssemblyName>
+		<AssemblyVersion>5.0.0.0</AssemblyVersion>
+		<FileVersion>$(AssemblyVersion)</FileVersion>
+		<Version>$(AssemblyVersion)</Version>
+		<Authors>budul</Authors>
+		<Description>PowerPoint relevant DryIoc components for PrismTaskPanes</Description>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="NetOfficeFw.PowerPoint" Version="1.8.1"/>
+		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" PrivateAssets="all">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DryIoc\DryIoc.csproj"/>
+	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="if $(ConfigurationName)==Debug powershell '$(ProjectDir)Additionals\Scripts\_PreBuild.ps1 -baseDir $(SolutionDir)'"/>
+	</Target>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<OutputPath>..\..\_Debug\PowerPoint</OutputPath>
+	</PropertyGroup>
+
+</Project>

@@ -24,7 +24,8 @@ namespace ExampleView.ViewModels
 
             var test2 = container.Resolve<IExampleClass>();
 
-            Message = $"Test 1: {test.Message} / {test.ContainerMessage}\r\n" +
+            Message = $"{typeof(ViewAViewModel).Name}\r\n" +
+                $"Test 1: {test.Message} / {test.ContainerMessage}\r\n" +
                 $"Test 2: {test2.Message} / {test2.ContainerMessage}\r\n" +
                 $"Container: {container.GetHashCode()}";
         }

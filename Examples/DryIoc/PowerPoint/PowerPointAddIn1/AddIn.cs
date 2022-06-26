@@ -1,16 +1,16 @@
 ﻿#pragma warning disable IDE0060 // Nicht verwendete Parameter entfernen
+#pragma warning disable RCS1163 // Unused parameter.
 
 using DryIoc;
 using NetOffice.OfficeApi;
-using NetOffice.PowerPointApi;
 using NetOffice.PowerPointApi.Tools;
 using NetOffice.Tools;
-using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
 using PrismTaskPanes.Attributes;
-using PrismTaskPanes.DryIoc;
-using PrismTaskPanes.DryIoc.EventArgs;
+using PrismTaskPanes.DryIoc.PowerPoint;
+using PrismTaskPanes.EventArgs;
+using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
 using System;
 using System.Runtime.InteropServices;
@@ -30,11 +30,18 @@ namespace PowerPointAddIn1
     public class AddIn
         : COMAddin, ITaskPanesReceiver
     {
+
+        #region Private Fields
+
+        private TaskPanesProvider provider;
+
+        #endregion Private Fields
+
         #region Public Constructors
 
         public AddIn()
         {
-            OnStartupComplete += Addin_OnStartupComplete;
+            //OnStartupComplete += Addin_OnStartupComplete;
         }
 
         #endregion Public Constructors
@@ -45,30 +52,25 @@ namespace PowerPointAddIn1
         public static void Register(Type type)
         {
             RegisterFunction(type);
-
-            PowerPointProvider.RegisterProvider<AddIn>();
+            //type.RegisterTaskPaneHost();
         }
 
         [ComUnregisterFunction]
         public static void Unregister(Type type)
         {
             UnregisterFunction(type);
-
-            PowerPointProvider.UnregisterProvider<AddIn>();
-        }
-
-        public void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
-        {
-            moduleCatalog.AddModule<ExampleView.Module>(nameof(PowerPointAddIn1));
+            type.UnregisterTaskPaneHost();
         }
 
         public override void CTPFactoryAvailable(object CTPFactoryInst)
         {
-            base.CTPFactoryAvailable(CTPFactoryInst);
-
-            this.InitializeProvider(
-                application: Application,
+            provider = new TaskPanesProvider(
+                receiver: this,
+                officeApplication: Application,
                 ctpFactoryInst: CTPFactoryInst);
+
+            provider.OnConfigureModuleCatalogEvent += OnConfigureModuleCatalog;
+            provider.OnRegisterTypesEvent += OnRegisterTypes;
         }
 
         public void InvalidateRibbonUI()
@@ -76,66 +78,53 @@ namespace PowerPointAddIn1
             RibbonUI?.Invalidate();
         }
 
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.GetContainer().Register<IExampleClass, ExampleClass>();
-        }
-
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)
         {
-            this.SetTaskPaneVisible(
+            provider.SetTaskPaneVisibility(
                 id: "1",
                 isVisible: pressed);
         }
 
         public void TooglePaneVisibleButton_Click2(IRibbonControl control, bool pressed)
         {
-            this.SetTaskPaneVisible(
+            provider.SetTaskPaneVisibility(
                 id: "2",
                 isVisible: pressed);
         }
 
         public bool TooglePaneVisibleButton_GetEnabled(IRibbonControl control)
         {
-            return this.TaskPaneExists("1");
+            return provider.TaskPaneExists("1");
         }
 
         public bool TooglePaneVisibleButton_GetPressed(IRibbonControl control)
         {
-            return this.TaskPaneVisible("1");
+            return provider.TaskPaneIsVisible("1");
         }
 
         public bool TooglePaneVisibleButton_GetPressed2(IRibbonControl control)
         {
-            return this.TaskPaneVisible("2");
+            return provider.TaskPaneIsVisible("2");
         }
 
         #endregion Public Methods
 
         #region Private Methods
 
-        private void Addin_OnStartupComplete(ref Array custom)
+        private void OnConfigureModuleCatalog(object sender, ProviderEventArgs<IModuleCatalog> e)
         {
-            PowerPointProvider.OnScopeOpenedEvent += OnScopeOpened;
-            PowerPointProvider.OnScopeInitializedEvent += OnScopeInitialized;
-
-            Console.WriteLine($"Addin started in Excel Version {Application.Version}");
+            e.Content.AddModule<ExampleView.ExampleModule>(nameof(PowerPointAddIn1));
         }
 
-        private void OnScopeInitialized(object sender, PowerPointEventArgs e)
+        private void OnRegisterTypes(object sender, ProviderEventArgs<IContainerRegistry> e)
         {
-            var test1 = PowerPointProvider.Container.Resolve<IExampleClass>();
-            var test2 = e.Container.Resolve<IExampleClass>();
-        }
-
-        private void OnScopeOpened(object sender, PowerPointEventArgs e)
-        {
-            var test1 = PowerPointProvider.Container.Resolve<IExampleClass>();
-            var test2 = e.Container.Resolve<IExampleClass>();
+            e.Content.Register<IExampleClass, ExampleClass>();
         }
 
         #endregion Private Methods
+
     }
 }
 
+#pragma warning restore RCS1163 // Unused parameter.
 #pragma warning restore IDE0060 // Nicht verwendete Parameter entfernen
