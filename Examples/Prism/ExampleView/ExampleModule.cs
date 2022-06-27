@@ -26,8 +26,7 @@ namespace ExampleView
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<ExampleView.Views.ViewAView>();
-            containerRegistry.RegisterForNavigation<ExampleView.Views.ViewAView>(typeof(ExampleView.Views.ViewAView).FullName);
+            containerRegistry.RegisterForNavigation<ViewAView>();
         }
 
         #endregion Public Methods

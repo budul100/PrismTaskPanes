@@ -1,4 +1,5 @@
 ﻿using PrismTaskPanes.Extensions;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,9 +22,14 @@ namespace ExampleView.Views
                 triggerType: typeof(Microsoft.Xaml.Behaviors.TriggerBase),
                 parameters: null);
 
-            this.LoadViewFromUri("/ExampleView;component/views/viewaview.xaml");
-
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception)
+            {
+                this.LoadViewFromUri("/ExampleView;component/views/viewaview.xaml");
+            }
         }
 
         #endregion Public Constructors

@@ -32,6 +32,7 @@ namespace PowerPointAddIn2
     public class AddIn
         : COMAddin, ITaskPanesReceiver
     {
+
         #region Private Fields
 
         private TaskPanesProvider provider;
@@ -86,26 +87,44 @@ namespace PowerPointAddIn2
 
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)
         {
-            provider.SetTaskPaneVisibility(
-                id: "1",
-                isVisible: pressed);
+            if (provider.CanBeLoaded())
+            {
+                provider.SetTaskPaneVisibility(
+                    id: "1",
+                    isVisible: pressed);
+            }
         }
 
         public void TooglePaneVisibleButton_Click2(IRibbonControl control, bool pressed)
         {
-            provider.SetTaskPaneVisibility(
-                id: "2",
-                isVisible: pressed);
+            if (provider.CanBeLoaded())
+            {
+                provider.SetTaskPaneVisibility(
+                    id: "2",
+                    isVisible: pressed);
+            }
         }
 
         public bool TooglePaneVisibleButton_GetPressed(IRibbonControl control)
         {
-            return provider.TaskPaneIsVisible("1");
+            if (!provider.CanBeLoaded())
+            {
+                return false;
+            }
+
+            return provider.TaskPaneIsVisible(
+                id: "1");
         }
 
         public bool TooglePaneVisibleButton_GetPressed2(IRibbonControl control)
         {
-            return provider.TaskPaneIsVisible("2");
+            if (!provider.CanBeLoaded())
+            {
+                return false;
+            }
+
+            return provider.TaskPaneIsVisible(
+                id: "1");
         }
 
         #endregion Public Methods
@@ -119,7 +138,7 @@ namespace PowerPointAddIn2
 
         private void OnConfigureModuleCatalog(object sender, ProviderEventArgs<IModuleCatalog> e)
         {
-            e.Content.AddModule<ExampleView.ExampleModule>(nameof(PowerPointAddIn2));
+            e.Content.AddModule<ExampleView.ExampleModule>();
         }
 
         private void OnRegisterTypes(object sender, ProviderEventArgs<IContainerRegistry> e)

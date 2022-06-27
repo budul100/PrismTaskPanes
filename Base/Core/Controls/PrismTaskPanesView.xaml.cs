@@ -30,7 +30,14 @@ namespace PrismTaskPanes.Controls
 
         public PrismTaskPanesView()
         {
-            this.LoadViewFromUri("/PrismTaskPanes.Core;component/controls/prismtaskpanesview.xaml");
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception)
+            {
+                this.LoadViewFromUri("/PrismTaskPanes.Core;component/controls/prismtaskpanesview.xaml");
+            }
 
             // Bind RegionManager.RegionManager attached property to this object
             var binding = new Binding(LocalRegionManagerName)

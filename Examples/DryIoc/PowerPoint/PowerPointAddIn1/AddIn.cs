@@ -67,7 +67,8 @@ namespace PowerPointAddIn1
             provider = new TaskPanesProvider(
                 receiver: this,
                 officeApplication: Application,
-                ctpFactoryInst: CTPFactoryInst);
+                ctpFactoryInst: CTPFactoryInst,
+                showErrorIfAlreadyLoaded: true);
 
             provider.OnConfigureModuleCatalogEvent += OnConfigureModuleCatalog;
             provider.OnRegisterTypesEvent += OnRegisterTypes;
@@ -113,7 +114,7 @@ namespace PowerPointAddIn1
 
         private void OnConfigureModuleCatalog(object sender, ProviderEventArgs<IModuleCatalog> e)
         {
-            e.Content.AddModule<ExampleView.ExampleModule>(nameof(PowerPointAddIn1));
+            e.Content.AddModule<ExampleView.ExampleModule>();
         }
 
         private void OnRegisterTypes(object sender, ProviderEventArgs<IContainerRegistry> e)

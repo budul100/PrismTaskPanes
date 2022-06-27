@@ -18,8 +18,9 @@ namespace PrismTaskPanes.DryIoc.Excel
         #region Public Constructors
 
         public TaskPanesProvider(ITaskPanesReceiver receiver, NetOffice.ExcelApi.Application officeApplication,
-            object ctpFactoryInst)
-            : base(receiver, officeApplication, ctpFactoryInst)
+            object ctpFactoryInst, bool suppressInitializationAtStart = false, bool showErrorIfAlreadyLoaded = false)
+            : base(receiver: receiver, officeApplication: officeApplication, ctpFactoryInst: ctpFactoryInst,
+                  suppressInitializationAtStart: suppressInitializationAtStart, showErrorIfAlreadyLoaded: showErrorIfAlreadyLoaded)
         {
             if (officeApplication is null)
             {

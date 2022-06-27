@@ -16,9 +16,9 @@ namespace PrismTaskPanes.DryIoc
     {
         #region Public Events
 
-        public event EventHandler OnApplicationCreatedEvent;
-
         public event EventHandler OnApplicationExitEvent;
+
+        public event EventHandler OnApplicationInitializedEvent;
 
         public event EventHandler<ProviderEventArgs<IRegionBehaviorFactory>> OnConfigureDefaultRegionBehaviorsEvent;
 
@@ -32,7 +32,7 @@ namespace PrismTaskPanes.DryIoc
 
         public IResolverContext OpenScope(int key)
         {
-            var result = Container.GetContainer()?.OpenScope(key);
+            var result = Container?.GetContainer()?.OpenScope(key);
 
             return result;
         }
@@ -69,11 +69,16 @@ namespace PrismTaskPanes.DryIoc
 
         protected override Window CreateShell()
         {
-            OnApplicationCreatedEvent?.Invoke(
+            return default;
+        }
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+
+            OnApplicationInitializedEvent?.Invoke(
                 sender: this,
                 e: default);
-
-            return default;
         }
 
         protected override void OnExit(ExitEventArgs e)

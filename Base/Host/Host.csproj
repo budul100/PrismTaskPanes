@@ -18,22 +18,6 @@
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)'=='Release'">
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageId>$(Authors).$(AssemblyName)</PackageId>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageTags>Office, Excel, Word, PowerPoint, Prism, Task panes, NetOffice</PackageTags>
-		<RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
-		<DebugType>none</DebugType>
-		<DebugSymbols>false</DebugSymbols>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" PrivateAssets="all">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\View\View.csproj" />
 	</ItemGroup>

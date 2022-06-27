@@ -53,7 +53,7 @@ namespace PrismTaskPanes.DryIoc.Factories
             CloseRepositories();
         }
 
-        public void Create()
+        public TaskPanesRepository Create()
         {
             var result = Get();
 
@@ -66,6 +66,8 @@ namespace PrismTaskPanes.DryIoc.Factories
                     CreateRepository(key.Value);
                 }
             }
+
+            return result;
         }
 
         public void Dispose()

@@ -23,7 +23,8 @@ namespace PrismTaskPanes.DryIoc
         private static bool alreadyLoadedMessageShown;
         private readonly object ctpFactoryInst;
         private readonly object officeApplication;
-
+        private readonly bool showErrorIfAlreadyLoaded;
+        private readonly bool suppressInitializationAtStart;
         private Application dryIocApplication;
         private bool isLoaded;
         private TaskPanesRepositoryFactory repositoryFactory;
@@ -32,11 +33,15 @@ namespace PrismTaskPanes.DryIoc
 
         #region Protected Constructors
 
-        protected BaseProvider(ITaskPanesReceiver receiver, object officeApplication, object ctpFactoryInst)
+        protected BaseProvider(ITaskPanesReceiver receiver, object officeApplication, object ctpFactoryInst,
+            bool suppressInitializationAtStart, bool showErrorIfAlreadyLoaded)
         {
             Receiver = receiver ?? throw new ArgumentNullException(nameof(receiver));
+
             this.officeApplication = officeApplication ?? throw new ArgumentNullException(nameof(officeApplication));
             this.ctpFactoryInst = ctpFactoryInst ?? throw new ArgumentNullException(nameof(ctpFactoryInst));
+            this.suppressInitializationAtStart = suppressInitializationAtStart;
+            this.showErrorIfAlreadyLoaded = showErrorIfAlreadyLoaded;
 
             Service.AddReceiver(Receiver);
             Service.OnTaskPaneChangedEvent += OnTaskPaneChanged;
@@ -83,34 +88,29 @@ namespace PrismTaskPanes.DryIoc
 
         #region Public Methods
 
+        public bool CanBeLoaded()
+        {
+            var result = isLoaded || System.Windows.Application.Current == default;
+
+            if (!result
+                && showErrorIfAlreadyLoaded)
+            {
+                ShowAlreadyLoadedMessage();
+            }
+
+            return result;
+        }
+
         public virtual void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        public void InitilializeTaskPane(bool checkApplication = false)
+        public void SetTaskPaneVisibility(string id, bool isVisible)
         {
-            if (checkApplication
-                && !CheckApplication())
-            {
-                ShowAlreadyLoadedMessage();
-            }
-            else
-            {
-                StartApplication();
-            }
-        }
-
-        public void SetTaskPaneVisibility(string id, bool isVisible,
-            bool checkApplication = false)
-        {
-            if (checkApplication
-                && !CheckApplication())
-            {
-                ShowAlreadyLoadedMessage();
-            }
-            else if (StartApplication())
+            if ((!showErrorIfAlreadyLoaded || CanBeLoaded())
+                && ApplicationInitialized())
             {
                 var repository = repositoryFactory?.Get();
 
@@ -122,21 +122,15 @@ namespace PrismTaskPanes.DryIoc
                         receiverHash: hash,
                         isVisible: isVisible);
                 }
-
-                Receiver.InvalidateRibbonUI();
             }
         }
 
-        public bool TaskPaneExists(string id, bool checkApplication = false)
+        public bool TaskPaneExists(string id)
         {
             var result = false;
 
-            if (checkApplication
-                && !CheckApplication())
-            {
-                ShowAlreadyLoadedMessage();
-            }
-            else
+            if ((!showErrorIfAlreadyLoaded || CanBeLoaded())
+                && (suppressInitializationAtStart || ApplicationInitialized()))
             {
                 var repository = repositoryFactory?.Get();
 
@@ -151,16 +145,12 @@ namespace PrismTaskPanes.DryIoc
             return result;
         }
 
-        public bool TaskPaneIsVisible(string id, bool checkApplication = false)
+        public bool TaskPaneIsVisible(string id)
         {
             var result = false;
 
-            if (checkApplication
-                && !CheckApplication())
-            {
-                ShowAlreadyLoadedMessage();
-            }
-            else
+            if ((!showErrorIfAlreadyLoaded || CanBeLoaded())
+                && (suppressInitializationAtStart || ApplicationInitialized()))
             {
                 var repository = repositoryFactory?.Get();
 
@@ -229,14 +219,48 @@ namespace PrismTaskPanes.DryIoc
             }
         }
 
-        private bool CheckApplication()
+        private bool ApplicationInitialized()
         {
-            var result = isLoaded || System.Windows.Application.Current == default;
+            if (!CanBeLoaded())
+            {
+                throw new AlreadyLoadedException();
+            }
 
-            return result;
+            if (!isLoaded)
+            {
+                dryIocApplication = System.Windows.Application.Current as Application
+                    ?? new Application();
+
+                dryIocApplication.OnConfigureDefaultRegionBehaviorsEvent += OnConfigureDefaultRegionBehaviors;
+                dryIocApplication.OnConfigureModuleCatalogEvent += OnConfigureModuleCatalog;
+                dryIocApplication.OnRegisterTypesEvent += OnRegisterTypes;
+                dryIocApplication.OnApplicationInitializedEvent += OnApplicationInitialized;
+
+                var ctpFactory = new ICTPFactory(
+                    parentObject: officeApplication as ICOMObject,
+                    comProxy: ctpFactoryInst);
+
+                repositoryFactory = new TaskPanesRepositoryFactory(
+                    ctpFactory: ctpFactory,
+                    dryIocApplication: dryIocApplication,
+                    taskPaneWindowGetter: TaskPaneWindowGetter,
+                    taskPaneWindowKeyGetter: TaskPaneWindowKeyGetter,
+                    taskPaneIdentifierGetter: TaskPaneIdentifierGetter);
+
+                repositoryFactory.OnScopeOpenedEvent += OnScopeOpened;
+                repositoryFactory.OnScopeClosingEvent += OnScopeClosing;
+
+                // isLoaded must be used since dryIocApplication cannot be requested directly
+                // If the check is dryIocApplication == System.Windows.Application.Current,
+                // then the IoC is not working correctly anymore
+
+                isLoaded = true;
+            }
+
+            return dryIocApplication != default;
         }
 
-        private void OnApplicationCreated(object sender, System.EventArgs e)
+        private void OnApplicationInitialized(object sender, System.EventArgs e)
         {
             OpenScope();
         }
@@ -277,8 +301,6 @@ namespace PrismTaskPanes.DryIoc
 
         private void OnScopeOpened(object sender, ProviderEventArgs<IResolverContext> e)
         {
-            Service.InvalidateRibbonUI();
-
             OnScopeOpenedEvent?.Invoke(
                 sender: this,
                 e: e);
@@ -286,50 +308,11 @@ namespace PrismTaskPanes.DryIoc
 
         private void OnTaskPaneChanged(object sender, TaskPaneEventArgs e)
         {
+            Service.InvalidateRibbonUI();
+
             OnTaskPaneChangedEvent?.Invoke(
                 sender: this,
                 e: e);
-        }
-
-        private bool StartApplication()
-        {
-            if (!CheckApplication())
-            {
-                throw new AlreadyLoadedException();
-            }
-
-            if (!isLoaded)
-            {
-                dryIocApplication = System.Windows.Application.Current as Application
-                    ?? new Application();
-
-                dryIocApplication.OnConfigureDefaultRegionBehaviorsEvent += OnConfigureDefaultRegionBehaviors;
-                dryIocApplication.OnConfigureModuleCatalogEvent += OnConfigureModuleCatalog;
-                dryIocApplication.OnRegisterTypesEvent += OnRegisterTypes;
-                dryIocApplication.OnApplicationCreatedEvent += OnApplicationCreated;
-
-                var ctpFactory = new ICTPFactory(
-                    parentObject: officeApplication as ICOMObject,
-                    comProxy: ctpFactoryInst);
-
-                repositoryFactory = new TaskPanesRepositoryFactory(
-                    ctpFactory: ctpFactory,
-                    dryIocApplication: dryIocApplication,
-                    taskPaneWindowGetter: TaskPaneWindowGetter,
-                    taskPaneWindowKeyGetter: TaskPaneWindowKeyGetter,
-                    taskPaneIdentifierGetter: TaskPaneIdentifierGetter);
-
-                repositoryFactory.OnScopeOpenedEvent += OnScopeOpened;
-                repositoryFactory.OnScopeClosingEvent += OnScopeClosing;
-
-                // isLoaded must be used since dryIocApplication cannot be requested directly
-                // If the check is dryIocApplication == System.Windows.Application.Current,
-                // then the IoC is not working correctly anymore
-
-                isLoaded = true;
-            }
-
-            return dryIocApplication != default;
         }
 
         #endregion Private Methods

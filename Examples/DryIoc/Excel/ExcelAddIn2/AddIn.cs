@@ -33,6 +33,7 @@ namespace ExcelAddIn2
     public class AddIn
         : COMAddin, ITaskPanesReceiver
     {
+
         #region Private Fields
 
         private TaskPanesProvider provider;
@@ -89,32 +90,44 @@ namespace ExcelAddIn2
 
         public void TooglePaneVisibleButton_Click(IRibbonControl control, bool pressed)
         {
-            provider.SetTaskPaneVisibility(
-                id: "1",
-                isVisible: pressed,
-                checkApplication: true);
+            if (provider.CanBeLoaded())
+            {
+                provider.SetTaskPaneVisibility(
+                    id: "1",
+                    isVisible: pressed);
+            }
         }
 
         public void TooglePaneVisibleButton_Click2(IRibbonControl control, bool pressed)
         {
-            provider.SetTaskPaneVisibility(
-                id: "2",
-                isVisible: pressed,
-                checkApplication: true);
+            if (provider.CanBeLoaded())
+            {
+                provider.SetTaskPaneVisibility(
+                    id: "2",
+                    isVisible: pressed);
+            }
         }
 
         public bool TooglePaneVisibleButton_GetPressed(IRibbonControl control)
         {
+            if (!provider.CanBeLoaded())
+            {
+                return false;
+            }
+
             return provider.TaskPaneIsVisible(
-                id: "1",
-                checkApplication: true);
+                id: "1");
         }
 
         public bool TooglePaneVisibleButton_GetPressed2(IRibbonControl control)
         {
+            if (!provider.CanBeLoaded())
+            {
+                return false;
+            }
+
             return provider.TaskPaneIsVisible(
-                id: "2",
-                checkApplication: true);
+                id: "2");
         }
 
         #endregion Public Methods
@@ -128,15 +141,12 @@ namespace ExcelAddIn2
 
         private void OnConfigureModuleCatalog(object sender, ProviderEventArgs<IModuleCatalog> e)
         {
-            e.Content.AddModule<ExampleModule>(nameof(ExcelAddIn2));
+            e.Content.AddModule<ExampleView.ExampleModule>();
         }
 
         private void OnRegisterTypes(object sender, ProviderEventArgs<IContainerRegistry> e)
         {
             e.Content.RegisterInstance<IExampleClass>(new ExampleClass());
-
-            e.Content.RegisterForNavigation<ExampleView.Views.ViewAView>();
-            e.Content.RegisterForNavigation<ExampleView.Views.ViewAView>(typeof(ExampleView.Views.ViewAView).FullName);
         }
 
         #endregion Private Methods

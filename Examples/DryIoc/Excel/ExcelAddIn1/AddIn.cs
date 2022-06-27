@@ -3,6 +3,7 @@
 
 using DryIoc;
 using ExampleView;
+using ExampleView.Views;
 using NetOffice.ExcelApi;
 using NetOffice.ExcelApi.Tools;
 using NetOffice.OfficeApi;
@@ -29,11 +30,12 @@ namespace ExcelAddIn1
         Codebase,
         ComVisible(true)]
     [CustomUI("RibbonUI.xml", true)]
-    [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ExampleView.Views.ViewAView), "ExampleRegion", invisibleAtStart: true, ScrollBarVertical = ScrollVisibility.Disabled)]
-    [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ExampleView.Views.ViewAView), "ExampleRegion", navigationValue: "abc")]
+    [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ViewAView), "ExampleRegion", invisibleAtStart: true, ScrollBarVertical = ScrollVisibility.Disabled)]
+    [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ViewAView), "ExampleRegion", navigationValue: "abc")]
     public class AddIn
         : COMAddin, ITaskPanesReceiver
     {
+
         #region Private Fields
 
         private TaskPanesProvider provider;
@@ -72,12 +74,18 @@ namespace ExcelAddIn1
             provider = new TaskPanesProvider(
                 receiver: this,
                 officeApplication: Application,
-                ctpFactoryInst: CTPFactoryInst);
+                ctpFactoryInst: CTPFactoryInst,
+                showErrorIfAlreadyLoaded: true);
 
             provider.OnConfigureModuleCatalogEvent += OnConfigureModuleCatalog;
             provider.OnRegisterTypesEvent += OnRegisterTypes;
 
             provider.OnScopeOpenedEvent += OnScopeOpened;
+        }
+
+        public override void CustomUI_OnLoad(NetOffice.OfficeApi.Native.IRibbonUI ribbonUI)
+        {
+            base.CustomUI_OnLoad(ribbonUI);
         }
 
         public void InvalidateRibbonUI()
@@ -89,31 +97,24 @@ namespace ExcelAddIn1
         {
             provider.SetTaskPaneVisibility(
                 id: "1",
-                isVisible: pressed,
-                checkApplication: true);
+                isVisible: pressed);
         }
 
         public void TooglePaneVisibleButton_Click2(IRibbonControl control, bool pressed)
         {
             provider.SetTaskPaneVisibility(
                 id: "2",
-                isVisible: pressed,
-                checkApplication: true);
+                isVisible: pressed);
         }
 
         public bool TooglePaneVisibleButton_GetPressed(IRibbonControl control)
         {
-            provider.InitilializeTaskPane(
-                checkApplication: true);
-
             return provider.TaskPaneIsVisible(
                 id: "1");
         }
 
         public bool TooglePaneVisibleButton_GetPressed2(IRibbonControl control)
         {
-            provider.InitilializeTaskPane(checkApplication: true);
-
             return provider.TaskPaneIsVisible(
                 id: "2");
         }
@@ -131,15 +132,12 @@ namespace ExcelAddIn1
 
         private void OnConfigureModuleCatalog(object sender, ProviderEventArgs<IModuleCatalog> e)
         {
-            e.Content.AddModule<ExampleModule>(nameof(ExcelAddIn1));
+            e.Content.AddModule<ExampleView.ExampleModule>();
         }
 
         private void OnRegisterTypes(object sender, ProviderEventArgs<Prism.Ioc.IContainerRegistry> e)
         {
             e.Content.RegisterInstance<IExampleClass>(new ExampleClass());
-
-            e.Content.RegisterForNavigation<ExampleView.Views.ViewAView>();
-            e.Content.RegisterForNavigation<ExampleView.Views.ViewAView>(typeof(ExampleView.Views.ViewAView).FullName);
         }
 
         private void OnScopeOpened(object sender, ProviderEventArgs<DryIoc.IResolverContext> e)
