@@ -18,12 +18,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\..\DryIoc\DryIoc.PowerPoint\DryIoc.PowerPoint.csproj"/>
-		<ProjectReference Include="..\..\..\Base\ExampleView\ExampleView.csproj"/>
+		<ProjectReference Include="..\..\..\Prism\ExampleView\ExampleView.csproj"/>
 	</ItemGroup>
-
-	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
-		<OutputPath>..\..\..\..\_Debug\PowerPoint</OutputPath>
-	</PropertyGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="if $(ConfigurationName)==Debug regsvr32 /s $(TargetDir)$(TargetName).comhost.dll"/>

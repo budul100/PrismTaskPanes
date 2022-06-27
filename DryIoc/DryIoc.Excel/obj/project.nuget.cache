@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "v4602RO3jtBcK1SS1scNWiO99siwknRH4AdfPYt7/yCbA9n3CQIclc3niKEAiug5ZH1OmcIIPeMNHvHoRE6nPQ==",
+  "dgSpecHash": "FqOnfmxO28u00g8UhqIH6pTwQzPYW29G1x51+x96J+PEijtzwL2h2NCmVmLboour8D+3AEApORMH1eNYSo4voQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\DryIoc\\DryIoc.Excel\\DryIoc.Excel.csproj",
   "expectedPackageFiles": [
@@ -9,8 +9,6 @@
     "C:\\Users\\mgr\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\mgr\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.31\\microsoft.xaml.behaviors.wpf.1.1.31.nupkg.sha512",
     "C:\\Users\\mgr\\.nuget\\packages\\netofficefw.core\\1.8.1\\netofficefw.core.1.8.1.nupkg.sha512",
-    "C:\\Users\\mgr\\.nuget\\packages\\netofficefw.excel\\1.8.1\\netofficefw.excel.1.8.1.nupkg.sha512",
-    "C:\\Users\\mgr\\.nuget\\packages\\nuget.build.packaging\\0.2.2\\nuget.build.packaging.0.2.2.nupkg.sha512",
     "C:\\Users\\mgr\\.nuget\\packages\\prism.core\\8.1.97\\prism.core.8.1.97.nupkg.sha512",
     "C:\\Users\\mgr\\.nuget\\packages\\prism.dryioc\\8.1.97\\prism.dryioc.8.1.97.nupkg.sha512",
     "C:\\Users\\mgr\\.nuget\\packages\\prism.wpf\\8.1.97\\prism.wpf.8.1.97.nupkg.sha512",
@@ -30,16 +28,6 @@
       "warningLevel": 1,
       "message": "Das Paket \"NetOfficeFw.Core 1.8.1\" wurde nicht mit dem Projektzielframework \"net6.0-windows7.0\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
       "libraryId": "NetOfficeFw.Core",
-      "targetGraphs": [
-        "net6.0-windows7.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Das Paket \"NetOfficeFw.Excel 1.8.1\" wurde nicht mit dem Projektzielframework \"net6.0-windows7.0\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
-      "libraryId": "NetOfficeFw.Excel",
       "targetGraphs": [
         "net6.0-windows7.0"
       ]

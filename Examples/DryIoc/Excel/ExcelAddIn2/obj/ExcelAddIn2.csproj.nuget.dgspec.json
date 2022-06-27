@@ -4,14 +4,159 @@
     "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn2\\ExcelAddIn2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj": {
+    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\Core.csproj": {
       "version": "5.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj",
-        "projectName": "Commons",
-        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj",
+        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\Core.csproj",
+        "projectName": "Core",
+        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\mgr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\obj\\",
+        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0-windows7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0-windows7.0": {
+            "targetAlias": "net6.0-windows",
+            "projectReferences": {
+              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Host\\Host.csproj": {
+                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Host\\Host.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "NetOfficeFw.Core": {
+              "target": "Package",
+              "version": "[1.8.1, )"
+            },
+            "NuGet.Build.Packaging": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[0.2.2, )"
+            },
+            "Prism.Wpf": {
+              "target": "Package",
+              "version": "[8.1.97, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Host\\Host.csproj": {
+      "version": "5.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Host\\Host.csproj",
+        "projectName": "Host",
+        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Host\\Host.csproj",
+        "packagesPath": "C:\\Users\\mgr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Host\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0-windows7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0-windows7.0": {
+            "targetAlias": "net6.0-windows",
+            "projectReferences": {
+              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\View\\View.csproj": {
+                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\View\\View.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "NuGet.Build.Packaging": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[0.2.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\View\\View.csproj": {
+      "version": "5.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\View\\View.csproj",
+        "projectName": "View",
+        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\View\\View.csproj",
+        "packagesPath": "C:\\Users\\mgr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\View\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -65,83 +210,7 @@
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             },
-            "Microsoft.WindowsDesktop.App": {
-              "privateAssets": "none"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\Core.csproj": {
-      "version": "5.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\Core.csproj",
-        "projectName": "Core",
-        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\mgr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\mgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net6.0-windows7.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net6.0-windows7.0": {
-            "targetAlias": "net6.0-windows",
-            "projectReferences": {
-              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj": {
-                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net6.0-windows7.0": {
-          "targetAlias": "net6.0-windows",
-          "dependencies": {
-            "NetOfficeFw.Core": {
-              "target": "Package",
-              "version": "[1.8.1, )"
-            },
-            "NuGet.Build.Packaging": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "target": "Package",
-              "version": "[0.2.2, )"
-            },
-            "Prism.Wpf": {
-              "target": "Package",
-              "version": "[8.1.97, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            },
-            "Microsoft.WindowsDesktop.App": {
+            "Microsoft.WindowsDesktop.App.WPF": {
               "privateAssets": "none"
             }
           },
@@ -153,7 +222,7 @@
       "version": "5.0.0",
       "restore": {
         "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\DryIoc\\DryIoc.Excel\\DryIoc.Excel.csproj",
-        "projectName": "DryIoc.Excel",
+        "projectName": "PrismTaskPanes.DryIoc.PowerPoint",
         "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\DryIoc\\DryIoc.Excel\\DryIoc.Excel.csproj",
         "packagesPath": "C:\\Users\\mgr\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\DryIoc\\DryIoc.Excel\\obj\\",
@@ -188,18 +257,6 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
-          "dependencies": {
-            "NetOfficeFw.Excel": {
-              "target": "Package",
-              "version": "[1.8.1, )"
-            },
-            "NuGet.Build.Packaging": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[0.2.2, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -243,9 +300,6 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj": {
-                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj"
-              },
               "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\Core.csproj": {
                 "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\Core.csproj"
               }
@@ -292,14 +346,75 @@
         }
       }
     },
-    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleCommon\\ExampleCommon.csproj": {
+    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn2\\ExcelAddIn2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleCommon\\ExampleCommon.csproj",
-        "projectName": "ExampleCommon",
-        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleCommon\\ExampleCommon.csproj",
+        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn2\\ExcelAddIn2.csproj",
+        "projectName": "ExcelAddIn2",
+        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn2\\ExcelAddIn2.csproj",
         "packagesPath": "C:\\Users\\mgr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleCommon\\obj\\",
+        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn2\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0-windows7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0-windows7.0": {
+            "targetAlias": "net6.0-windows",
+            "projectReferences": {
+              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\DryIoc\\DryIoc.Excel\\DryIoc.Excel.csproj": {
+                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\DryIoc\\DryIoc.Excel\\DryIoc.Excel.csproj"
+              },
+              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleView\\ExampleView.csproj": {
+                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleView\\ExampleView.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleCommon\\ExampleCommon.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleCommon\\ExampleCommon.csproj",
+        "projectName": "ExampleCommon",
+        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleCommon\\ExampleCommon.csproj",
+        "packagesPath": "C:\\Users\\mgr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleCommon\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -352,14 +467,14 @@
         }
       }
     },
-    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleView\\ExampleView.csproj": {
+    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleView\\ExampleView.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleView\\ExampleView.csproj",
+        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleView\\ExampleView.csproj",
         "projectName": "ExampleView",
-        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleView\\ExampleView.csproj",
+        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleView\\ExampleView.csproj",
         "packagesPath": "C:\\Users\\mgr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleView\\obj\\",
+        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleView\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -376,11 +491,11 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj": {
-                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj"
+              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\View\\View.csproj": {
+                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\View\\View.csproj"
               },
-              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleCommon\\ExampleCommon.csproj": {
-                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleCommon\\ExampleCommon.csproj"
+              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleCommon\\ExampleCommon.csproj": {
+                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleCommon\\ExampleCommon.csproj"
               }
             }
           }
@@ -416,67 +531,6 @@
             },
             "Microsoft.WindowsDesktop.App.WPF": {
               "privateAssets": "none"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn2\\ExcelAddIn2.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn2\\ExcelAddIn2.csproj",
-        "projectName": "ExcelAddIn2",
-        "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn2\\ExcelAddIn2.csproj",
-        "packagesPath": "C:\\Users\\mgr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\DryIoc\\Excel\\ExcelAddIn2\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\mgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net6.0-windows7.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net6.0-windows7.0": {
-            "targetAlias": "net6.0-windows",
-            "projectReferences": {
-              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\DryIoc\\DryIoc.Excel\\DryIoc.Excel.csproj": {
-                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\DryIoc\\DryIoc.Excel\\DryIoc.Excel.csproj"
-              },
-              "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleView\\ExampleView.csproj": {
-                "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleView\\ExampleView.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net6.0-windows7.0": {
-          "targetAlias": "net6.0-windows",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"

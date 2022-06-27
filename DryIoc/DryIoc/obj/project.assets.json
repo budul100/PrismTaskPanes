@@ -203,27 +203,11 @@
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
         }
       },
-      "Commons/5.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Prism.Wpf": "8.1.97"
-        },
-        "compile": {
-          "bin/placeholder/Commons.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Commons.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App"
-        ]
-      },
       "Core/5.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Commons": "5.0.0",
+          "Host": "5.0.0",
           "NetOfficeFw.Core": "1.8.1",
           "NuGet.Build.Packaging": "0.2.2",
           "Prism.Wpf": "8.1.97"
@@ -236,6 +220,38 @@
         },
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App"
+        ]
+      },
+      "Host/5.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "View": "5.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Host.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Host.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ]
+      },
+      "View/5.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Prism.Wpf": "8.1.97"
+        },
+        "compile": {
+          "bin/placeholder/View.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/View.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
         ]
       }
     }
@@ -1000,20 +1016,24 @@
         "system.threading.tasks.nuspec"
       ]
     },
-    "Commons/5.0.0": {
-      "type": "project",
-      "path": "../../Base/Commons/Commons.csproj",
-      "msbuildProject": "../../Base/Commons/Commons.csproj"
-    },
     "Core/5.0.0": {
       "type": "project",
       "path": "../../Base/Core/Core.csproj",
       "msbuildProject": "../../Base/Core/Core.csproj"
+    },
+    "Host/5.0.0": {
+      "type": "project",
+      "path": "../../Base/Host/Host.csproj",
+      "msbuildProject": "../../Base/Host/Host.csproj"
+    },
+    "View/5.0.0": {
+      "type": "project",
+      "path": "../../Base/View/View.csproj",
+      "msbuildProject": "../../Base/View/View.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "Commons >= 5.0.0",
       "Core >= 5.0.0",
       "NuGet.Build.Packaging >= 0.2.2",
       "Prism.DryIoc >= 8.1.97"
@@ -1046,9 +1066,6 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj": {
-              "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj"
-            },
             "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\Core.csproj": {
               "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Core\\Core.csproj"
             }

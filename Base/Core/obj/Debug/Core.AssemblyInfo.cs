@@ -13,7 +13,7 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("budul")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyDescriptionAttribute("Core service for PrismTaskPanes")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("Core services for PrismTaskPanes")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("5.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("5.0.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("PrismTaskPanes.Core")]

@@ -12,12 +12,8 @@
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <SourceRoot Include="C:\Users\mgr\.nuget\packages\" />
   </ItemGroup>
-  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)nuget.build.packaging\0.2.2\build\NuGet.Build.Packaging.props" Condition="Exists('$(NuGetPackageRoot)nuget.build.packaging\0.2.2\build\NuGet.Build.Packaging.props')" />
-  </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgMicrosoft_Xaml_Behaviors_Wpf Condition=" '$(PkgMicrosoft_Xaml_Behaviors_Wpf)' == '' ">C:\Users\mgr\.nuget\packages\microsoft.xaml.behaviors.wpf\1.1.31</PkgMicrosoft_Xaml_Behaviors_Wpf>
     <PkgNetOfficeFw_Core Condition=" '$(PkgNetOfficeFw_Core)' == '' ">C:\Users\mgr\.nuget\packages\netofficefw.core\1.8.1</PkgNetOfficeFw_Core>
-    <PkgNetOfficeFw_Excel Condition=" '$(PkgNetOfficeFw_Excel)' == '' ">C:\Users\mgr\.nuget\packages\netofficefw.excel\1.8.1</PkgNetOfficeFw_Excel>
   </PropertyGroup>
 </Project>

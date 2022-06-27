@@ -1,0 +1,16 @@
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\bin\Debug\PrismTaskPanes.View.deps.json
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\bin\Debug\PrismTaskPanes.View.dll
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\bin\Debug\PrismTaskPanes.View.pdb
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\bin\Debug\Prism.dll
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\bin\Debug\Prism.Wpf.dll
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\obj\Debug\View.csproj.AssemblyReference.cache
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\obj\Debug\View.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\obj\Debug\View.AssemblyInfoInputs.cache
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\obj\Debug\View.AssemblyInfo.cs
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\obj\Debug\View.csproj.CoreCompileInputs.cache
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\obj\Debug\View.csproj.CopyComplete
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\obj\Debug\PrismTaskPanes.View.dll
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\obj\Debug\refint\PrismTaskPanes.View.dll
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\obj\Debug\PrismTaskPanes.View.pdb
+C:\Users\mgr\Entwicklung\PrismTaskPanes\Base\View\obj\Debug\ref\PrismTaskPanes.View.dll

@@ -215,27 +215,11 @@
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
         }
       },
-      "Commons/5.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Prism.Wpf": "8.1.97"
-        },
-        "compile": {
-          "bin/placeholder/Commons.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Commons.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App"
-        ]
-      },
       "Core/5.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Commons": "5.0.0",
+          "Host": "5.0.0",
           "NetOfficeFw.Core": "1.8.1",
           "NuGet.Build.Packaging": "0.2.2",
           "Prism.Wpf": "8.1.97"
@@ -254,7 +238,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Commons": "5.0.0",
           "Core": "5.0.0",
           "Prism.DryIoc": "8.1.97"
         },
@@ -264,6 +247,38 @@
         "runtime": {
           "bin/placeholder/DryIoc.dll": {}
         }
+      },
+      "Host/5.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "View": "5.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Host.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Host.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ]
+      },
+      "View/5.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Prism.Wpf": "8.1.97"
+        },
+        "compile": {
+          "bin/placeholder/View.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/View.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
       }
     }
   },
@@ -1044,11 +1059,6 @@
         "system.threading.tasks.nuspec"
       ]
     },
-    "Commons/5.0.0": {
-      "type": "project",
-      "path": "../../Base/Commons/Commons.csproj",
-      "msbuildProject": "../../Base/Commons/Commons.csproj"
-    },
     "Core/5.0.0": {
       "type": "project",
       "path": "../../Base/Core/Core.csproj",
@@ -1058,6 +1068,16 @@
       "type": "project",
       "path": "../DryIoc/DryIoc.csproj",
       "msbuildProject": "../DryIoc/DryIoc.csproj"
+    },
+    "Host/5.0.0": {
+      "type": "project",
+      "path": "../../Base/Host/Host.csproj",
+      "msbuildProject": "../../Base/Host/Host.csproj"
+    },
+    "View/5.0.0": {
+      "type": "project",
+      "path": "../../Base/View/View.csproj",
+      "msbuildProject": "../../Base/View/View.csproj"
     }
   },
   "projectFileDependencyGroups": {

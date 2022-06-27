@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!--IMPORTANT! The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0) -->
+	<PropertyGroup>
+		<AssemblyName>PrismTaskPanes.Host</AssemblyName>
+		<AssemblyVersion>5.0.0.0</AssemblyVersion>
+		<FileVersion>$(AssemblyVersion)</FileVersion>
+		<Version>$(AssemblyVersion)</Version>
+		<Authors>budul</Authors>
+		<Description>Host control for PrismTaskPanes</Description>
+		<RootNamespace>PrismTaskPanes</RootNamespace>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<EnableComHosting>true</EnableComHosting>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>$(Authors).$(AssemblyName)</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>Office, Excel, Word, PowerPoint, Prism, Task panes, NetOffice</PackageTags>
+		<RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" PrivateAssets="all">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\View\View.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Controls\PrismTaskPanesHost.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="PrismTaskPanes.Host.runtimeconfig.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="if $(ConfigurationName)==Debug powershell '$(ProjectDir)Additionals\Scripts\_PreBuild.ps1 -baseDir $(SolutionDir)'" />
+	</Target>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if $(ConfigurationName)==Debug copy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;%25CommonProgramFiles%25\PrismTaskPanes&quot; /y&#xD;&#xA;if $(ConfigurationName)==Debug copy &quot;$(TargetDir)$(TargetName).comhost.dll&quot; &quot;%25CommonProgramFiles%25\PrismTaskPanes&quot; /y&#xD;&#xA;if $(ConfigurationName)==Debug copy &quot;$(TargetDir)$(TargetName).runtimeconfig.json&quot; &quot;%25CommonProgramFiles%25\PrismTaskPanes&quot; /y&#xD;&#xA;if $(ConfigurationName)==Debug regsvr32 /s $(TargetDir)$(TargetName).comhost.dll" />
+	</Target>
+
+</Project>

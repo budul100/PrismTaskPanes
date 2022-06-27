@@ -57,18 +57,6 @@
           "lib/net40/VBIDEApi.dll": {}
         }
       },
-      "NetOfficeFw.Excel/1.8.1": {
-        "type": "package",
-        "dependencies": {
-          "NetOfficeFw.Core": "[1.8.1]"
-        },
-        "compile": {
-          "lib/net40/ExcelApi.dll": {}
-        },
-        "runtime": {
-          "lib/net40/ExcelApi.dll": {}
-        }
-      },
       "Prism.Core/8.1.97": {
         "type": "package",
         "compile": {
@@ -208,27 +196,11 @@
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
         }
       },
-      "Commons/5.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Prism.Wpf": "8.1.97"
-        },
-        "compile": {
-          "bin/placeholder/Commons.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Commons.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App"
-        ]
-      },
       "Core/5.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Commons": "5.0.0",
+          "Host": "5.0.0",
           "NetOfficeFw.Core": "1.8.1",
           "NuGet.Build.Packaging": "0.2.2",
           "Prism.Wpf": "8.1.97"
@@ -247,7 +219,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Commons": "5.0.0",
           "Core": "5.0.0",
           "Prism.DryIoc": "8.1.97"
         },
@@ -256,20 +227,6 @@
         },
         "runtime": {
           "bin/placeholder/DryIoc.dll": {}
-        }
-      },
-      "DryIoc.Excel/5.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "DryIoc": "5.0.0",
-          "NetOfficeFw.Excel": "1.8.1"
-        },
-        "compile": {
-          "bin/placeholder/DryIoc.Excel.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DryIoc.Excel.dll": {}
         }
       },
       "ExampleCommon/1.0.0": {
@@ -289,15 +246,60 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Commons": "5.0.0",
           "ExampleCommon": "1.0.0",
-          "Prism.DryIoc": "8.1.97"
+          "Prism.DryIoc": "8.1.97",
+          "View": "5.0.0"
         },
         "compile": {
           "bin/placeholder/ExampleView.dll": {}
         },
         "runtime": {
           "bin/placeholder/ExampleView.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "Host/5.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "View": "5.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Host.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Host.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ]
+      },
+      "PrismTaskPanes.DryIoc.PowerPoint/5.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "DryIoc": "5.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PrismTaskPanes.DryIoc.PowerPoint.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PrismTaskPanes.DryIoc.PowerPoint.dll": {}
+        }
+      },
+      "View/5.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Prism.Wpf": "8.1.97"
+        },
+        "compile": {
+          "bin/placeholder/View.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/View.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
@@ -410,23 +412,6 @@
         "lib/net40/VBIDEApi.xml",
         "netofficefw.core.1.8.1.nupkg.sha512",
         "netofficefw.core.nuspec",
-        "tools/install.ps1"
-      ]
-    },
-    "NetOfficeFw.Excel/1.8.1": {
-      "sha512": "ntN7+DiKXIhGNlXvES1OEgfbWa57x0mSCzK749CdiJ2K2ePwFdorBU7XGcGM0B2CJWLuaDP2WNv7PtjPgbjuDA==",
-      "type": "package",
-      "path": "netofficefw.excel/1.8.1",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.txt",
-        "icon.png",
-        "lib/net40/ExcelApi.dll",
-        "lib/net40/ExcelApi.xml",
-        "netofficefw.excel.1.8.1.nupkg.sha512",
-        "netofficefw.excel.nuspec",
         "tools/install.ps1"
       ]
     },
@@ -1045,11 +1030,6 @@
         "system.threading.tasks.nuspec"
       ]
     },
-    "Commons/5.0.0": {
-      "type": "project",
-      "path": "../../../../Base/Commons/Commons.csproj",
-      "msbuildProject": "../../../../Base/Commons/Commons.csproj"
-    },
     "Core/5.0.0": {
       "type": "project",
       "path": "../../../../Base/Core/Core.csproj",
@@ -1060,26 +1040,36 @@
       "path": "../../../../DryIoc/DryIoc/DryIoc.csproj",
       "msbuildProject": "../../../../DryIoc/DryIoc/DryIoc.csproj"
     },
-    "DryIoc.Excel/5.0.0": {
+    "ExampleCommon/1.0.0": {
+      "type": "project",
+      "path": "../../../Prism/ExampleCommon/ExampleCommon.csproj",
+      "msbuildProject": "../../../Prism/ExampleCommon/ExampleCommon.csproj"
+    },
+    "ExampleView/1.0.0": {
+      "type": "project",
+      "path": "../../../Prism/ExampleView/ExampleView.csproj",
+      "msbuildProject": "../../../Prism/ExampleView/ExampleView.csproj"
+    },
+    "Host/5.0.0": {
+      "type": "project",
+      "path": "../../../../Base/Host/Host.csproj",
+      "msbuildProject": "../../../../Base/Host/Host.csproj"
+    },
+    "PrismTaskPanes.DryIoc.PowerPoint/5.0.0": {
       "type": "project",
       "path": "../../../../DryIoc/DryIoc.Excel/DryIoc.Excel.csproj",
       "msbuildProject": "../../../../DryIoc/DryIoc.Excel/DryIoc.Excel.csproj"
     },
-    "ExampleCommon/1.0.0": {
+    "View/5.0.0": {
       "type": "project",
-      "path": "../../../Base/ExampleCommon/ExampleCommon.csproj",
-      "msbuildProject": "../../../Base/ExampleCommon/ExampleCommon.csproj"
-    },
-    "ExampleView/1.0.0": {
-      "type": "project",
-      "path": "../../../Base/ExampleView/ExampleView.csproj",
-      "msbuildProject": "../../../Base/ExampleView/ExampleView.csproj"
+      "path": "../../../../Base/View/View.csproj",
+      "msbuildProject": "../../../../Base/View/View.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "DryIoc.Excel >= 5.0.0",
-      "ExampleView >= 1.0.0"
+      "ExampleView >= 1.0.0",
+      "PrismTaskPanes.DryIoc.PowerPoint >= 5.0.0"
     ]
   },
   "packageFolders": {
@@ -1112,8 +1102,8 @@
             "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\DryIoc\\DryIoc.Excel\\DryIoc.Excel.csproj": {
               "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\DryIoc\\DryIoc.Excel\\DryIoc.Excel.csproj"
             },
-            "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleView\\ExampleView.csproj": {
-              "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Base\\ExampleView\\ExampleView.csproj"
+            "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleView\\ExampleView.csproj": {
+              "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Examples\\Prism\\ExampleView\\ExampleView.csproj"
             }
           }
         }
@@ -1153,16 +1143,6 @@
       "warningLevel": 1,
       "message": "Das Paket \"NetOfficeFw.Core 1.8.1\" wurde nicht mit dem Projektzielframework \"net6.0-windows7.0\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
       "libraryId": "NetOfficeFw.Core",
-      "targetGraphs": [
-        "net6.0-windows7.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Das Paket \"NetOfficeFw.Excel 1.8.1\" wurde nicht mit dem Projektzielframework \"net6.0-windows7.0\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
-      "libraryId": "NetOfficeFw.Excel",
       "targetGraphs": [
         "net6.0-windows7.0"
       ]

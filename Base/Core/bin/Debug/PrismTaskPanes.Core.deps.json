@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "PrismTaskPanes.Core/5.0.0.0": {
         "dependencies": {
-          "Commons": "5.0.0",
+          "Host": "5.0.0",
           "NetOfficeFw.Core": "1.8.1",
           "NuGet.Build.Packaging": "0.2.2",
           "Prism.Wpf": "8.1.97"
@@ -62,12 +62,20 @@
           }
         }
       },
-      "Commons/5.0.0": {
+      "Host/5.0.0": {
+        "dependencies": {
+          "View": "5.0.0"
+        },
+        "runtime": {
+          "PrismTaskPanes.Host.dll": {}
+        }
+      },
+      "View/5.0.0": {
         "dependencies": {
           "Prism.Wpf": "8.1.97"
         },
         "runtime": {
-          "PrismTaskPanes.Commons.dll": {}
+          "PrismTaskPanes.View.dll": {}
         }
       }
     }
@@ -113,7 +121,12 @@
       "path": "prism.wpf/8.1.97",
       "hashPath": "prism.wpf.8.1.97.nupkg.sha512"
     },
-    "Commons/5.0.0": {
+    "Host/5.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "View/5.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -59,20 +59,36 @@
           "Microsoft.WindowsDesktop.App.WPF"
         ]
       },
-      "Commons/5.0.0": {
+      "Host/5.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "View": "5.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Host.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Host.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ]
+      },
+      "View/5.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Prism.Wpf": "8.1.97"
         },
         "compile": {
-          "bin/placeholder/Commons.dll": {}
+          "bin/placeholder/View.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Commons.dll": {}
+          "bin/placeholder/View.dll": {}
         },
         "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App"
+          "Microsoft.WindowsDesktop.App.WPF"
         ]
       }
     }
@@ -213,15 +229,20 @@
         "readme.txt"
       ]
     },
-    "Commons/5.0.0": {
+    "Host/5.0.0": {
       "type": "project",
-      "path": "../Commons/Commons.csproj",
-      "msbuildProject": "../Commons/Commons.csproj"
+      "path": "../Host/Host.csproj",
+      "msbuildProject": "../Host/Host.csproj"
+    },
+    "View/5.0.0": {
+      "type": "project",
+      "path": "../View/View.csproj",
+      "msbuildProject": "../View/View.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "Commons >= 5.0.0",
+      "Host >= 5.0.0",
       "NetOfficeFw.Core >= 1.8.1",
       "NuGet.Build.Packaging >= 0.2.2",
       "Prism.Wpf >= 8.1.97"
@@ -254,8 +275,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj": {
-              "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Commons\\Commons.csproj"
+            "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Host\\Host.csproj": {
+              "projectPath": "C:\\Users\\mgr\\Entwicklung\\PrismTaskPanes\\Base\\Host\\Host.csproj"
             }
           }
         }

@@ -159,17 +159,9 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "Commons/5.0.0": {
-        "dependencies": {
-          "Prism.Wpf": "8.1.97"
-        },
-        "runtime": {
-          "PrismTaskPanes.Commons.dll": {}
-        }
-      },
       "Core/5.0.0": {
         "dependencies": {
-          "Commons": "5.0.0",
+          "Host": "5.0.0",
           "NetOfficeFw.Core": "1.8.1",
           "Prism.Wpf": "8.1.97"
         },
@@ -179,7 +171,6 @@
       },
       "DryIoc/5.0.0": {
         "dependencies": {
-          "Commons": "5.0.0",
           "Core": "5.0.0",
           "Prism.DryIoc": "8.1.97"
         },
@@ -206,12 +197,28 @@
       },
       "ExampleView/1.0.0": {
         "dependencies": {
-          "Commons": "5.0.0",
           "ExampleCommon": "1.0.0",
-          "Prism.DryIoc": "8.1.97"
+          "Prism.DryIoc": "8.1.97",
+          "View": "5.0.0"
         },
         "runtime": {
           "ExampleView.dll": {}
+        }
+      },
+      "Host/5.0.0": {
+        "dependencies": {
+          "View": "5.0.0"
+        },
+        "runtime": {
+          "PrismTaskPanes.Host.dll": {}
+        }
+      },
+      "View/5.0.0": {
+        "dependencies": {
+          "Prism.Wpf": "8.1.97"
+        },
+        "runtime": {
+          "PrismTaskPanes.View.dll": {}
         }
       }
     }
@@ -341,11 +348,6 @@
       "path": "system.threading.tasks/4.3.0",
       "hashPath": "system.threading.tasks.4.3.0.nupkg.sha512"
     },
-    "Commons/5.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Core/5.0.0": {
       "type": "project",
       "serviceable": false,
@@ -367,6 +369,16 @@
       "sha512": ""
     },
     "ExampleView/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Host/5.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "View/5.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

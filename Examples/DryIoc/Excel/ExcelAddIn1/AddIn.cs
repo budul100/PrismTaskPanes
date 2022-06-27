@@ -34,7 +34,6 @@ namespace ExcelAddIn1
     public class AddIn
         : COMAddin, ITaskPanesReceiver
     {
-
         #region Private Fields
 
         private TaskPanesProvider provider;
