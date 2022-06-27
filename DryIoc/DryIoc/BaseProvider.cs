@@ -91,7 +91,8 @@ namespace PrismTaskPanes.DryIoc
 
         public void InitilializeTaskPane(bool checkApplication = false)
         {
-            if (checkApplication && !CheckApplication())
+            if (checkApplication
+                && !CheckApplication())
             {
                 ShowAlreadyLoadedMessage();
             }
@@ -104,7 +105,8 @@ namespace PrismTaskPanes.DryIoc
         public void SetTaskPaneVisibility(string id, bool isVisible,
             bool checkApplication = false)
         {
-            if (checkApplication && !CheckApplication())
+            if (checkApplication
+                && !CheckApplication())
             {
                 ShowAlreadyLoadedMessage();
             }
@@ -129,7 +131,8 @@ namespace PrismTaskPanes.DryIoc
         {
             var result = false;
 
-            if (checkApplication && !CheckApplication())
+            if (checkApplication
+                && !CheckApplication())
             {
                 ShowAlreadyLoadedMessage();
             }
@@ -152,7 +155,8 @@ namespace PrismTaskPanes.DryIoc
         {
             var result = false;
 
-            if (checkApplication && !CheckApplication())
+            if (checkApplication
+                && !CheckApplication())
             {
                 ShowAlreadyLoadedMessage();
             }
@@ -227,7 +231,7 @@ namespace PrismTaskPanes.DryIoc
 
         private bool CheckApplication()
         {
-            var result = System.Windows.Application.Current == default || isLoaded;
+            var result = isLoaded || System.Windows.Application.Current == default;
 
             return result;
         }
@@ -294,7 +298,7 @@ namespace PrismTaskPanes.DryIoc
                 throw new AlreadyLoadedException();
             }
 
-            if (dryIocApplication == default)
+            if (!isLoaded)
             {
                 dryIocApplication = System.Windows.Application.Current as Application
                     ?? new Application();

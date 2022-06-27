@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<AssemblyName>PrismTaskPanes.DryIoc.PowerPoint</AssemblyName>
+		<AssemblyName>PrismTaskPanes.DryIoc.Excel</AssemblyName>
 		<AssemblyVersion>5.0.0.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
@@ -22,6 +22,13 @@
 		<DebugType>none</DebugType>
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="NetOfficeFw.Excel" Version="1.8.1"/>
+		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" PrivateAssets="all">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\DryIoc\DryIoc.csproj"/>

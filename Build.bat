@@ -4,7 +4,7 @@ SET AdditionalsDir=.\Additionals
 SET HelperScripts=%AdditionalsDir%\Scripts
 SET SetupScripts=%AdditionalsDir%\Setup
 SET NuGetDir=%AdditionalsDir%\NuGet
-SET ProjectPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj','.\Base\PrismTaskPanes.Commons\PrismTaskPanes.Commons.csproj'
+SET ProjectPaths='.\DryIoc\DryIoc.Excel\PrismTaskPanes.DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\PrismTaskPanes.DryIoc.PowerPoint.csproj','.\Base\View\View.csproj'
 
 echo.
 echo ##### Create PrismTaskPanes #####
