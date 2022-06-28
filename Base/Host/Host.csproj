@@ -45,7 +45,7 @@
 	</Target>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="if $(ConfigurationName)==Debug copy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;%25CommonProgramFiles%25\PrismTaskPanes&quot; /y&#xD;&#xA;if $(ConfigurationName)==Debug copy &quot;$(TargetDir)$(TargetName).comhost.dll&quot; &quot;%25CommonProgramFiles%25\PrismTaskPanes&quot; /y&#xD;&#xA;if $(ConfigurationName)==Debug copy &quot;$(TargetDir)$(TargetName).runtimeconfig.json&quot; &quot;%25CommonProgramFiles%25\PrismTaskPanes&quot; /y&#xD;&#xA;if $(ConfigurationName)==Debug regsvr32 /s $(TargetDir)$(TargetName).comhost.dll" />
+		<Exec Command="if $(ConfigurationName)==Debug copy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;%25CommonProgramFiles%25\PrismTaskPanes\&quot; /y&#xD;&#xA;if $(ConfigurationName)==Debug copy &quot;$(TargetDir)$(TargetName).comhost.dll&quot; &quot;%25CommonProgramFiles%25\PrismTaskPanes\&quot; /y&#xD;&#xA;if $(ConfigurationName)==Debug copy &quot;$(TargetDir)$(TargetName).runtimeconfig.json&quot; &quot;%25CommonProgramFiles%25\PrismTaskPanes\&quot; /y&#xD;&#xA;if $(ConfigurationName)==Debug regsvr32 /s $(TargetDir)$(TargetName).comhost.dll" />
 	</Target>
 
 </Project>
