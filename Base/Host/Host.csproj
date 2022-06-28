@@ -1,12 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<!--IMPORTANT! The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0) -->
-
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.Host</AssemblyName>
-		<AssemblyVersion>5.0.0.0</AssemblyVersion>
-		<FileVersion>$(AssemblyVersion)</FileVersion>
-		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
 		<Description>Host control for PrismTaskPanes</Description>
 		<RootNamespace>PrismTaskPanes</RootNamespace>

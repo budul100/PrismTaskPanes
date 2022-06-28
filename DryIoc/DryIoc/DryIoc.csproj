@@ -2,9 +2,6 @@
 
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.DryIoc</AssemblyName>
-		<AssemblyVersion>5.0.0.0</AssemblyVersion>
-		<FileVersion>$(AssemblyVersion)</FileVersion>
-		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
 		<Description>Base DryIoc components for PrismTaskPanes</Description>
 		<RootNamespace>PrismTaskPanes.DryIoc</RootNamespace>

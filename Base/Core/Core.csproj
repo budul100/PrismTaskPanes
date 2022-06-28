@@ -2,9 +2,6 @@
 
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.Core</AssemblyName>
-		<AssemblyVersion>5.0.0.0</AssemblyVersion>
-		<FileVersion>$(AssemblyVersion)</FileVersion>
-		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
 		<Description>Core services for PrismTaskPanes</Description>
 		<RootNamespace>PrismTaskPanes</RootNamespace>
