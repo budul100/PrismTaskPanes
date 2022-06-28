@@ -36,4 +36,8 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<PropertyGroup>
+		<OutputPath>..\..\_Out\Base.View</OutputPath>
+	</PropertyGroup>
+
 </Project>

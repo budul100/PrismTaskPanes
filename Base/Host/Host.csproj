@@ -19,6 +19,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.2">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\View\View.csproj" />
 	</ItemGroup>
 
