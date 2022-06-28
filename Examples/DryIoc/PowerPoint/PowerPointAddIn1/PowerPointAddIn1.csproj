@@ -8,23 +8,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="RibbonUI.xml"/>
+		<EmbeddedResource Include="RibbonUI.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="NetOfficeFw.Core" Version="1.8.1"/>
-		<PackageReference Include="NetOfficeFw.PowerPoint" Version="1.8.1"/>
-		<PackageReference Include="Prism.DryIoc" Version="8.1.97"/>
+		<PackageReference Include="NetOfficeFw.Core" Version="1.8.1" />
+		<PackageReference Include="NetOfficeFw.PowerPoint" Version="1.8.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\DryIoc\DryIoc.PowerPoint\DryIoc.PowerPoint.csproj"/>
-		<ProjectReference Include="..\..\..\Prism\ExampleCommon\ExampleCommon.csproj"/>
-		<ProjectReference Include="..\..\..\Prism\ExampleView\ExampleView.csproj"/>
+		<ProjectReference Include="..\..\..\..\DryIoc\DryIoc.PowerPoint\DryIoc.PowerPoint.csproj" />
+		<ProjectReference Include="..\..\..\Prism\ExampleCommon\ExampleCommon.csproj" />
+		<ProjectReference Include="..\..\..\Prism\ExampleView\ExampleView.csproj" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="if $(ConfigurationName)==Debug regsvr32 /s $(TargetDir)$(TargetName).comhost.dll"/>
+		<Exec Command="if $(ConfigurationName)==Debug regsvr32 /s $(TargetDir)$(TargetName).comhost.dll" />
 	</Target>
 
 </Project>

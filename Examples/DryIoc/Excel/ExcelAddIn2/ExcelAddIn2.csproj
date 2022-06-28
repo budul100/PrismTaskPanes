@@ -8,16 +8,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="RibbonUI.xml"/>
+		<EmbeddedResource Include="RibbonUI.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\DryIoc\DryIoc.Excel\DryIoc.Excel.csproj"/>
-		<ProjectReference Include="..\..\..\Prism\ExampleView\ExampleView.csproj"/>
+		<ProjectReference Include="..\..\..\..\DryIoc\DryIoc.Excel\DryIoc.Excel.csproj" />
+		<ProjectReference Include="..\..\..\Prism\ExampleView\ExampleView.csproj" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="if $(ConfigurationName)==Debug regsvr32 /s $(TargetDir)$(TargetName).comhost.dll"/>
+		<Exec Command="if $(ConfigurationName)==Debug regsvr32 /s $(TargetDir)$(TargetName).comhost.dll" />
 	</Target>
 
 </Project>

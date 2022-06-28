@@ -4,7 +4,7 @@
 
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.DryIoc.PowerPoint</AssemblyName>
-		<AssemblyVersion>5.0.1.0</AssemblyVersion>
+		<AssemblyVersion>5.0.2.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
@@ -26,14 +26,25 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="NetOfficeFw.PowerPoint" Version="1.8.1"/>
+		<PackageReference Include="NetOfficeFw.PowerPoint" Version="1.8.1" />
 		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" PrivateAssets="all">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\DryIoc\DryIoc.csproj"/>
+		<ProjectReference Include="..\DryIoc\DryIoc.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="..\..\_Out\DryIoc.Excel\PrismTaskPanes.Host.comhost.dll">
+			<Pack>true</Pack>
+			<PackagePath>lib\netcoreapp6.0\PrismTaskPanes.Host.comhost.dll</PackagePath>
+		</Content>
+		<Content Include="..\..\_Out\DryIoc.Excel\PrismTaskPanes.View.dll">
+			<Pack>true</Pack>
+			<PackagePath>lib\netcoreapp6.0\PrismTaskPanes.View.dll</PackagePath>
+		</Content>
 	</ItemGroup>
 
 	<PropertyGroup>

@@ -10,6 +10,11 @@
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Prism.DryIoc" Version="8.1.97" />
 		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" PrivateAssets="all">
