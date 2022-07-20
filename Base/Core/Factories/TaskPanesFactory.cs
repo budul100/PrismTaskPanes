@@ -75,11 +75,10 @@ namespace PrismTaskPanes.Factories
 
         private static Uri GetHostUri()
         {
-            //var view = typeof(PrismTaskPanesView).FullName;
-            const string view = "PrismTaskPanes.Controls.PrismTaskPanesView";
+            var uriString = typeof(PrismTaskPanesView).FullName;
 
             var result = new Uri(
-                uriString: view,
+                uriString: uriString,
                 uriKind: UriKind.Relative);
 
             return result;
@@ -122,8 +121,10 @@ namespace PrismTaskPanes.Factories
 
         private CustomTaskPane GetTaskPane(TaskPaneSettings settings)
         {
+            var tpAxId = typeof(PrismTaskPanesHost).FullName;
+
             var result = ctpFactory.CreateCTP(
-                cTPAxID: "PrismTaskPanes.Controls.PrismTaskPanesHost",
+                cTPAxID: tpAxId,
                 cTPTitle: settings.Title,
                 cTPParentWindow: taskPaneWindow) as CustomTaskPane;
 
