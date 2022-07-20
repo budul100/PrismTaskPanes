@@ -4,7 +4,7 @@
 
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.View</AssemblyName>
-		<AssemblyVersion>5.0.2.0</AssemblyVersion>
+		<AssemblyVersion>5.0.3.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
@@ -23,6 +23,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>$(Authors).$(AssemblyName)</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
 		<PackageTags>Office, Excel, Word, PowerPoint, Prism, Task panes, NetOffice</PackageTags>
 		<RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
 		<DebugType>none</DebugType>
@@ -35,9 +36,5 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-
-	<PropertyGroup>
-		<OutputPath>..\..\_Out\Base.View</OutputPath>
-	</PropertyGroup>
 
 </Project>

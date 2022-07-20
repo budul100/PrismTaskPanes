@@ -3,7 +3,7 @@
 SET AdditionalsDir=.\Additionals
 SET HelperScripts=%AdditionalsDir%\Scripts
 SET SetupScripts=%AdditionalsDir%\Setup
-SET NuGetDir=%AdditionalsDir%\NuGet
+SET NuGetDir=.\_Out
 SET ProjectPaths='.\DryIoc\DryIoc.Excel\DryIoc.Excel.csproj','.\DryIoc\DryIoc.PowerPoint\DryIoc.PowerPoint.csproj','.\Base\View\View.csproj'
 
 echo.

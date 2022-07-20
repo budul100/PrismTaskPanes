@@ -4,7 +4,7 @@
 
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.DryIoc.Excel</AssemblyName>
-		<AssemblyVersion>5.0.2.0</AssemblyVersion>
+		<AssemblyVersion>5.0.3.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
@@ -19,6 +19,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>$(Authors).$(AssemblyName)</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
 		<PackageTags>Office, Excel, Word, PowerPoint, Prism, Task panes, NetOffice</PackageTags>
 		<RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
 		<DebugType>none</DebugType>
@@ -37,18 +38,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="..\..\_Out\DryIoc.Excel\PrismTaskPanes.Host.comhost.dll">
+		<Content Include="$(TargetDir)PrismTaskPanes.Host.comhost.dll">
 			<Pack>true</Pack>
 			<PackagePath>lib\netcoreapp6.0\PrismTaskPanes.Host.comhost.dll</PackagePath>
 		</Content>
-		<Content Include="..\..\_Out\DryIoc.Excel\PrismTaskPanes.View.dll">
+		<Content Include="$(TargetDir)PrismTaskPanes.View.dll">
 			<Pack>true</Pack>
 			<PackagePath>lib\netcoreapp6.0\PrismTaskPanes.View.dll</PackagePath>
 		</Content>
 	</ItemGroup>
 
-	<PropertyGroup>
-		<OutputPath>..\..\_Out\DryIoc.Excel</OutputPath>
-	</PropertyGroup>
 
 </Project>
