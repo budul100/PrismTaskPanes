@@ -44,6 +44,14 @@ if /i "%VERSIONSELECTION%" == "1" (
 	powershell "%SetupScripts%\Update_VersionMinor.ps1 -projectPaths %ProjectPaths%"
 )
 
+
+echo.
+echo Kill Excel and PowerPoint
+echo.
+
+powershell -command "Stop-Process -Name "excel" -Force"
+powershell -command "Stop-Process -Name "powerpnt" -Force"
+
 echo.
 echo Clean solution
 echo.

@@ -1,5 +1,8 @@
 ECHO off
 
+powershell -command "Stop-Process -Name "excel" -Force"
+powershell -command "Stop-Process -Name "powerpnt" -Force"
+
 pushd ..\..
 
 for /f "usebackq delims=" %%d in (`"dir /ad/b/s | sort /R"`) do rd "%%d"
