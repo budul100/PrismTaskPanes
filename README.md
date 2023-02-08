@@ -11,11 +11,11 @@ The NuGet packages for DryIoc can be found on the following locations:
 
 These elements must be registered by using regasm.exe with the parameter /codebase.
 
-## Common helpers
+## View
 
-The relevant helper packages can be found on the following locations:
+The relevant view packages can be found on the following locations:
 
-* Package for common values on [https://www.nuget.org/packages/budul.PrismTaskPanes.Commons](https://www.nuget.org/packages/budul.PrismTaskPanes.Commons)
+* Package for common values on [https://www.nuget.org/packages/budul.PrismTaskPanes.View](https://www.nuget.org/packages/budul.PrismTaskPanes.View)
 
 ## How-To
 
