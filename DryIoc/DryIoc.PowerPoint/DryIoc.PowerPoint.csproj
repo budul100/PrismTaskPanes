@@ -9,6 +9,11 @@
 		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
 		<Description>PowerPoint relevant DryIoc components for PrismTaskPanes</Description>
+		<PackageId>$(Authors).$(AssemblyName)</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+		<PackageTags>Office, Excel, Word, PowerPoint, Prism, Task panes, NetOffice</PackageTags>
+		<RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
 		<RootNamespace>PrismTaskPanes.DryIoc.PowerPoint</RootNamespace>
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -17,11 +22,6 @@
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageId>$(Authors).$(AssemblyName)</PackageId>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
-		<PackageTags>Office, Excel, Word, PowerPoint, Prism, Task panes, NetOffice</PackageTags>
-		<RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
 		<DebugType>none</DebugType>
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
