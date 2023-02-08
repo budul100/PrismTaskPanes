@@ -12,8 +12,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="NetOfficeFw.Core" Version="1.9.1" />
-		<PackageReference Include="NetOfficeFw.PowerPoint" Version="1.9.1" />
+		<PackageReference Include="NetOfficeFw.Core" Version="1.9.2" />
+		<PackageReference Include="NetOfficeFw.PowerPoint" Version="1.9.2" />
 	</ItemGroup>
 
 	<ItemGroup>
