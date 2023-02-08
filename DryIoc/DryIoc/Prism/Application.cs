@@ -28,6 +28,19 @@ namespace PrismTaskPanes.DryIoc
 
         #endregion Public Events
 
+        #region Public Properties
+
+        // See workaround on https://github.com/PrismLibrary/Prism/issues/2770
+        public static Rules DefaultRules => Rules.Default
+            .WithConcreteTypeDynamicRegistrations(reuse: Reuse.Transient)
+            .With(Made.Of(FactoryMethod.ConstructorWithResolvableArguments))
+            .WithFuncAndLazyWithoutRegistration()
+            .WithTrackingDisposableTransients()
+            //.WithoutFastExpressionCompiler()
+            .WithFactorySelector(Rules.SelectLastRegisteredFactory());
+
+        #endregion Public Properties
+
         #region Public Methods
 
         public IResolverContext OpenScope(int key)
@@ -65,6 +78,11 @@ namespace PrismTaskPanes.DryIoc
             OnConfigureModuleCatalogEvent?.Invoke(
                 sender: this,
                 e: eventArgs);
+        }
+
+        protected override Rules CreateContainerRules()
+        {
+            return DefaultRules;
         }
 
         protected override Window CreateShell()
