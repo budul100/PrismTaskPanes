@@ -1,8 +1,9 @@
 ﻿#pragma warning disable IDE0060 // Nicht verwendete Parameter entfernen
 #pragma warning disable RCS1163 // Unused parameter.
+#pragma warning disable RCS1132 // Remove redundant overriding member.
 
 using DryIoc;
-using ExampleView;
+using ExampleCommon;
 using ExampleView.Views;
 using NetOffice.ExcelApi;
 using NetOffice.ExcelApi.Tools;
@@ -33,9 +34,8 @@ namespace ExcelAddIn1
     [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ViewAView), "ExampleRegion", invisibleAtStart: true, ScrollBarVertical = ScrollVisibility.Disabled)]
     [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ViewAView), "ExampleRegion", navigationValue: "abc")]
     public class AddIn
-        : COMAddin, ITaskPanesReceiver
+        : COMAddin, ITaskPanesReceiver, IApplication
     {
-
         #region Private Fields
 
         private TaskPanesProvider provider;
@@ -65,6 +65,11 @@ namespace ExcelAddIn1
         {
             UnregisterFunction(type);
             type.UnregisterTaskPaneHost();
+        }
+
+        public void CallDispatcher(System.Action callback)
+        {
+            TaskPanesProvider.CallDispatcher(callback);
         }
 
         public override void CTPFactoryAvailable(object CTPFactoryInst)
@@ -137,6 +142,7 @@ namespace ExcelAddIn1
 
         private void OnRegisterTypes(object sender, ProviderEventArgs<Prism.Ioc.IContainerRegistry> e)
         {
+            e.Content.RegisterInstance<IApplication>(this);
             e.Content.RegisterInstance<IExampleClass>(new ExampleClass());
         }
 
@@ -160,9 +166,5 @@ namespace ExcelAddIn1
         }
 
         #endregion Private Methods
-
     }
 }
-
-#pragma warning restore RCS1163 // Unused parameter.
-#pragma warning restore IDE0060 // Nicht verwendete Parameter entfernen

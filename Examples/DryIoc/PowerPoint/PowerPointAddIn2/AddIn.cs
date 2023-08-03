@@ -2,6 +2,7 @@
 #pragma warning disable RCS1163 // Unused parameter.
 #pragma warning disable RCS1132 // Remove redundant overriding member.
 
+using ExampleCommon;
 using ExampleView.Views;
 using NetOffice.OfficeApi;
 using NetOffice.PowerPointApi.Tools;
@@ -30,9 +31,8 @@ namespace PowerPointAddIn2
     [PrismTaskPane("1", "ExampleAddin 2 A", typeof(ViewAView), "ExampleRegion", invisibleAtStart: true)]
     [PrismTaskPane("2", "ExampleAddin 2 B", typeof(ViewAView), "ExampleRegion")]
     public class AddIn
-        : COMAddin, ITaskPanesReceiver
+        : COMAddin, ITaskPanesReceiver, IApplication
     {
-
         #region Private Fields
 
         private TaskPanesProvider provider;
@@ -62,6 +62,11 @@ namespace PowerPointAddIn2
         {
             UnregisterFunction(type);
             type.UnregisterTaskPaneHost();
+        }
+
+        public void CallDispatcher(System.Action callback)
+        {
+            TaskPanesProvider.CallDispatcher(callback);
         }
 
         public override void CTPFactoryAvailable(object CTPFactoryInst)
@@ -143,14 +148,10 @@ namespace PowerPointAddIn2
 
         private void OnRegisterTypes(object sender, ProviderEventArgs<IContainerRegistry> e)
         {
+            e.Content.RegisterInstance<IApplication>(this);
             e.Content.Register<IExampleClass, ExampleClass>();
         }
 
         #endregion Private Methods
-
     }
 }
-
-#pragma warning restore RCS1132 // Remove redundant overriding member.
-#pragma warning restore RCS1163 // Unused parameter.
-#pragma warning restore IDE0060 // Nicht verwendete Parameter entfernen

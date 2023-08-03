@@ -1,4 +1,5 @@
 ﻿using DryIoc;
+using ExampleCommon;
 using Prism.Commands;
 using Prism.Regions;
 using System;
@@ -12,6 +13,8 @@ namespace ExampleView.ViewModels
     {
         #region Private Fields
 
+        private readonly IApplication application;
+
         private string _message;
 
         #endregion Private Fields
@@ -22,6 +25,7 @@ namespace ExampleView.ViewModels
         {
             TestCommand = new DelegateCommand(TestAction);
 
+            this.application = container.Resolve<IApplication>();
             var test2 = container.Resolve<IExampleClass>();
 
             Message = $"{typeof(ViewAViewModel).Name}\r\n" +
@@ -37,7 +41,13 @@ namespace ExampleView.ViewModels
         public string Message
         {
             get { return _message; }
-            set { SetProperty(ref _message, value); }
+            set
+            {
+                SetProperty(ref _message, value);
+
+                // This additional callback can be used if the view is run in an asynchronous application
+                application.CallDispatcher(() => RaisePropertyChanged(nameof(Message)));
+            }
         }
 
         public DelegateCommand TestCommand { get; }

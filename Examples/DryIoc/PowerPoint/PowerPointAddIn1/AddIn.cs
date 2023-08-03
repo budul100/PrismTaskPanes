@@ -2,6 +2,7 @@
 #pragma warning disable RCS1163 // Unused parameter.
 
 using DryIoc;
+using ExampleCommon;
 using NetOffice.OfficeApi;
 using NetOffice.PowerPointApi.Tools;
 using NetOffice.Tools;
@@ -28,9 +29,8 @@ namespace PowerPointAddIn1
     [PrismTaskPane("1", "ExampleAddin 1 A", typeof(ExampleView.Views.ViewAView), "ExampleRegion", invisibleAtStart: true)]
     [PrismTaskPane("2", "ExampleAddin 1 B", typeof(ExampleView.Views.ViewAView), "ExampleRegion", navigationValue: "abc")]
     public class AddIn
-        : COMAddin, ITaskPanesReceiver
+        : COMAddin, ITaskPanesReceiver, IApplication
     {
-
         #region Private Fields
 
         private TaskPanesProvider provider;
@@ -60,6 +60,11 @@ namespace PowerPointAddIn1
         {
             UnregisterFunction(type);
             type.UnregisterTaskPaneHost();
+        }
+
+        public void CallDispatcher(System.Action callback)
+        {
+            TaskPanesProvider.CallDispatcher(callback);
         }
 
         public override void CTPFactoryAvailable(object CTPFactoryInst)
@@ -119,13 +124,10 @@ namespace PowerPointAddIn1
 
         private void OnRegisterTypes(object sender, ProviderEventArgs<IContainerRegistry> e)
         {
+            e.Content.RegisterInstance<IApplication>(this);
             e.Content.Register<IExampleClass, ExampleClass>();
         }
 
         #endregion Private Methods
-
     }
 }
-
-#pragma warning restore RCS1163 // Unused parameter.
-#pragma warning restore IDE0060 // Nicht verwendete Parameter entfernen

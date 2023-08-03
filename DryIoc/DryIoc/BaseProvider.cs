@@ -25,6 +25,7 @@ namespace PrismTaskPanes.DryIoc
         private readonly object officeApplication;
         private readonly bool showErrorIfAlreadyLoaded;
         private readonly bool suppressInitializationAtStart;
+
         private Application dryIocApplication;
         private bool isLoaded;
         private TaskPanesRepositoryFactory repositoryFactory;
@@ -87,6 +88,17 @@ namespace PrismTaskPanes.DryIoc
         #endregion Protected Properties
 
         #region Public Methods
+
+        public static void CallDispatcher(Action callback)
+        {
+            if (Application.Current != default
+                && Application.Current.Dispatcher != default)
+            {
+                Application.Current.Dispatcher.Invoke(
+                    callback: callback,
+                    priority: System.Windows.Threading.DispatcherPriority.Background);
+            }
+        }
 
         public bool CanBeLoaded()
         {
@@ -281,9 +293,11 @@ namespace PrismTaskPanes.DryIoc
 
         private void OnRegisterTypes(object sender, ProviderEventArgs<IContainerRegistry> e)
         {
+            e.Content.Register<IResolverContext>(() => Scope);
+
             e.Content.RegisterInstance(officeApplication);
             e.Content.RegisterInstance(Receiver);
-            e.Content.Register<IResolverContext>(() => Scope);
+            e.Content.RegisterInstance(this);
 
             OnRegisterTypesEvent?.Invoke(
                 sender: this,
