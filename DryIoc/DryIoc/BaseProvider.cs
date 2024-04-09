@@ -1,4 +1,6 @@
-﻿using DryIoc;
+﻿using System;
+using System.Windows;
+using DryIoc;
 using NetOffice;
 using NetOffice.OfficeApi;
 using Prism.DryIoc;
@@ -10,8 +12,6 @@ using PrismTaskPanes.EventArgs;
 using PrismTaskPanes.Exceptions;
 using PrismTaskPanes.Extensions;
 using PrismTaskPanes.Interfaces;
-using System;
-using System.Windows;
 
 namespace PrismTaskPanes.DryIoc
 {
@@ -39,8 +39,11 @@ namespace PrismTaskPanes.DryIoc
         {
             Receiver = receiver ?? throw new ArgumentNullException(nameof(receiver));
 
-            this.officeApplication = officeApplication ?? throw new ArgumentNullException(nameof(officeApplication));
-            this.ctpFactoryInst = ctpFactoryInst ?? throw new ArgumentNullException(nameof(ctpFactoryInst));
+            this.officeApplication = officeApplication
+                ?? throw new ArgumentNullException(nameof(officeApplication));
+            this.ctpFactoryInst = ctpFactoryInst
+                ?? throw new ArgumentNullException(nameof(ctpFactoryInst));
+
             this.suppressInitializationAtStart = suppressInitializationAtStart;
             this.showErrorIfAlreadyLoaded = showErrorIfAlreadyLoaded;
 
@@ -121,7 +124,7 @@ namespace PrismTaskPanes.DryIoc
 
         public void SetTaskPaneVisibility(string id, bool isVisible)
         {
-            if ((!showErrorIfAlreadyLoaded || CanBeLoaded())
+            if (CanBeLoaded()
                 && ApplicationInitialized())
             {
                 var repository = repositoryFactory?.Get();
@@ -141,7 +144,7 @@ namespace PrismTaskPanes.DryIoc
         {
             var result = false;
 
-            if ((!showErrorIfAlreadyLoaded || CanBeLoaded())
+            if (CanBeLoaded()
                 && (suppressInitializationAtStart || ApplicationInitialized()))
             {
                 var repository = repositoryFactory?.Get();
@@ -161,7 +164,7 @@ namespace PrismTaskPanes.DryIoc
         {
             var result = false;
 
-            if ((!showErrorIfAlreadyLoaded || CanBeLoaded())
+            if (CanBeLoaded()
                 && (suppressInitializationAtStart || ApplicationInitialized()))
             {
                 var repository = repositoryFactory?.Get();
