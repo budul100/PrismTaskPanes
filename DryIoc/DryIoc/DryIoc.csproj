@@ -5,7 +5,7 @@
 		<Authors>budul</Authors>
 		<Description>Base DryIoc components for PrismTaskPanes</Description>
 		<RootNamespace>PrismTaskPanes.DryIoc</RootNamespace>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>

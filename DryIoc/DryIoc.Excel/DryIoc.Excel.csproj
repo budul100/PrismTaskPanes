@@ -15,7 +15,7 @@
 		<PackageTags>Office, Excel, Word, PowerPoint, Prism, Task panes, NetOffice</PackageTags>
 		<RepositoryUrl>https://github.com/budul100/PrismTaskPanes</RepositoryUrl>
 		<RootNamespace>PrismTaskPanes.DryIoc.PowerPoint</RootNamespace>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	</PropertyGroup>

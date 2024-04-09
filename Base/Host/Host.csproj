@@ -5,7 +5,7 @@
 		<Authors>budul</Authors>
 		<Description>Host control for PrismTaskPanes</Description>
 		<RootNamespace>PrismTaskPanes</RootNamespace>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<EnableComHosting>true</EnableComHosting>
