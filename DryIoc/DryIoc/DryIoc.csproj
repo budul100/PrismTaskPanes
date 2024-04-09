@@ -27,12 +27,6 @@
 		<ProjectReference Include="..\..\Base\Core\Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Update="PrismTaskPanes.Host.runtimeconfig.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<Exec Command="if $(ConfigurationName)==Debug powershell '$(ProjectDir)Additionals\Scripts\_PreBuild.ps1 -baseDir $(SolutionDir)'" />
 	</Target>

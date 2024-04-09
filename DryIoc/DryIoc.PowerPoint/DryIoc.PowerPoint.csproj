@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<!-- IMPORTANT!-->
 	<!-- The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0). -->
@@ -38,6 +38,13 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\DryIoc\DryIoc.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ContentWithTargetPath Include="$(SolutionDir)\Base\Host\bin\$(Configuration)\PrismTaskPanes.Host.runtimeconfig.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</ContentWithTargetPath>
 	</ItemGroup>
 
 	<ItemGroup>

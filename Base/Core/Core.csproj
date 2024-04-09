@@ -31,6 +31,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ContentWithTargetPath Include="$(SolutionDir)\Base\Host\bin\$(Configuration)\PrismTaskPanes.Host.runtimeconfig.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</ContentWithTargetPath>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Page Update="Controls\PrismTaskPanesView.xaml">
 	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	    <SubType>Designer</SubType>

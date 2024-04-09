@@ -34,12 +34,6 @@
 		</Compile>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Update="PrismTaskPanes.Host.runtimeconfig.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<Exec Command="if $(ConfigurationName)==Debug powershell '$(ProjectDir)Additionals\Scripts\_PreBuild.ps1 -baseDir $(SolutionDir)'" />
 	</Target>
