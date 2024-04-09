@@ -6,7 +6,7 @@
 
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.DryIoc.PowerPoint</AssemblyName>
-		<AssemblyVersion>5.4.1.0</AssemblyVersion>
+		<AssemblyVersion>5.4.2.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
@@ -40,14 +40,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ContentWithTargetPath Include="$(SolutionDir)\Base\Host\bin\$(Configuration)\PrismTaskPanes.Host.runtimeconfig.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<TargetPath>%(Filename)%(Extension)</TargetPath>
-		</ContentWithTargetPath>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="$(TargetDir)PrismTaskPanes.Host.runtimeconfig.json" Pack="true" PackagePath="contentFiles/PrismTaskPanes.Host.runtimeconfig.json">
+		<Content Include="$(SolutionDir)\Base\Host\bin\$(Configuration)\PrismTaskPanes.Host.comhost.dll" Pack="true" PackagePath="contentFiles/PrismTaskPanes.Host.comhost.dll">
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+		</Content>
+		<Content Include="$(SolutionDir)\Base\Host\bin\$(Configuration)\PrismTaskPanes.Host.runtimeconfig.json" Pack="true" PackagePath="contentFiles/PrismTaskPanes.Host.runtimeconfig.json">
 			<PackageCopyToOutput>true</PackageCopyToOutput>
 		</Content>
 		<Content Include="DryIoc.targets" PackagePath="build/$(Authors).$(AssemblyName).targets" />
