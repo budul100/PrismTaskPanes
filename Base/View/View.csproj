@@ -4,7 +4,7 @@
 
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.View</AssemblyName>
-		<AssemblyVersion>5.3.6.0</AssemblyVersion>
+		<AssemblyVersion>5.3.16.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
