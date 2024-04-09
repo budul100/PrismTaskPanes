@@ -7,7 +7,7 @@
 
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.DryIoc.PowerPoint</AssemblyName>
-		<AssemblyVersion>5.3.5.0</AssemblyVersion>
+		<AssemblyVersion>5.3.6.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
@@ -55,6 +55,10 @@
 		<Content Include="$(TargetDir)PrismTaskPanes.View.dll">
 			<Pack>true</Pack>
 			<PackagePath>lib\netcoreapp8.0\PrismTaskPanes.View.dll</PackagePath>
+		</Content>
+		<Content Include="$(TargetDir)PrismTaskPanes.Host.runtimeconfig.json">
+			<Pack>true</Pack>
+			<PackagePath>lib\netcoreapp8.0\PrismTaskPanes.Host.runtimeconfig.json</PackagePath>
 		</Content>
 	</ItemGroup>
 
