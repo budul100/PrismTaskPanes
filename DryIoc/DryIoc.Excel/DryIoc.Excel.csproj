@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<!-- IMPORTANT!-->
 	<!-- The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0). -->
@@ -6,7 +6,7 @@
 
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.DryIoc.Excel</AssemblyName>
-		<AssemblyVersion>5.3.16.0</AssemblyVersion>
+		<AssemblyVersion>5.4.1.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
