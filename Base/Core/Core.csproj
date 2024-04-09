@@ -18,9 +18,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="NetOfficeFw.Office" Version="1.9.3" />
+		<PackageReference Include="NetOfficeFw.Office" Version="1.9.5" />
 		<PackageReference Include="Prism.Wpf" Version="8.1.97" />
-		<PackageReference Include="NetOfficeFw.Core" Version="1.9.3" />
+		<PackageReference Include="NetOfficeFw.Core" Version="1.9.5" />
 		<PackageReference Include="NuGet.Build.Packaging" Version="0.2.2">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
