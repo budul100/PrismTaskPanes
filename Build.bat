@@ -77,9 +77,6 @@ if %CONFIGURATION% == Debug (
 	echo.
 	PAUSE
 
-	START excel.exe
-	START powerpnt.exe
-
 ) else (
 
 	echo.
@@ -96,6 +93,8 @@ if %CONFIGURATION% == Debug (
 	echo.
 
 	powershell "%SetupScripts%\Update_VersionBuild.ps1 -projectPaths %ProjectPaths%"
+
+	start "" https://www.nuget.org/packages/manage/upload
 
 	echo.
 	PAUSE
