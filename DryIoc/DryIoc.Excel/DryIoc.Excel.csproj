@@ -1,10 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<!--IMPORTANT! The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0) -->
+	<!-- IMPORTANT!-->
+	<!-- The AssemblyVersion MUST CONSIST of four numbers (like 1.0.0.0). -->
+	<!-- The PackagePath item below must be updated if the TargetFramework has changed. -->
+	<!-- IMPORTANT! -->
 
 	<PropertyGroup>
 		<AssemblyName>PrismTaskPanes.DryIoc.Excel</AssemblyName>
-		<AssemblyVersion>5.3.3.0</AssemblyVersion>
+		<AssemblyVersion>5.3.4.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(AssemblyVersion)</Version>
 		<Authors>budul</Authors>
@@ -40,11 +43,11 @@
 	<ItemGroup>
 		<Content Include="$(TargetDir)PrismTaskPanes.Host.comhost.dll">
 			<Pack>true</Pack>
-			<PackagePath>lib\netcoreapp6.0\PrismTaskPanes.Host.comhost.dll</PackagePath>
+			<PackagePath>lib\netcoreapp8.0\PrismTaskPanes.Host.comhost.dll</PackagePath>
 		</Content>
 		<Content Include="$(TargetDir)PrismTaskPanes.View.dll">
 			<Pack>true</Pack>
-			<PackagePath>lib\netcoreapp6.0\PrismTaskPanes.View.dll</PackagePath>
+			<PackagePath>lib\netcoreapp8.0\PrismTaskPanes.View.dll</PackagePath>
 		</Content>
 	</ItemGroup>
 
