@@ -233,13 +233,13 @@ namespace PrismTaskPanes.DryIoc
 
         private bool ApplicationInitialized()
         {
-            if (!CanBeLoaded())
-            {
-                throw new AlreadyLoadedException();
-            }
-
             if (!isLoaded)
             {
+                if (!CanBeLoaded())
+                {
+                    throw new AlreadyLoadedException();
+                }
+
                 dryIocApplication = System.Windows.Application.Current as Application
                     ?? new Application();
 
